@@ -1,0 +1,42 @@
+.LoginFormCont * {
+  font-size: 18px;
+}
+
+.LoginFormCont {
+  display: grid;
+  grid-template-rows: 1fr;
+  width: 25%;
+  gap: 5px;
+  justify-content: center;
+
+  .InputFieldsCont {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr;
+    width: 100%;
+    justify-content: center;
+    gap: 3px;
+
+    .InputField {
+      width: 100%;
+      box-sizing: border-box;
+    }
+  }
+
+  .ButtonsCont {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+    .Btn {
+      box-sizing: border-box;
+      font-size: 16px;
+      border: 0;
+      border-radius: 2px;
+      padding: 2px 0px;
+      min-width: 45%;
+      background: #ADBBDA;
+    }
+  }
+}
