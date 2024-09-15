@@ -1,11 +1,5 @@
 @import './colors.scss';
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
 .Container {
   max-width: 1180px;
   margin: 0 auto;
@@ -14,8 +8,13 @@
 }
 
 .App {
-  background-color: $bg-color1;
-  display: grid;
   height: 100vh;
+  width: 100%;
+}
+
+.MainGrid {
+  display: grid;
   place-items: center;
+  width: 100%;
+  height: 100%;
 }

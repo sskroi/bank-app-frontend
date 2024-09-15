@@ -8,12 +8,16 @@ import './App.scss';
 function App() {
     return (
         <BrowserRouter>
-            <Header />
             <div className='App'>
-                <Routes>
-                    <Route path="/login" element={<LoginForm />} />
-                    <Route path="/register" element={<RegisterForm />} />
-                </Routes>
+                <Header />
+                <div className='Container'>
+                    <div className='MainGrid'>
+                        <Routes>
+                            <Route path="/login" element={<LoginForm />} />
+                            <Route path="/register" element={<RegisterForm />} />
+                        </Routes>
+                    </div>
+                </div>
             </div>
         </BrowserRouter>
     );
