@@ -1,12 +1,16 @@
+@import '../../colors.scss';
+
 .LoginFormCont * {
   font-size: 18px;
 }
+
+$bd-rad: 0px;
 
 .LoginFormCont {
   display: grid;
   grid-template-rows: 1fr;
   width: 25%;
-  gap: 5px;
+  gap: 10px;
   justify-content: center;
 
   .InputFieldsCont {
@@ -15,11 +19,23 @@
     grid-template-rows: 1fr 1fr;
     width: 100%;
     justify-content: center;
-    gap: 3px;
+    gap: 10px;
 
     .InputField {
+      background-color: $input-bg1;
       width: 100%;
-      box-sizing: border-box;
+      padding: 4px 8px;
+      border-radius: $bd-rad;
+      border: none;
+      color: $input-font-color1;
+    }
+    .InputField:focus {
+      border: none;
+      outline: none;
+      background-color: $input-bg2;
+    }
+    .InputField:hover {
+      background-color: $input-bg2;
     }
   }
 
@@ -30,13 +46,19 @@
     align-items: center;
 
     .Btn {
-      box-sizing: border-box;
-      font-size: 16px;
+      font-size: 17px;
       border: 0;
-      border-radius: 2px;
-      padding: 2px 0px;
+      border-radius: $bd-rad;
+      padding: 4px 8px;
       min-width: 45%;
-      background: #ADBBDA;
+      background: none;
+      border: solid 1px;
+      border-color: $btn-border-color1;
+      color: $btn-font-color1;
+    }
+    .Btn:hover {
+      color: $btn-hover-font-color1;
+      border-color: $btn-font-color1;
     }
   }
 }

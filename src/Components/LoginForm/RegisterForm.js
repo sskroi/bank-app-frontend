@@ -36,7 +36,7 @@ function InputsTable({ handleChange }) {
             <input type="text" className="InputField" placeholder="Username" name="username" onChange={handleChange}></input>
 
             <input type="password" className="InputField" placeholder="Password" name="password" onChange={handleChange}></input>
-            <input type="password" className="InputField" placeholder="Password" name="repPassword" onChange={handleChange}></input>
+            <input type="password" className="InputField" placeholder="Repeat password" name="repPassword" onChange={handleChange}></input>
         </div>
     )
 }
@@ -50,7 +50,7 @@ function ButtonsTable() {
 
     return (
         <div className="ButtonsCont">
-            <button type="submit" className="Btn">Register</button>
+            <button type="submit" className="Btn">Sign up</button>
 
             <button type="button" onClick={handleBackToLoginClick} className="Btn">Back to login</button>
         </div>

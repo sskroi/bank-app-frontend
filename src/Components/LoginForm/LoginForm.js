@@ -49,7 +49,7 @@ function ButtonsTable() {
 
     return (
         <div className="ButtonsCont">
-            <button type="submit" className="Btn">Login</button>
+            <button type="submit" className="Btn">Log in</button>
 
             <button type="button" onClick={handleSignUpClick} className="Btn">Sign up</button>
         </div>

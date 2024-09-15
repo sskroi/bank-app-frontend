@@ -1,11 +1,14 @@
 import LoginForm from './Components/LoginForm/LoginForm.js'
 import RegisterForm from './Components/LoginForm/RegisterForm.js';
+import Header from './Components/Header/Header.js';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+
 import './App.scss';
 
 function App() {
     return (
         <BrowserRouter>
+            <Header />
             <div className='App'>
                 <Routes>
                     <Route path="/login" element={<LoginForm />} />
