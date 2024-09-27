@@ -1,0 +1,22 @@
+@import '../../../utils/colors.scss';
+
+$bd-rad: 0px;
+
+.Input1 {
+  background-color: $input-bg1;
+  width: 100%;
+  padding: 4px 8px;
+  border-radius: $bd-rad;
+  border: none;
+  color: $input-font-color1;
+}
+
+.Input1:focus {
+  border: none;
+  outline: none;
+  background-color: $input-bg2;
+}
+
+.Input1:hover {
+  background-color: $input-bg2;
+}

@@ -11,16 +11,4 @@ function App() {
     );
 }
 
-//<div className='App'>
-//    <Header />
-//    <div className='Container'>
-//        <div className='MainGrid'>
-//            <Routes>
-//                <Route path="/login" element={<LoginForm />} />
-//                <Route path="/register" element={<RegisterForm />} />
-//            </Routes>
-//        </div>
-//    </div>
-//</div>
-
 export default App;

@@ -12,7 +12,7 @@ $bd-rad: 0px;
   width: 25%;
   gap: 10px;
   justify-content: center;
-  margin: 10px 10px;
+  margin: 100px auto 0 auto;
 
   .InputFieldsCont {
     display: grid;
@@ -21,23 +21,6 @@ $bd-rad: 0px;
     width: 100%;
     justify-content: center;
     gap: 10px;
-
-    .InputField {
-      background-color: $input-bg1;
-      width: 100%;
-      padding: 4px 8px;
-      border-radius: $bd-rad;
-      border: none;
-      color: $input-font-color1;
-    }
-    .InputField:focus {
-      border: none;
-      outline: none;
-      background-color: $input-bg2;
-    }
-    .InputField:hover {
-      background-color: $input-bg2;
-    }
   }
 
   .ButtonsCont {
@@ -57,6 +40,7 @@ $bd-rad: 0px;
       border-color: $btn-border-color1;
       color: $btn-font-color1;
     }
+
     .Btn:hover {
       color: $btn-hover-font-color1;
       border-color: $btn-font-color1;
