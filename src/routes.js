@@ -1,23 +1,19 @@
-import Auth from "./pages/Auth"
-import Home from "./pages/Home"
-import { HOME_ROUTE, LOGIN_ROUTE, REGISTER_ROUTE } from "./utils/consts"
+import Auth from "./pages/Auth";
+import Home from "./pages/Home";
 
-
-export const authRotes = [
-
-]
+export const authRotes = [];
 
 export const publicRoutes = [
-    {
-        path: HOME_ROUTE,
-        Component: Home
-    },
-    {
-        path: LOGIN_ROUTE,
-        Component: Auth
-    },
-    {
-        path: REGISTER_ROUTE,
-        Component: Auth
-    },
-]
+  //{
+  //  path: "/",
+  //  Component: Home,
+  //},
+  {
+    path: "/sign-in",
+    Component: Auth,
+  },
+  {
+    path: "sign-up",
+    Component: Auth,
+  },
+];
