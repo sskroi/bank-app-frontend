@@ -1,10 +1,10 @@
 import React from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import styles from "./LoginForm.module.scss"
+import styles from "./authForms.module.scss"
 import Input1 from "../UI/inputs/Input1";
 
-function LoginForm() {
+function SignInForm() {
   const [formData, setFormData] = useState({
     username: '',
     password: ''
@@ -46,4 +46,4 @@ function ButtonsTable() {
   )
 }
 
-export default LoginForm;
+export default SignInForm;

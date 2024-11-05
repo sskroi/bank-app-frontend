@@ -1,7 +1,7 @@
 import React from "react";
 
-import LoginForm from "../components/loginForm/LoginForm";
-import SignUpForm from "../components/loginForm/SignUpForm";
+import SignInForm from "../components/authForms/SignInForm";
+import SignUpForm from "../components/authForms/SignUpForm";
 import Header from "../components/header/Header";
 import styles from "./Auth.module.scss"
 
