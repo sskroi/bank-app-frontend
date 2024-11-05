@@ -1,22 +1,18 @@
-@import '../../../utils/colors.scss';
-
-$bd-rad: 0px;
-
 .input1 {
-  background-color: $input-bg1;
+  background-color: var(--input1-bg-color);
   width: 100%;
   padding: 4px 8px;
-  border-radius: $bd-rad;
+  border-radius: 0;
   border: none;
-  color: $input-font-color1;
+  color: var(--input1-color);
 }
 
 .input1:focus {
   border: none;
   outline: none;
-  background-color: $input-bg2;
+  background-color: var(--input1-hover-bg-color);
 }
 
 .input1:hover {
-  background-color: $input-bg2;
+  background-color: var(--input1-hover-bg-color);
 }

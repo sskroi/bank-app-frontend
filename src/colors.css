@@ -1,0 +1,20 @@
+:root {
+  --primary-bg-color: #181818;
+
+  /* Header */
+  --header-bg-color: #2B2A2A;
+  --header-button-color: #B7B7B7;
+  --header-button-border-color: #5B5B5B;
+  --header-button-hover-color: #DADADA;
+
+  /* Input1 */
+  --input1-bg-color: #505050;
+  --input1-hover-bg-color: #5B5B5B;
+  --input1-color: #BFBFBF;
+
+  /* Button1 */
+  --button1-border-color: #5B5B5B;
+  --button1-border-hover-color: #DADADA;
+  --button1-color: #B7B7B7;
+  --button1-hover-color: #DADADA;
+}

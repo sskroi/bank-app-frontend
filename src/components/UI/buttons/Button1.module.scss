@@ -1,5 +1,3 @@
-@import '../../../utils/colors.scss';
-
 .button1 {
   font-size: 17px;
   border: 0;
@@ -8,11 +6,11 @@
   min-width: 45%;
   background: none;
   border: solid 1px;
-  border-color: $btn-border-color1;
-  color: $btn-font-color1;
+  border-color: var(--button1-border-color);
+  color: var(--button1-color);
 }
 
 .button1:hover {
-  color: $btn-hover-font-color1;
-  border-color: $btn-font-color1;
+  color: var(--button1-hover-color);
+  border-color: var(--button1-border-hover-color);
 }

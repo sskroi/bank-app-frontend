@@ -1,7 +1,5 @@
-@import '../../utils/colors.scss';
-
 header {
-  background-color: $header-color;
+  background-color: var(--header-bg-color);
   width: 100%;
   position: fixed;
   height: 40px;
@@ -26,7 +24,7 @@ header {
   background: none;
   border: none;
   text-align: center;
-  color: $btn-font-color1;
+  color: var(--header-button-color);
   padding: 3px 7px;
   margin: 0px 7px;
 
@@ -43,13 +41,13 @@ header {
   height: 2px;
   left: 50%;
   bottom: 0;
-  background-color: $btn-border-color1;
+  background-color: var(--header-button-color);
   transition: all ease-in-out .2s;
 }
 
 .navBtn:hover {
   border: none;
-  color: $btn-hover-font-color1;
+  color: var(--header-button-hover-color);
 }
 
 .navBtn:hover::after {
@@ -60,7 +58,7 @@ header {
 
 .logo {
   a {
-    color: $btn-font-color1;
+    color: var(--header-button-color);
     padding: 0 5px;
     margin: 0 5px;
   }
@@ -68,7 +66,7 @@ header {
 
 .logOutBtn {
   a {
-    color: $btn-font-color1;
+    color: var(--header-button-color);
     padding: 0 5px;
     margin: 0 5px;
   }
