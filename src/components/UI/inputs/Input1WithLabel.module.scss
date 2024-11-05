@@ -1,0 +1,10 @@
+.cont {
+  display: flex;
+  flex-direction: column;
+}
+
+.cont label {
+  font-size: 15px;
+  color: var(--primary-text-color);
+  margin-left: 0px;
+}
