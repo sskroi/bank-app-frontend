@@ -1,67 +1,92 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "./authForms.module.scss";
-import Input1 from "../UI/inputs/Input1";
 import Button1 from "../UI/buttons/Button1";
+import Input1WithLabel from "../UI/inputs/Input1WithLabel";
 
-function SignUpForm() {
+export default function SignUpForm() {
   const [formData, setFormData] = useState({
-    username: "",
+    email: "",
+    name: "",
+    surname: "",
+    patronymic: "",
+    passport: "",
     password: "",
     repPassword: "",
   });
 
-  const handleChange = (event) => {
-    const { name, value } = event.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
-  };
+  const navigate = useNavigate();
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    alert(
-      "Form submitted:\nUsername: " +
-        formData.username +
-        "\n" +
-        "Password: " +
-        formData.password,
-    );
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(formData);
   };
 
   return (
     <form onSubmit={handleSubmit} className={styles.loginFormCont}>
-      <InputsTable handleChange={handleChange} />
-      <ButtonsTable />
+      <h2>Регистрация аккаунта</h2>
+
+      <div className={styles.inputFieldsCont}>
+        <Input1WithLabel
+          labelValue="Электронная почта"
+          placeholder="example@example.com"
+          value={formData.email}
+          onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+        />
+        <Input1WithLabel
+          labelValue="Имя"
+          placeholder="Иван"
+          value={formData.name}
+          onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+        />
+        <Input1WithLabel
+          labelValue="Фамилия"
+          placeholder="Иванов"
+          value={formData.surname}
+          onChange={(e) =>
+            setFormData({ ...formData, surname: e.target.value })
+          }
+        />
+        <Input1WithLabel
+          labelValue="Отчество"
+          placeholder="Иванович"
+          value={formData.patronymic}
+          onChange={(e) =>
+            setFormData({ ...formData, patronymic: e.target.value })
+          }
+        />
+        <Input1WithLabel
+          labelValue="Паспортные данные"
+          placeholder="1234 567890"
+          value={formData.passport}
+          onChange={(e) =>
+            setFormData({ ...formData, passport: e.target.value })
+          }
+        />
+        <Input1WithLabel
+          type="password"
+          labelValue="Пароль"
+          placeholder="*******"
+          value={formData.password}
+          onChange={(e) =>
+            setFormData({ ...formData, password: e.target.value })
+          }
+        />
+        <Input1WithLabel
+          type="password"
+          labelValue="Повтор пароля"
+          placeholder="*******"
+          value={formData.repPassword}
+          onChange={(e) =>
+            setFormData({ ...formData, repPassword: e.target.value })
+          }
+        />
+      </div>
+
+      <div className={styles.buttonsCont}>
+        <Button1 type="submit">Зарегистрироваться</Button1>
+        <Button1 onClick={() => navigate("/sign-in")}>Вход в аккаунт</Button1>
+      </div>
     </form>
   );
 }
-
-function InputsTable({ handleChange }) {
-  return (
-    <div className="InputFieldsCont">
-      <Input1 type="text" placeholder="Username" />
-    </div>
-  );
-}
-
-function ButtonsTable() {
-  const navigate = useNavigate();
-
-  const handleBackToLoginClick = (event) => {
-    navigate("/sign-in");
-  };
-
-  return (
-    <div className={styles.buttonsCont}>
-      <Button1 type="submit">Sign up</Button1>
-
-      <Button1 type="button" onClick={handleBackToLoginClick}>
-        Back to login
-      </Button1>
-    </div>
-  );
-}
-
-export default SignUpForm;
