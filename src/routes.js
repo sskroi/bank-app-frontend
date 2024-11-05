@@ -13,7 +13,7 @@ export const publicRoutes = [
     Component: Auth,
   },
   {
-    path: "sign-up",
+    path: "/sign-up",
     Component: Auth,
   },
 ];
