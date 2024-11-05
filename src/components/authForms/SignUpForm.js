@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "./authForms.module.scss";
 import Input1 from "../UI/inputs/Input1";
+import Button1 from "../UI/buttons/Button1";
 
 function SignUpForm() {
   const [formData, setFormData] = useState({
@@ -54,13 +55,11 @@ function ButtonsTable() {
 
   return (
     <div className={styles.buttonsCont}>
-      <button type="submit" className={styles.btn}>
-        Sign up
-      </button>
+      <Button1 type="submit">Sign up</Button1>
 
-      <button type="button" onClick={handleBackToLoginClick} className={styles.btn}>
+      <Button1 type="button" onClick={handleBackToLoginClick}>
         Back to login
-      </button>
+      </Button1>
     </div>
   );
 }

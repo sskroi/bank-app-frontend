@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "./authForms.module.scss"
 import Input1 from "../UI/inputs/Input1";
+import Button1 from "../UI/buttons/Button1";
 
 function SignInForm() {
   const [formData, setFormData] = useState({
@@ -39,9 +40,9 @@ function ButtonsTable() {
 
   return (
     <div className={styles.buttonsCont}>
-      <button type="submit" className={styles.btn}>Log in</button>
+      <Button1 type="submit">Log in</Button1>
 
-      <button type="button" onClick={() => navigate("/sign-up")} className={styles.btn}>Sign up</button>
+      <Button1 type="button" onClick={() => navigate("/sign-up")}>Sign up</Button1>
     </div>
   )
 }

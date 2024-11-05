@@ -1,0 +1,18 @@
+@import '../../../utils/colors.scss';
+
+.button1 {
+  font-size: 17px;
+  border: 0;
+  border-radius: 0;
+  padding: 4px 8px;
+  min-width: 45%;
+  background: none;
+  border: solid 1px;
+  border-color: $btn-border-color1;
+  color: $btn-font-color1;
+}
+
+.button1:hover {
+  color: $btn-hover-font-color1;
+  border-color: $btn-font-color1;
+}

@@ -31,19 +31,3 @@ $bd-rad: 0px;
   align-items: center;
 }
 
-.btn {
-  font-size: 17px;
-  border: 0;
-  border-radius: $bd-rad;
-  padding: 4px 8px;
-  min-width: 45%;
-  background: none;
-  border: solid 1px;
-  border-color: $btn-border-color1;
-  color: $btn-font-color1;
-}
-
-.btn:hover {
-  color: $btn-hover-font-color1;
-  border-color: $btn-font-color1;
-}
