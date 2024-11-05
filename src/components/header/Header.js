@@ -1,11 +1,11 @@
-import "./Header.scss"
+import styles from "./Header.module.scss"
 
 function Header() {
 
     return (
         <header>
-            <div className="Container">
-                <div className="HeaderCont">
+            <div className="container">
+                <div className={styles.headerCont}>
                     <Logo />
                     <NavigateMenu />
                     <LogOutBtn />
@@ -17,7 +17,7 @@ function Header() {
 
 function Logo() {
     return (
-        <div className="Logo">
+        <div className={styles.logo}>
             <a href="#">F-BANK</a>
         </div>
     )
@@ -25,17 +25,17 @@ function Logo() {
 
 function NavigateMenu() {
     return (
-        <nav className="NavMenuCont">
-            <button className="NavBtn">HOME</button>
-            <button className="NavBtn">TRANSFERS</button>
-            <button className="NavBtn">HISTORY</button>
+        <nav className={styles.navMenuCont}>
+            <button className={styles.navBtn}>HOME</button>
+            <button className={styles.navBtn}>TRANSFERS</button>
+            <button className={styles.navBtn}>HISTORY</button>
         </nav>
     )
 }
 
 function LogOutBtn() {
     return (
-        <div className="LogOutBtn">
+        <div className={styles.logOutBtn}>
             <a href="#">Log Out</a>
         </div>
     )

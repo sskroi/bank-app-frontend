@@ -14,7 +14,7 @@ const AppRouter = () => {
                 <Route key={path} path={path} element={<Component />} exact />
             )}
 
-            <Route path="*" element={<Navigate to="/" />} />
+            <Route path="*" element={<Navigate to="/sign-in" />} />
         </Routes>
     );
 };

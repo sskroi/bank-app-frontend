@@ -1,15 +1,15 @@
 import React from "react";
 
 import LoginForm from "../components/loginForm/LoginForm";
+import SignUpForm from "../components/loginForm/SignUpForm";
 import Header from "../components/header/Header";
-import "./Auth.scss"
+import styles from "./Auth.module.scss"
 
 const Auth = () => {
-
     return (
-        <div className="AuthPage">
+        <div className={styles.authPage}>
             <Header />
-            <LoginForm />
+            <SignUpForm />
         </div>
     )
 }

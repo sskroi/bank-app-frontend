@@ -6,44 +6,44 @@
 
 $bd-rad: 0px;
 
-.LoginFormCont {
+.loginFormCont {
   display: grid;
   grid-template-rows: 1fr;
   width: 25%;
   gap: 10px;
   justify-content: center;
   margin: 100px auto 0 auto;
+}
 
-  .InputFieldsCont {
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-template-rows: 1fr 1fr;
-    width: 100%;
-    justify-content: center;
-    gap: 10px;
-  }
+.inputFieldsCont {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr 1fr;
+  width: 100%;
+  justify-content: center;
+  gap: 10px;
+}
 
-  .ButtonsCont {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
+.buttonsCont {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
 
-    .Btn {
-      font-size: 17px;
-      border: 0;
-      border-radius: $bd-rad;
-      padding: 4px 8px;
-      min-width: 45%;
-      background: none;
-      border: solid 1px;
-      border-color: $btn-border-color1;
-      color: $btn-font-color1;
-    }
+.btn {
+  font-size: 17px;
+  border: 0;
+  border-radius: $bd-rad;
+  padding: 4px 8px;
+  min-width: 45%;
+  background: none;
+  border: solid 1px;
+  border-color: $btn-border-color1;
+  color: $btn-font-color1;
+}
 
-    .Btn:hover {
-      color: $btn-hover-font-color1;
-      border-color: $btn-font-color1;
-    }
-  }
+.btn:hover {
+  color: $btn-hover-font-color1;
+  border-color: $btn-font-color1;
 }

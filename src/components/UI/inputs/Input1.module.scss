@@ -2,7 +2,7 @@
 
 $bd-rad: 0px;
 
-.Input1 {
+.input1 {
   background-color: $input-bg1;
   width: 100%;
   padding: 4px 8px;
@@ -11,12 +11,12 @@ $bd-rad: 0px;
   color: $input-font-color1;
 }
 
-.Input1:focus {
+.input1:focus {
   border: none;
   outline: none;
   background-color: $input-bg2;
 }
 
-.Input1:hover {
+.input1:hover {
   background-color: $input-bg2;
 }
