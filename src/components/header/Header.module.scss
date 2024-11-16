@@ -28,21 +28,20 @@ header {
   padding: 3px 7px;
   margin: 0px 7px;
 
-
   float: left;
   display: block;
   position: relative;
 }
 
 .navBtn::after {
-  content: '';
+  content: "";
   position: absolute;
   width: 0px;
   height: 2px;
   left: 50%;
   bottom: 0;
   background-color: var(--header-button-color);
-  transition: all ease-in-out .2s;
+  transition: all ease-in-out 0.2s;
 }
 
 .navBtn:hover {
@@ -54,7 +53,6 @@ header {
   width: 100%;
   left: 0;
 }
-
 
 .logo {
   a {
@@ -71,7 +69,6 @@ header {
     margin: 0 5px;
   }
 }
-
 
 header * {
   font-size: 18px;
