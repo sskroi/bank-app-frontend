@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import styles from "./authForms.module.scss";
 import Button1 from "../UI/buttons/Button1";
 import Input1WithLabel from "../UI/inputs/Input1WithLabel";
+import { SIGN_IN_ROUTE } from "../../utils/consts";
 
 export default function SignUpForm() {
   const [formData, setFormData] = useState({
@@ -67,7 +68,7 @@ export default function SignUpForm() {
         <Input1WithLabel
           type="password"
           labelValue="Пароль"
-          placeholder="*******"
+          placeholder="********"
           value={formData.password}
           onChange={(e) =>
             setFormData({ ...formData, password: e.target.value })
@@ -76,7 +77,7 @@ export default function SignUpForm() {
         <Input1WithLabel
           type="password"
           labelValue="Повтор пароля"
-          placeholder="*******"
+          placeholder="********"
           value={formData.repPassword}
           onChange={(e) =>
             setFormData({ ...formData, repPassword: e.target.value })
@@ -86,7 +87,9 @@ export default function SignUpForm() {
 
       <div className={styles.buttonsCont}>
         <Button1 type="submit">Зарегистрироваться</Button1>
-        <Button1 onClick={() => navigate("/sign-in")}>Вход в аккаунт</Button1>
+        <Button1 onClick={() => navigate(SIGN_IN_ROUTE)}>
+          Вход в аккаунт
+        </Button1>
       </div>
     </form>
   );

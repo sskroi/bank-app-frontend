@@ -4,6 +4,8 @@ import { useNavigate } from "react-router-dom";
 import styles from "./authForms.module.scss";
 import Input1 from "../UI/inputs/Input1";
 import Button1 from "../UI/buttons/Button1";
+import { SIGN_UP_ROUTE } from "../../utils/consts";
+import Input1WithLabel from "../UI/inputs/Input1WithLabel";
 
 function SignInForm() {
   const [formData, setFormData] = useState({
@@ -31,18 +33,19 @@ function SignInForm() {
 
   return (
     <form onSubmit={handleSubmit} className={styles.loginFormCont}>
+      <h2>Вход в аккаунт</h2>
+
       <div className={styles.inputFieldsCont}>
-        <Input1
-          type="text"
-          placeholder="Username"
-          value={formData.username}
-          onChange={(e) =>
-            setFormData({ ...formData, username: e.target.value })
-          }
+        <Input1WithLabel
+          labelValue="Электронная почта"
+          placeholder="example@example.com"
+          value={formData.email}
+          onChange={(e) => setFormData({ ...formData, email: e.target.value })}
         />
-        <Input1
+        <Input1WithLabel
           type="password"
-          placeholder="Password"
+          labelValue="Пароль"
+          placeholder="********"
           value={formData.password}
           onChange={(e) =>
             setFormData({ ...formData, password: e.target.value })
@@ -51,9 +54,11 @@ function SignInForm() {
       </div>
 
       <div className={styles.buttonsCont}>
-        <Button1 type="submit">Sign in</Button1>
+        <Button1 type="submit" style={{ width: "45%" }}>
+          Войти
+        </Button1>
 
-        <Button1 onClick={() => navigate("/sign-up")}>Sign up</Button1>
+        <Button1 onClick={() => navigate(SIGN_UP_ROUTE)}>Регистрация</Button1>
       </div>
     </form>
   );

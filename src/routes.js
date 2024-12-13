@@ -1,4 +1,5 @@
 import Auth from "./pages/Auth";
+import { SIGN_IN_ROUTE, SIGN_UP_ROUTE } from "./utils/consts";
 //import Home from "./pages/Home";
 
 export const authRotes = [];
@@ -9,11 +10,11 @@ export const publicRoutes = [
   //  Component: Home,
   //},
   {
-    path: "/sign-in",
+    path: SIGN_IN_ROUTE,
     Component: Auth,
   },
   {
-    path: "/sign-up",
+    path: SIGN_UP_ROUTE,
     Component: Auth,
   },
 ];
