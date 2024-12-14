@@ -2,7 +2,6 @@ import React, { useContext } from "react";
 import styles from "./Header.module.scss";
 import { observer } from "mobx-react-lite";
 import { Context } from "../../index.js";
-import { SIGN_IN_ROUTE } from "../../utils/consts";
 
 const Header = observer(() => {
   const { user } = useContext(Context);

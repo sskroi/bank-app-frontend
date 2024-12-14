@@ -2,7 +2,6 @@ import React from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "./authForms.module.scss";
-import Input1 from "../UI/inputs/Input1";
 import Button1 from "../UI/buttons/Button1";
 import { SIGN_UP_ROUTE } from "../../utils/consts";
 import Input1WithLabel from "../UI/inputs/Input1WithLabel";
