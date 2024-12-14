@@ -3,8 +3,9 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import { authRotes, publicRoutes } from "../routes";
 import { Context } from "../index.js";
 import { SIGN_IN_ROUTE } from "../utils/consts.js";
+import { observer } from "mobx-react-lite";
 
-const AppRouter = () => {
+const AppRouter = observer(() => {
   const { user } = useContext(Context);
 
   return (
@@ -21,6 +22,6 @@ const AppRouter = () => {
       <Route path="*" element={<Navigate to={SIGN_IN_ROUTE} />} />
     </Routes>
   );
-};
+});
 
 export default AppRouter;
