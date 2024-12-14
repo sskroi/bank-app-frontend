@@ -1,37 +1,39 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "./authForms.module.scss";
 import Button1 from "../UI/buttons/Button1";
 import { SIGN_UP_ROUTE } from "../../utils/consts";
 import Input1WithLabel from "../UI/inputs/Input1WithLabel";
+import { Context } from "../../index.js";
+import { signIn } from "../../http/authAPI";
 
 function SignInForm() {
   const [formData, setFormData] = useState({
-    username: "",
+    email: "",
     password: "",
   });
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-
-    setFormData({
-      username: "",
-      password: "",
-    });
-
-    console.log(
-      "Form submitted:\nUsername: " +
-        formData.username +
-        "\n" +
-        "Password: " +
-        formData.password,
-    );
-  };
   const navigate = useNavigate();
 
+  const { user } = useContext(Context);
+  const submit = async (e) => {
+    e.preventDefault();
+    try {
+      const data = await signIn(formData.email, formData.password);
+      console.log(data);
+      user.setAuth(true);
+    } catch (e) {
+      if (e.response?.data?.message) {
+        alert(e.response.data.message);
+      } else {
+        alert(e.message);
+      }
+    }
+  };
+
   return (
-    <form onSubmit={handleSubmit} className={styles.loginFormCont}>
+    <form onSubmit={submit} className={styles.loginFormCont}>
       <h2>Вход в аккаунт</h2>
 
       <div className={styles.inputFieldsCont}>

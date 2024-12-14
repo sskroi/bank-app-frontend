@@ -2,9 +2,19 @@ import React, { useContext } from "react";
 import styles from "./Header.module.scss";
 import { observer } from "mobx-react-lite";
 import { Context } from "../../index.js";
+import { useNavigate } from "react-router-dom";
+import { SIGN_IN_ROUTE } from "../../utils/consts.js";
 
 const Header = observer(() => {
   const { user } = useContext(Context);
+  const navigate = useNavigate();
+
+  const logOut = () => {
+    user.setAuth(false);
+    user.setUser({});
+    localStorage.removeItem("accessToken");
+    navigate(SIGN_IN_ROUTE);
+  };
 
   return (
     <header>
@@ -13,16 +23,13 @@ const Header = observer(() => {
           <Logo />
           {user.isAuth && <NavigateMenu />}
           {user.isAuth ? (
-            <button
-              className={styles.logBtn}
-              onClick={() => user.setAuth(false)}
-            >
+            <button className={styles.logBtn} onClick={logOut}>
               Выйти
             </button>
           ) : (
             <button
               className={styles.logBtn}
-              onClick={() => user.setAuth(true)}
+              onClick={() => navigate(SIGN_IN_ROUTE)}
             >
               Войти
             </button>

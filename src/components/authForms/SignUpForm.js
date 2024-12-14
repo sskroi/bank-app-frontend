@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "./authForms.module.scss";
 import Button1 from "../UI/buttons/Button1";
 import Input1WithLabel from "../UI/inputs/Input1WithLabel";
 import { SIGN_IN_ROUTE } from "../../utils/consts";
+import { signUp } from "../../http/authAPI";
+import { Context } from "../../index.js";
 
 export default function SignUpForm() {
   const [formData, setFormData] = useState({
@@ -19,13 +21,25 @@ export default function SignUpForm() {
 
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const { user } = useContext(Context);
+
+  const submit = async (e) => {
     e.preventDefault();
-    console.log(formData);
+    try {
+      const data = await signUp(formData);
+      console.log(data);
+      user.setAuth(true);
+    } catch (e) {
+      if (e.response?.data?.message) {
+        alert(e.response.data.message);
+      } else {
+        alert(e.message);
+      }
+    }
   };
 
   return (
-    <form onSubmit={handleSubmit} className={styles.loginFormCont}>
+    <form onSubmit={submit} className={styles.loginFormCont}>
       <h2>Регистрация аккаунта</h2>
 
       <div className={styles.inputFieldsCont}>
