@@ -1,19 +1,38 @@
-import React from "react";
+import React, { useContext } from "react";
 import styles from "./Header.module.scss";
+import { observer } from "mobx-react-lite";
+import { Context } from "../../index.js";
+import { SIGN_IN_ROUTE } from "../../utils/consts";
 
-function Header() {
+const Header = observer(() => {
+  const { user } = useContext(Context);
+
   return (
     <header>
       <div className="container">
         <div className={styles.headerCont}>
           <Logo />
-          <NavigateMenu />
-          <LogOutBtn />
+          {user.isAuth && <NavigateMenu />}
+          {user.isAuth ? (
+            <button
+              className={styles.logBtn}
+              onClick={() => user.setAuth(false)}
+            >
+              Выйти
+            </button>
+          ) : (
+            <button
+              className={styles.logBtn}
+              onClick={() => user.setAuth(true)}
+            >
+              Войти
+            </button>
+          )}
         </div>
       </div>
     </header>
   );
-}
+});
 
 function Logo() {
   return (
@@ -30,14 +49,6 @@ function NavigateMenu() {
       <button className={styles.navBtn}>TRANSFERS</button>
       <button className={styles.navBtn}>HISTORY</button>
     </nav>
-  );
-}
-
-function LogOutBtn() {
-  return (
-    <div className={styles.logOutBtn}>
-      <a href="#">Log Out</a>
-    </div>
   );
 }
 

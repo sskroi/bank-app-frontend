@@ -62,12 +62,13 @@ header {
   }
 }
 
-.logOutBtn {
-  a {
-    color: var(--header-button-color);
-    padding: 0 5px;
-    margin: 0 5px;
-  }
+.logBtn {
+  color: var(--header-button-color);
+  background: none;
+  border: none;
+  padding: 0 5px;
+  margin: 0 5px;
+  cursor: pointer;
 }
 
 header * {
