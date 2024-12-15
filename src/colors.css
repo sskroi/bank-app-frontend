@@ -18,4 +18,6 @@
   --button1-border-hover-color: #dadada;
   --button1-color: #b7b7b7;
   --button1-hover-color: #dadada;
+  --button1-disabled-border-color: #464646;
+  --button1-disabled-color: #8e8e8e;
 }

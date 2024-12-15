@@ -14,3 +14,8 @@
   color: var(--button1-hover-color);
   border-color: var(--button1-border-hover-color);
 }
+
+.button1:disabled {
+  color: var(--button1-disabled-color);
+  border-color: var(--button1-disabled-border-color);
+}
