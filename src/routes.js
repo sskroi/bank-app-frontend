@@ -9,7 +9,7 @@ export const authRotes = [
   },
 ];
 
-export const publicRoutes = [
+export const loginRoutes = [
   {
     path: SIGN_IN_ROUTE,
     Component: Auth,
@@ -19,3 +19,5 @@ export const publicRoutes = [
     Component: Auth,
   },
 ];
+
+export const publicRoutes = [];
