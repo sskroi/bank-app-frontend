@@ -3,7 +3,7 @@ import { authHost } from ".";
 /**
  * @param {number} offset
  * @param {number} limit
- * @returns {Promise<{ number: string, balance: number, currency: string, is_close: bool }[]>}
+ * @returns {Promise<{ number: string, balance: number, currency: string, isClose: bool }[]>}
  */
 export const getAccounts = async (offset = 0, limit = 100) => {
   const resp = await authHost.get("/accounts", { params: { offset, limit } });

@@ -37,7 +37,7 @@ const AccountList = observer(() => {
   );
 });
 
-const AccountCard = ({ number, balance, currency, is_close }) => {
+const AccountCard = ({ number, balance, currency, isClose }) => {
   return (
     <div className={styles.accountCard}>
       <div>Номер счёта:</div>
@@ -56,7 +56,7 @@ AccountCard.propTypes = {
   number: PropTypes.string,
   balance: PropTypes.number,
   currency: PropTypes.currency,
-  is_close: propTypes.bool,
+  isClose: propTypes.bool,
 };
 
 export default AccountList;
