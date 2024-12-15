@@ -3,7 +3,7 @@ import styles from "./Header.module.scss";
 import { observer } from "mobx-react-lite";
 import { Context } from "../../index.js";
 import { useNavigate } from "react-router-dom";
-import { SIGN_IN_ROUTE } from "../../utils/consts.js";
+import { ACCOUNTS_ROUTE, SIGN_IN_ROUTE } from "../../utils/consts.js";
 
 const Header = observer(() => {
   const { user } = useContext(Context);
@@ -49,11 +49,28 @@ function Logo() {
 }
 
 function NavigateMenu() {
+  const navigate = useNavigate();
+
   return (
     <nav className={styles.navMenuCont}>
-      <button className={styles.navBtn}>HOME</button>
-      <button className={styles.navBtn}>TRANSFERS</button>
-      <button className={styles.navBtn}>HISTORY</button>
+      <button
+        className={styles.navBtn}
+        onClick={() => navigate(ACCOUNTS_ROUTE)}
+      >
+        СЧЕТА
+      </button>
+      <button
+        className={styles.navBtn}
+        onClick={() => alert("not implemented")}
+      >
+        ПЕРЕВОДЫ
+      </button>
+      <button
+        className={styles.navBtn}
+        onClick={() => alert("not implemented")}
+      >
+        ПРОФИЛЬ
+      </button>
     </nav>
   );
 }

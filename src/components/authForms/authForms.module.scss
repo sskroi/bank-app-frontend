@@ -5,10 +5,9 @@
 .loginFormCont {
   display: grid;
   grid-template-rows: 1fr;
-  width: 25%;
+  min-width: 25%;
   gap: 10px;
   justify-content: center;
-  margin: 100px auto 0 auto;
 }
 
 .loginFormCont h2 {
