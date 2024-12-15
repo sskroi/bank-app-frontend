@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const apiBaseUrl = "http://bankapi.iorkss.ru/api/v1";
+const apiBaseUrl = "https://bankapi.iorkss.ru/api/v1";
 
 const host = axios.create({
   baseURL: apiBaseUrl,
@@ -8,6 +8,7 @@ const host = axios.create({
 
 const authHost = axios.create({
   baseURL: apiBaseUrl,
+  withCredentials: true,
 });
 
 const authInterceptor = (config) => {
