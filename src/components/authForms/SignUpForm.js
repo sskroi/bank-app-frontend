@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "./authForms.module.scss";
@@ -7,6 +7,7 @@ import Input1WithLabel from "../UI/inputs/Input1WithLabel";
 import { SIGN_IN_ROUTE } from "../../utils/consts";
 import { signUp } from "../../http/authAPI";
 import { Context } from "../../index.js";
+import { Form } from "react-bootstrap";
 
 export default function SignUpForm() {
   const [formData, setFormData] = useState({
@@ -17,7 +18,11 @@ export default function SignUpForm() {
     passport: "",
     password: "",
     repPassword: "",
+    consent: false,
   });
+
+  const [infoLabel, setInfoLabel] = useState("");
+  const [signUpBtnDisabled, setSignUpBtnDisabled] = useState(true);
 
   const navigate = useNavigate();
 
@@ -37,6 +42,23 @@ export default function SignUpForm() {
       }
     }
   };
+
+  useEffect(() => {
+    if (
+      formData.password !== "" &&
+      formData.password !== formData.repPassword
+    ) {
+      setInfoLabel("Пароли не совпадают");
+    } else {
+      setInfoLabel("");
+    }
+
+    if (formData.consent) {
+      setSignUpBtnDisabled(false);
+    } else {
+      setSignUpBtnDisabled(true);
+    }
+  }, [formData]);
 
   return (
     <form onSubmit={submit} className={styles.loginFormCont}>
@@ -99,8 +121,22 @@ export default function SignUpForm() {
         />
       </div>
 
+      {infoLabel !== "" && <p style={{ color: "red" }}>{infoLabel}</p>}
+
+      <Form.Check
+        type="checkbox"
+        id="agree-check"
+        label="Согласен на обработку персональных данных"
+        style={{ color: "var(--primary-text-color)" }}
+        onChange={(e) =>
+          setFormData({ ...formData, consent: e.target.checked })
+        }
+      />
+
       <div className={styles.buttonsCont}>
-        <Button1 type="submit">Зарегистрироваться</Button1>
+        <Button1 disabled={signUpBtnDisabled} type="submit">
+          Зарегистрироваться
+        </Button1>
         <Button1 onClick={() => navigate(SIGN_IN_ROUTE)}>
           Вход в аккаунт
         </Button1>
