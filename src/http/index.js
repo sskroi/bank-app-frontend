@@ -8,7 +8,7 @@ const host = axios.create({
 
 const authHost = axios.create({
   baseURL: apiBaseUrl,
-  withCredentials: true,
+  //withCredentials: true,
 });
 
 const authInterceptor = (config) => {
