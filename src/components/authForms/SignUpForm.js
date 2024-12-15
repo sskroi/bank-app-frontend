@@ -61,7 +61,7 @@ export default function SignUpForm() {
   }, [formData]);
 
   return (
-    <form onSubmit={submit} className={styles.loginFormCont}>
+    <form onSubmit={submit} className={styles.loginFormCont} autoComplete="off">
       <h2>Регистрация аккаунта</h2>
 
       <div className={styles.inputFieldsCont}>
