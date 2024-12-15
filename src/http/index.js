@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const apiBaseUrl = "http://localhost:8100/api/v1";
+const apiBaseUrl = "http://bankapi.iorkss.ru/api/v1";
 
 const host = axios.create({
   baseURL: apiBaseUrl,
