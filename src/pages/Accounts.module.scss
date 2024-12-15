@@ -1,0 +1,28 @@
+.accountsPage {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: calc(100vh - 40px);
+  padding: 40px 0;
+}
+
+.btnsCont {
+  display: flex;
+  gap: 30px;
+}
+
+.createAccountMenu {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  min-width: 250px;
+  max-width: 250px;
+}
+
+.createAccountMenu h3 {
+  color: var(--primary-text-color);
+}
+
+.createAccountMenu label {
+  color: var(--primary-text-color);
+}
