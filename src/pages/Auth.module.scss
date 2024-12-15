@@ -1,4 +1,9 @@
 .authPage {
   display: flex;
-  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: calc(100vh - 40px);
+  padding: 40px 0;
+  background-color: var(--auth-bg-color);
+  // border: 1px solid red;
 }

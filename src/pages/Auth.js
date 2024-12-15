@@ -1,19 +1,30 @@
-import React from "react";
+import React, { useContext } from "react";
 
 import SignInForm from "../components/authForms/SignInForm";
 import SignUpForm from "../components/authForms/SignUpForm";
 import styles from "./Auth.module.scss";
-import { useLocation } from "react-router-dom";
-import { SIGN_UP_ROUTE } from "../utils/consts";
+import { useLocation, useNavigate } from "react-router-dom";
+import { ACCOUNTS_ROUTE, SIGN_UP_ROUTE } from "../utils/consts";
+import { observer } from "mobx-react-lite";
+import { Context } from "../index.js";
 
-const Auth = () => {
+const Auth = observer(() => {
   const location = useLocation();
+  const { user } = useContext(Context);
+  const navigate = useNavigate();
+
+  if (user.isAuth) {
+    navigate(ACCOUNTS_ROUTE);
+  }
+
+  const isSignUp = location.pathname.startsWith(SIGN_UP_ROUTE);
+  const AuthForm = isSignUp ? SignUpForm : SignInForm;
 
   return (
     <div className={styles.authPage}>
-      {location.pathname === SIGN_UP_ROUTE ? <SignUpForm /> : <SignInForm />}
+      <AuthForm />
     </div>
   );
-};
+});
 
 export default Auth;
