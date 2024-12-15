@@ -1,0 +1,12 @@
+.accountList {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.accountCard {
+  padding: 4px 20px;
+  border-radius: 5px;
+  color: var(--primary-text-color);
+  background-color: var(--primary-card-bg-color);
+}

@@ -4,25 +4,19 @@ import styles from "./Accounts.module.scss";
 import ModalWindow1 from "../components/UI/ModalWindow1";
 import { Dropdown } from "react-bootstrap";
 import { createAccount } from "../http/accountsAPI";
+import AccountList from "../components/AccountList";
 
 const Accounts = () => {
   return (
     <div className={styles.accountsPage}>
-      <AccountBtns></AccountBtns>
-    </div>
-  );
-};
+      <div className={styles.accountPageContent}>
+        <div className={styles.btnsCont}>
+          <OpenAccBtnAndMenu />
+          <CloseAccBtnAndMenu />
+        </div>
 
-const AccountBtns = () => {
-  const [closeAccActive, setCloseAccActive] = useState(false);
-
-  return (
-    <div className={styles.btnsCont}>
-      <OpenAccBtnAndMenu />
-      <Button1 onClick={() => setCloseAccActive(true)}>Закрыть счёт</Button1>
-      <ModalWindow1 isActive={closeAccActive} setActive={setCloseAccActive}>
-        Тест
-      </ModalWindow1>
+        <AccountList />
+      </div>
     </div>
   );
 };
@@ -60,7 +54,12 @@ const OpenAccBtnAndMenu = () => {
 
   return (
     <div>
-      <Button1 onClick={() => setOpenAccActive(true)}>Открыть счёт</Button1>
+      <Button1
+        style={{ fontSize: "20px" }}
+        onClick={() => setOpenAccActive(true)}
+      >
+        Открыть счёт
+      </Button1>
 
       <ModalWindow1 isActive={openAccActive} setActive={setOpenAccActive}>
         <div className={styles.createAccountMenu}>
@@ -80,6 +79,24 @@ const OpenAccBtnAndMenu = () => {
             Открыть
           </Button1>
         </div>
+      </ModalWindow1>
+    </div>
+  );
+};
+
+const CloseAccBtnAndMenu = () => {
+  const [closeAccActive, setCloseAccActive] = useState(false);
+
+  return (
+    <div>
+      <Button1
+        style={{ fontSize: "20px" }}
+        onClick={() => setCloseAccActive(true)}
+      >
+        Закрыть счёт
+      </Button1>
+      <ModalWindow1 isActive={closeAccActive} setActive={setCloseAccActive}>
+        <div style={{ color: "red" }}>NOT IMPLEMENTED</div>
       </ModalWindow1>
     </div>
   );
