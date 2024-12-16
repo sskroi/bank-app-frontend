@@ -16,3 +16,11 @@ export const createAccount = async (currency = "rub") => {
 
   return resp.data.number;
 };
+
+export const closeAccount = async (accountNumber) => {
+  const resp = await authHost.delete("/account", {
+    params: { number: accountNumber },
+  });
+
+  return resp;
+};
