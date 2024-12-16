@@ -5,6 +5,13 @@
   border-radius: 0;
   border: none;
   color: var(--input1-color);
+
+  appearance: textfield;
+}
+
+.input1::-webkit-outer-spin-button,
+.input1::-webkit-inner-spin-button {
+  -webkit-appearance: none;
 }
 
 .input1:focus {
