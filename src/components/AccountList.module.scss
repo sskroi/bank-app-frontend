@@ -4,9 +4,40 @@
   gap: 10px;
 }
 
+.accountList * {
+  color: var(--primary-text-color);
+}
+
 .accountCard {
-  padding: 4px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 8px 20px;
   border-radius: 5px;
   color: var(--primary-text-color);
   background-color: var(--primary-card-bg-color);
+  border: solid 1px #303030;
+}
+
+.accountCardButtonsCont {
+  display: flex;
+  gap: 40px;
+}
+
+.closeAccountWindow {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.transferWindow {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.transferDestAccInputCont {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
 }
