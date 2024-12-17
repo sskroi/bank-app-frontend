@@ -30,11 +30,18 @@
   gap: 10px;
 }
 
+.errInfo {
+  color: #B73D3D
+}
+
 .transferWindow {
   display: flex;
   flex-direction: column;
   gap: 10px;
-  min-width: 350px;
+
+  p {
+    max-width: 300px;
+  }
 }
 
 .transferDestAccInputCont {

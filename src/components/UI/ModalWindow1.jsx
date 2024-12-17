@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 export default function ModalWindow1({ isActive = true, onClose, children }) {
   const handleKeyDown = (e) => {
     if (e.key === "Escape") {
-      onClose(false);
+      onClose();
     }
   };
 
@@ -24,7 +24,7 @@ export default function ModalWindow1({ isActive = true, onClose, children }) {
       className={styles.modal + " " + (isActive ? styles.active : "")}
       onClick={(e) => {
         if (!e.target.closest(`.${styles.modalContent}`)) {
-          onClose(false);
+          onClose();
         }
       }}
     >

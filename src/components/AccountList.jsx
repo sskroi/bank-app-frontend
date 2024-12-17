@@ -149,6 +149,11 @@ const TransferMenu = ({ transferAcc, setTransferAcc, updateAccountList }) => {
       .then(() => {
         setDstAccNumOk(true);
         setDstAccErr("");
+
+        if (inputValue === transferAcc.number) {
+          setDstAccErr("Вы не можете переводить на текщий счёт");
+          setDstAccNumOk(false);
+        }
       })
       .catch((err) => {
         setDstAccNumOk(false);
@@ -222,11 +227,11 @@ const TransferMenu = ({ transferAcc, setTransferAcc, updateAccountList }) => {
           onInput={handleDstAccNumInput}
           placeholder="f47971af-0487-4fae-898d-fb9108da4dff"
         />
-        {dstAccErr && <p>{dstAccErr}</p>}
+        {dstAccErr && <p className={styles.errInfo}>{dstAccErr}</p>}
 
         <p>Сумма перевода:</p>
         <Input1 value={amount} onInput={handleAmountInput} placeholder="0" />
-        {amountErr && <p>{amountErr}</p>}
+        {amountErr && <p className={styles.errInfo}>{amountErr}</p>}
       </div>
       <Button1 onClick={onTransfer} disabled={!amountOk || !dstAccNumOk}>
         Перевести
@@ -262,7 +267,9 @@ const CloseAccountMenu = ({ closingAcc, setClosingAcc, updateAccountList }) => {
       <p>Вы собираетесь закрыть счёт с номером:</p>
       <b>{closingAcc.number}</b>
       {closingAcc.balance > 0 && (
-        <p>Вы не можете закрыть счёт т.к. на нём есть средства</p>
+        <p className={styles.errInfo}>
+          Вы не можете закрыть счёт т.к. на нём есть средства
+        </p>
       )}
       <Button1 onClick={closeAcc} disabled={closingAcc.balance !== "0"}>
         Закрыть счёт
