@@ -8,6 +8,7 @@ const Input1 = (props) => {
 
 Input1.propTypes = {
   onChange: PropTypes.func,
+  disabled: PropTypes.bool,
   placeholder: PropTypes.string,
   value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   type: PropTypes.string,

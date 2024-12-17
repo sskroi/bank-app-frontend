@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import styles from "./AccountList.module.scss";
-import { closeAccount } from "../http/accountsAPI";
+import { closeAccount, transfer } from "../http/accountsAPI";
 import { Context } from "../index.js";
 import { observer } from "mobx-react-lite";
 import PropTypes from "prop-types";
@@ -8,6 +8,7 @@ import Button1 from "./UI/buttons/Button1.jsx";
 import ModalWindow2 from "./UI/ModalWindow2.jsx";
 import Input1 from "./UI/inputs/Input1.jsx";
 import { Spinner } from "react-bootstrap";
+import * as Yup from "yup";
 
 const AccountList = observer(({ updateAccountList }) => {
   const { accounts } = useContext(Context);
@@ -75,7 +76,7 @@ const AccountCard = ({
       </div>
       <div className={styles.accountCardButtonsCont}>
         <Button1 onClick={() => onTransfer(account)}>Перевести</Button1>
-        <Button1>Пополнить</Button1>
+        <Button1 onClick={() => alert("Not implemented")}>Пополнить</Button1>
         <Button1 onClick={() => onCloseAccount(account)}>Закрыть счёт</Button1>
       </div>
     </div>
@@ -88,6 +89,97 @@ AccountCard.propTypes = {
 };
 
 const TransferMenu = ({ transferAcc, setTransferAcc, updateAccountList }) => {
+  const [amount, setAmount] = useState(0);
+  const [amountOk, setAmountOk] = useState(false);
+  const [dstAccNum, setDstAccNum] = useState("");
+  const [dstAccNumOk, setDstAccNumOk] = useState(false);
+
+  const onTransfer = async () => {
+    try {
+      await transfer(transferAcc.number, dstAccNum, amount);
+      updateAccountList();
+    } catch (e) {
+      if (e.response?.data?.message) {
+        alert(e.response.data.message);
+      } else {
+        alert(e.message);
+      }
+    } finally {
+      setTransferAcc(null);
+    }
+  };
+
+  const [dstAccErr, setDstAccErr] = useState("");
+  const uuidRegex =
+    /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+  const accNumberValidator = Yup.object().shape({
+    accNum: Yup.string()
+      .matches(uuidRegex, "Поле должно быть валидным номермом счёта")
+      .required("Поле обязательно для заполнения"),
+  });
+  const handleDstAccNumInput = (e) => {
+    const inputValue = e.target.value;
+    setDstAccNum(inputValue);
+
+    accNumberValidator
+      .validate({ accNum: inputValue })
+      .then(() => {
+        setDstAccNumOk(true);
+        setDstAccErr("");
+      })
+      .catch((err) => {
+        setDstAccNumOk(false);
+        setDstAccErr(err.message);
+      });
+  };
+
+  const [amountErr, setAmountErr] = useState("");
+  const amountValidator = Yup.object({
+    amount: Yup.number()
+      .min(0, "Сумма должна быть больше 9")
+      .max(transferAcc.balance, "У вас недостаточно средств")
+      .required("Поле обязательно для заполнения"),
+  });
+  const handleAmountInput = (e) => {
+    let inputValue = e.target.value;
+    inputValue = inputValue.replace(/[^0-9.]/g, "");
+    inputValue = inputValue.replace(/(\..*)\./g, "$1");
+    if (
+      inputValue.startsWith("0") &&
+      inputValue.length > 1 &&
+      inputValue[1] !== "."
+    ) {
+      inputValue = inputValue.replace(/^0+/, "");
+    }
+
+    if (inputValue.startsWith(".")) {
+      inputValue = "0.";
+    }
+
+    const [integerPart, decimalPart] = inputValue.split(".");
+
+    if (decimalPart !== undefined) {
+      inputValue = `${integerPart}.${decimalPart.slice(0, 2)}`;
+    }
+
+    setAmount(inputValue);
+
+    amountValidator
+      .validate({ amount: Number(inputValue) })
+      .then(() => {
+        if (Number(inputValue) > 0) {
+          setAmountOk(true);
+        } else {
+          setAmountOk(false);
+        }
+        setAmountErr("");
+      })
+      .catch((err) => {
+        setAmountOk(false);
+        setAmountErr(err.message);
+      });
+  };
+
   return (
     <div className={styles.transferWindow}>
       <h5>Перевод средств</h5>
@@ -102,9 +194,20 @@ const TransferMenu = ({ transferAcc, setTransferAcc, updateAccountList }) => {
       </div>
       <div className={styles.transferDestAccInputCont}>
         <p>Введите счёт получателя:</p>
-        <Input1 placeholder="f47971af-0487-4fae-898d-fb9108da4dff" />
+        <Input1
+          value={dstAccNum}
+          onInput={handleDstAccNumInput}
+          placeholder="f47971af-0487-4fae-898d-fb9108da4dff"
+        />
+        {dstAccErr && <p>{dstAccErr}</p>}
+
+        <p>Сумма перевода:</p>
+        <Input1 value={amount} onInput={handleAmountInput} placeholder="0" />
+        {amountErr && <p>{amountErr}</p>}
       </div>
-      <Button1>Перевести</Button1>
+      <Button1 onClick={onTransfer} disabled={!amountOk || !dstAccNumOk}>
+        Перевести
+      </Button1>
     </div>
   );
 };
