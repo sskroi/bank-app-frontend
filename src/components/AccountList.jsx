@@ -220,7 +220,7 @@ TransferMenu.propTypes = {
 const CloseAccountMenu = ({ closingAcc, setClosingAcc, updateAccountList }) => {
   const closeAcc = async () => {
     try {
-      await closeAccount(closingAcc);
+      await closeAccount(closingAcc.number);
       updateAccountList();
     } catch (e) {
       if (e.response?.data?.message) {
