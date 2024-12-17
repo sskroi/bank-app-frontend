@@ -94,7 +94,9 @@ const OpenAccBtnAndMenu = ({ updateAccountList }) => {
               <Dropdown.Item eventKey="EUR">EUR</Dropdown.Item>
             </Dropdown.Menu>
           </Dropdown>
-          {openAccInfo !== "" && <label>{openAccInfo}</label>}
+          {openAccInfo !== "" && (
+            <label style={{ color: "#B73D3D" }}>{openAccInfo}</label>
+          )}
           <Button1 disabled={openAccBtnDisabled} onClick={openAccount}>
             Открыть
           </Button1>
