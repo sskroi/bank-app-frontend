@@ -6,7 +6,7 @@ import { observer } from "mobx-react-lite";
 import PropTypes from "prop-types";
 import Button1 from "./UI/buttons/Button1.jsx";
 import Input1 from "./UI/inputs/Input1.jsx";
-import { Spinner } from "react-bootstrap";
+import { Col, Row, Spinner } from "react-bootstrap";
 import * as Yup from "yup";
 import ModalWindow1 from "./UI/ModalWindow1.jsx";
 
@@ -74,11 +74,34 @@ const AccountCard = ({
       <div>
         <b>{balance}</b> {currency.toUpperCase()}
       </div>
-      <div className={styles.accountCardButtonsCont}>
-        <Button1 onClick={() => onTransfer(account)}>Перевести</Button1>
-        <Button1 onClick={() => alert("Not implemented")}>Пополнить</Button1>
-        <Button1 onClick={() => onCloseAccount(account)}>Закрыть счёт</Button1>
-      </div>
+      <Row
+        className={`${styles.accountCardButtonsCont} justify-content-center`}
+      >
+        <Col xs="auto">
+          <Button1
+            style={{ minWidth: "120px" }}
+            onClick={() => onTransfer(account)}
+          >
+            Перевести
+          </Button1>
+        </Col>
+        <Col xs="auto">
+          <Button1
+            style={{ minWidth: "120px" }}
+            onClick={() => alert("Not implemented")}
+          >
+            Пополнить
+          </Button1>
+        </Col>
+        <Col xs="auto">
+          <Button1
+            style={{ minWidth: "120px", whiteSpace: "nowrap" }}
+            onClick={() => onCloseAccount(account)}
+          >
+            Закрыть счёт
+          </Button1>
+        </Col>
+      </Row>
     </div>
   );
 };

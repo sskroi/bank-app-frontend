@@ -18,7 +18,7 @@ const Header = observer(() => {
 
   return (
     <header>
-      <div className="container">
+      <div className={styles.headerContainer}>
         <div className={styles.headerCont}>
           <Logo />
           {user.isAuth && <NavigateMenu />}
