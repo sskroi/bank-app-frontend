@@ -238,7 +238,12 @@ const CloseAccountMenu = ({ closingAcc, setClosingAcc, updateAccountList }) => {
       <h5>Закрытие счёта</h5>
       <p>Вы собираетесь закрыть счёт с номером:</p>
       <b>{closingAcc.number}</b>
-      <Button1 onClick={closeAcc}>Закрыть счёт</Button1>
+      {closingAcc.balance > 0 && (
+        <p>Вы не можете закрыть счёт т.к. на нём есть средства</p>
+      )}
+      <Button1 onClick={closeAcc} disabled={closingAcc.balance !== "0"}>
+        Закрыть счёт
+      </Button1>
     </div>
   );
 };
