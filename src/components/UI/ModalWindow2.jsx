@@ -15,7 +15,7 @@ export default function ModalWindow2({ onClose, children }) {
     return () => {
       window.removeEventListener("keydown", handleKeyDown);
     };
-  });
+  }, []);
 
   return (
     <div
