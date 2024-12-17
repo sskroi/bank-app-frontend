@@ -2,10 +2,10 @@ import React, { useEffect } from "react";
 import styles from "./ModalWindow1.module.scss";
 import PropTypes from "prop-types";
 
-export default function ModalWindow1({ isActive, setActive, children }) {
+export default function ModalWindow1({ isActive = true, onClose, children }) {
   const handleKeyDown = (e) => {
     if (e.key === "Escape") {
-      setActive(false);
+      onClose(false);
     }
   };
 
@@ -24,7 +24,7 @@ export default function ModalWindow1({ isActive, setActive, children }) {
       className={styles.modal + " " + (isActive ? styles.active : "")}
       onClick={(e) => {
         if (!e.target.closest(`.${styles.modalContent}`)) {
-          setActive(false);
+          onClose(false);
         }
       }}
     >
@@ -35,6 +35,6 @@ export default function ModalWindow1({ isActive, setActive, children }) {
 
 ModalWindow1.propTypes = {
   isActive: PropTypes.bool,
-  setActive: PropTypes.func,
+  onClose: PropTypes.func,
   children: PropTypes.object,
 };

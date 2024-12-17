@@ -78,7 +78,10 @@ const OpenAccBtnAndMenu = ({ updateAccountList }) => {
         Открыть счёт
       </Button1>
 
-      <ModalWindow1 isActive={openAccActive} setActive={setOpenAccActive}>
+      <ModalWindow1
+        isActive={openAccActive}
+        onClose={() => setOpenAccActive(false)}
+      >
         <div className={styles.createAccountMenu}>
           <h3>Открытие счёта</h3>
           <Dropdown onSelect={changeCurrency}>

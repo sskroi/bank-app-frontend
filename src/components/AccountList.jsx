@@ -5,10 +5,10 @@ import { Context } from "../index.js";
 import { observer } from "mobx-react-lite";
 import PropTypes from "prop-types";
 import Button1 from "./UI/buttons/Button1.jsx";
-import ModalWindow2 from "./UI/ModalWindow2.jsx";
 import Input1 from "./UI/inputs/Input1.jsx";
 import { Spinner } from "react-bootstrap";
 import * as Yup from "yup";
+import ModalWindow1 from "./UI/ModalWindow1.jsx";
 
 const AccountList = observer(({ updateAccountList }) => {
   const { accounts } = useContext(Context);
@@ -22,19 +22,19 @@ const AccountList = observer(({ updateAccountList }) => {
   return (
     <div className={styles.accountList}>
       {closingAcc && (
-        <ModalWindow2 onClose={() => setClosingAcc(null)}>
+        <ModalWindow1 onClose={() => setClosingAcc(null)}>
           <CloseAccountMenu
             {...{ closingAcc, setClosingAcc, updateAccountList }}
           />
-        </ModalWindow2>
+        </ModalWindow1>
       )}
 
       {transferAcc && (
-        <ModalWindow2 onClose={() => setTransferAcc(null)}>
+        <ModalWindow1 onClose={() => setTransferAcc(null)}>
           <TransferMenu
             {...{ transferAcc, setTransferAcc, updateAccountList }}
           />
-        </ModalWindow2>
+        </ModalWindow1>
       )}
 
       {loading ? (
