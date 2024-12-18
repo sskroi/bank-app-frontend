@@ -27,14 +27,22 @@
   display: flex;
   flex-direction: column;
   gap: 20px;
-  min-width: 250px;
   max-width: 250px;
 }
 
-.createAccountMenu h3 {
+.createAccountInfoWindow {
+  display: flex;
+  flex-direction: column;
+  max-width: 350px;
+  gap: 10px;
+  justify-content: center;
+}
+
+.createAccountInfoWindow * {
   color: var(--primary-text-color);
 }
 
-.createAccountMenu label {
+.createAccountMenu h3,
+label {
   color: var(--primary-text-color);
 }

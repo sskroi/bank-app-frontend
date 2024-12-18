@@ -1,12 +1,12 @@
 import React, { useContext, useState } from "react";
 import Button1 from "../components/UI/buttons/Button1";
 import styles from "./Accounts.module.scss";
-import ModalWindow1 from "../components/UI/ModalWindow1";
-import { Dropdown } from "react-bootstrap";
+import { Dropdown, Modal } from "react-bootstrap";
 import { createAccount, getAccounts } from "../http/accountsAPI";
 import AccountList from "../components/AccountList";
 import { Context } from "../index.js";
 import PropTypes from "prop-types";
+import BSModal from "../components/UI/BSModal.jsx";
 
 const Accounts = () => {
   const { accounts } = useContext(Context);
@@ -40,6 +40,8 @@ const Accounts = () => {
 const OpenAccBtnAndMenu = ({ updateAccountList }) => {
   const [openAccActive, setOpenAccActive] = useState(false);
 
+  const [infoMsg, setInfoMsg] = useState({ type: "error", msg: "" });
+
   const [newAccCurrency, setNewAccCurrency] = useState("Выберите валюту");
   const [openAccBtnDisabled, setOpenAccBtnDisabled] = useState(true);
   const [openAccInfo, setOpenAccInfo] = useState("");
@@ -59,12 +61,27 @@ const OpenAccBtnAndMenu = ({ updateAccountList }) => {
       const newAccNum = await createAccount(newAccCurrency.toLowerCase());
       setOpenAccActive(false);
       updateAccountList();
-      alert(`Счёт успешно создан. Номер - ${newAccNum}`);
+      setInfoMsg({
+        type: "info",
+        msg: (
+          <>
+            <p>Счёт успешно создан. Номер счёта:</p>
+            <p>{newAccNum}</p>
+          </>
+        ),
+      });
     } catch (e) {
+      setOpenAccActive(false);
       if (e.response?.data?.message) {
-        alert(e.response.data.message);
+        setInfoMsg({
+          type: "error",
+          msg: e.response.data.message,
+        });
       } else {
-        alert(e.message);
+        setInfoMsg({
+          type: "error",
+          msg: e.message,
+        });
       }
     }
   };
@@ -78,12 +95,29 @@ const OpenAccBtnAndMenu = ({ updateAccountList }) => {
         Открыть счёт
       </Button1>
 
-      <ModalWindow1
-        isActive={openAccActive}
+      <BSModal
+        active={infoMsg.msg}
+        onClose={() => setInfoMsg({ msg: "" })}
+        footer={
+          <Button1 style={{minWidth: "150px"}} onClick={() => setInfoMsg({ msg: "" })}>Закрыть</Button1>
+        }
+        header={infoMsg.type === "error" && "Ошибка"}
+      >
+        <div className={styles.createAccountInfoWindow}>{infoMsg.msg}</div>
+      </BSModal>
+
+      <BSModal
+        active={openAccActive}
         onClose={() => setOpenAccActive(false)}
+        header={<Modal.Title>Открытие счёта</Modal.Title>}
+        size="sm"
+        footer={
+          <Button1 disabled={openAccBtnDisabled} onClick={openAccount}>
+            Открыть
+          </Button1>
+        }
       >
         <div className={styles.createAccountMenu}>
-          <h3>Открытие счёта</h3>
           <Dropdown onSelect={changeCurrency}>
             <Dropdown.Toggle variant="secondary" id="dropdown-basic">
               {newAccCurrency}
@@ -97,11 +131,8 @@ const OpenAccBtnAndMenu = ({ updateAccountList }) => {
           {openAccInfo !== "" && (
             <label style={{ color: "#B73D3D" }}>{openAccInfo}</label>
           )}
-          <Button1 disabled={openAccBtnDisabled} onClick={openAccount}>
-            Открыть
-          </Button1>
         </div>
-      </ModalWindow1>
+      </BSModal>
     </div>
   );
 };

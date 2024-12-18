@@ -138,18 +138,46 @@ const TransferMenu = ({ transferAcc, setTransferAcc, updateAccountList }) => {
   const [dstAccNum, setDstAccNum] = useState("");
   const [dstAccNumOk, setDstAccNumOk] = useState(false);
 
+  const [infoMsg, setInfoMsg] = useState("");
+  const [successTransfer, setSuccessTransfer] = useState(false);
+
   const onTransfer = async () => {
     try {
-      await transfer(transferAcc.number, dstAccNum, amount);
+      const r = await transfer(transferAcc.number, dstAccNum, amount);
+      setInfoMsg(
+        <>
+          <p>
+            Переведено: {r.sent} {transferAcc.currency.toUpperCase()}
+          </p>
+          <div>
+            <p>На счёт:</p>
+            <p style={{ textWrap: "nowrap" }}>{r.receiverAccountNumber}</p>
+          </div>
+          <div>
+            <p>Со счёта:</p>
+            <p style={{ textWrap: "nowrap" }}>{r.senderAccountNumber}</p>
+          </div>
+        </>,
+      );
+      setSuccessTransfer(true);
+
       updateAccountList();
     } catch (e) {
-      if (e.response?.data?.message) {
-        alert(e.response.data.message);
+      let msg;
+      if (e.response && e.response.status === 404) {
+        msg = "Счёт получателя не найден";
+      } else if (e.response?.data?.message) {
+        msg = e.response.data.message;
       } else {
-        alert(e.message);
+        msg = e.message;
       }
-    } finally {
-      setTransferAcc(null);
+
+      setInfoMsg(
+        <>
+          <h3>Ошибка</h3>
+          <p>{msg}</p>
+        </>,
+      );
     }
   };
 
@@ -229,8 +257,26 @@ const TransferMenu = ({ transferAcc, setTransferAcc, updateAccountList }) => {
       });
   };
 
+  const onInfoWindowClose = () => {
+    if (successTransfer) {
+      console.log("setTransferAcc will be call");
+      setTransferAcc(null);
+    } else {
+      console.log("setInfoMsg will be call");
+      setInfoMsg("");
+    }
+  };
+
   return (
     <div className={styles.transferWindow}>
+      {infoMsg && (
+        <ModalWindow1 styles={{ zIndex: 100 }} onClose={onInfoWindowClose}>
+          <div className="d-flex flex-column gap-2">
+            {infoMsg}
+            <Button1 onClick={onInfoWindowClose}>Закрыть</Button1>
+          </div>
+        </ModalWindow1>
+      )}
       <h5>Перевод средств</h5>
       <div>
         <label>Со счёта:</label>
