@@ -66,11 +66,31 @@ const AccountCard = ({
   onCloseAccount,
   onTransfer,
 }) => {
+  const [copySuccess, setCopySuccess] = useState("");
+
+  const handleCopyClick = async () => {
+    try {
+      await navigator.clipboard.writeText(number);
+      setCopySuccess("Скопировано");
+      setTimeout(() => setCopySuccess(""), 800);
+    } catch (err) {
+      console.error("Ошибка при копировании: ", err);
+    }
+  };
+
   return (
     <div className={styles.accountCard}>
-      <div>
-        <b>{number}</b>
-      </div>
+      <Row>
+        <Col className={styles.numberCont}>
+          <b style={{ whiteSpace: "nowrap" }}>{number}</b>
+        </Col>
+        <Col xs="auto">
+          <a className={styles.copyText} style={{ cursor: "pointer" }} onClick={handleCopyClick}>
+            скопировать
+          </a>
+        </Col>
+      </Row>
+      {copySuccess && <p>{copySuccess}</p>}
       <div>
         <b>{balance}</b> {currency.toUpperCase()}
       </div>

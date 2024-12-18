@@ -19,6 +19,22 @@
   border: solid 1px #303030;
 }
 
+.numberCont {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  text-align: center;
+}
+
+.copyText {
+  text-decoration: none;
+  padding: 5px 3px;
+}
+
+.copyText:hover {
+  color: white;
+}
+
 .accountCardButtonsCont {
   display: flex;
   gap: 30px;
