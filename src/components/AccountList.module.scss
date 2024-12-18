@@ -29,10 +29,16 @@
 .copyText {
   text-decoration: none;
   padding: 5px 3px;
+  cursor: pointer;
+  color: #8FA5DA;
 }
 
 .copyText:hover {
-  color: white;
+  color: #ACC5FF;
+}
+
+.copySuccessText {
+  color: #8FA5DA;
 }
 
 .accountCardButtonsCont {

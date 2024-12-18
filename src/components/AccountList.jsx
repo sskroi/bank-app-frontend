@@ -44,6 +44,7 @@ const AccountList = observer(({ updateAccountList }) => {
       ) : (
         accounts.accounts
           .filter((x) => !x.isClose)
+          .sort((x, y) => x.number.localeCompare(y.number))
           .map((x) => (
             <AccountCard
               onCloseAccount={setClosingAcc}
@@ -85,12 +86,12 @@ const AccountCard = ({
           <b style={{ whiteSpace: "nowrap" }}>{number}</b>
         </Col>
         <Col xs="auto">
-          <a className={styles.copyText} style={{ cursor: "pointer" }} onClick={handleCopyClick}>
+          <a className={styles.copyText} onClick={handleCopyClick}>
             скопировать
           </a>
         </Col>
       </Row>
-      {copySuccess && <p>{copySuccess}</p>}
+      {copySuccess && <p className={styles.copySuccessText}>{copySuccess}</p>}
       <div>
         <b>{balance}</b> {currency.toUpperCase()}
       </div>
@@ -110,7 +111,7 @@ const AccountCard = ({
             style={{ minWidth: "120px" }}
             onClick={() => alert("Not implemented")}
           >
-            Пополнить
+            История
           </Button1>
         </Col>
         <Col xs="auto">
@@ -157,7 +158,7 @@ const TransferMenu = ({ transferAcc, setTransferAcc, updateAccountList }) => {
     /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
   const accNumberValidator = Yup.object().shape({
     accNum: Yup.string()
-      .matches(uuidRegex, "Поле должно быть валидным номермом счёта")
+      .matches(uuidRegex, "Поле должно быть валидным номером счёта")
       .required("Поле обязательно для заполнения"),
   });
   const handleDstAccNumInput = (e) => {
