@@ -22,13 +22,11 @@ export default function ModalWindow1({ isActive = true, onClose, children }) {
   return (
     <div
       className={styles.modal + " " + (isActive ? styles.active : "")}
-      onClick={(e) => {
-        if (!e.target.closest(`.${styles.modalContent}`)) {
-          onClose();
-        }
-      }}
+      onClick={() => onClose()}
     >
-      <div className={styles.modalContent}>{children}</div>
+      <div className={styles.modalContent} onClick={(e) => e.stopPropagation()}>
+        {children}
+      </div>
     </div>
   );
 }
@@ -36,5 +34,5 @@ export default function ModalWindow1({ isActive = true, onClose, children }) {
 ModalWindow1.propTypes = {
   isActive: PropTypes.bool,
   onClose: PropTypes.func,
-  children: PropTypes.object,
+  children: PropTypes.element,
 };

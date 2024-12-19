@@ -40,7 +40,7 @@ const Accounts = () => {
 const OpenAccBtnAndMenu = ({ updateAccountList }) => {
   const [openAccActive, setOpenAccActive] = useState(false);
 
-  const [infoMsg, setInfoMsg] = useState({ type: "error", msg: "" });
+  const [infoMsg, setInfoMsg] = useState({ header: "error", msg: "" });
 
   const [newAccCurrency, setNewAccCurrency] = useState("Выберите валюту");
   const [openAccBtnDisabled, setOpenAccBtnDisabled] = useState(true);
@@ -62,7 +62,7 @@ const OpenAccBtnAndMenu = ({ updateAccountList }) => {
       setOpenAccActive(false);
       updateAccountList();
       setInfoMsg({
-        type: "info",
+        header: "Счёт создан",
         msg: (
           <>
             <p>Счёт успешно создан. Номер счёта:</p>
@@ -74,12 +74,12 @@ const OpenAccBtnAndMenu = ({ updateAccountList }) => {
       setOpenAccActive(false);
       if (e.response?.data?.message) {
         setInfoMsg({
-          type: "error",
+          header: "Ошибка",
           msg: e.response.data.message,
         });
       } else {
         setInfoMsg({
-          type: "error",
+          header: "Ошибка",
           msg: e.message,
         });
       }
@@ -96,23 +96,24 @@ const OpenAccBtnAndMenu = ({ updateAccountList }) => {
       </Button1>
 
       <BSModal
-        active={infoMsg.msg}
+        active={!!infoMsg.msg}
         onClose={() => setInfoMsg({ msg: "" })}
-        footer={
-          <Button1 style={{minWidth: "150px"}} onClick={() => setInfoMsg({ msg: "" })}>Закрыть</Button1>
-        }
-        header={infoMsg.type === "error" && "Ошибка"}
+        header={infoMsg.header}
       >
         <div className={styles.createAccountInfoWindow}>{infoMsg.msg}</div>
       </BSModal>
 
       <BSModal
-        active={openAccActive}
+        active={!!openAccActive}
         onClose={() => setOpenAccActive(false)}
-        header={<Modal.Title>Открытие счёта</Modal.Title>}
+        header="Открытие счёта"
         size="sm"
         footer={
-          <Button1 disabled={openAccBtnDisabled} onClick={openAccount}>
+          <Button1
+            style={{ minWidth: "150px" }}
+            disabled={openAccBtnDisabled}
+            onClick={openAccount}
+          >
             Открыть
           </Button1>
         }

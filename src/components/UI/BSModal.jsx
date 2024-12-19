@@ -10,6 +10,7 @@ export default function BSModal({
   children,
   footer,
   size,
+  ...props
 }) {
   return (
     <Modal
@@ -18,6 +19,7 @@ export default function BSModal({
       contentClassName={styles.modalContent}
       size={size}
       dialogClassName={styles.customModal}
+      {...props}
     >
       {header && (
         <Modal.Header className={styles.modalHeader}>
@@ -42,8 +44,13 @@ export default function BSModal({
 }
 
 BSModal.propTypes = {
-  header: PropTypes.element,
+  header: PropTypes.string,
+  footer: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.element),
+    PropTypes.element,
+  ]),
   active: PropTypes.bool,
   onClose: PropTypes.func,
+  size: PropTypes.string,
   children: PropTypes.element,
 };

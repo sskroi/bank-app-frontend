@@ -8,7 +8,7 @@ import Button1 from "./UI/buttons/Button1.jsx";
 import Input1 from "./UI/inputs/Input1.jsx";
 import { Col, Row, Spinner } from "react-bootstrap";
 import * as Yup from "yup";
-import ModalWindow1 from "./UI/ModalWindow1.jsx";
+import BSModal from "./UI/BSModal.jsx";
 
 const AccountList = observer(({ updateAccountList }) => {
   const { accounts } = useContext(Context);
@@ -18,25 +18,23 @@ const AccountList = observer(({ updateAccountList }) => {
 
   const [closingAcc, setClosingAcc] = useState(null);
   const [transferAcc, setTransferAcc] = useState(null);
+  const [transferActive, setTransferActive] = useState(false);
 
   return (
     <div className={styles.accountList}>
-      {closingAcc && (
-        <ModalWindow1 onClose={() => setClosingAcc(null)}>
-          <CloseAccountMenu
-            {...{ closingAcc, setClosingAcc, updateAccountList }}
-          />
-        </ModalWindow1>
-      )}
+      <CloseAccountMenu {...{ closingAcc, setClosingAcc, updateAccountList }} />
 
       {transferAcc && (
-        <ModalWindow1 onClose={() => setTransferAcc(null)}>
-          <TransferMenu
-            {...{ transferAcc, setTransferAcc, updateAccountList }}
-          />
-        </ModalWindow1>
+        <TransferMenu
+          key={transferAcc.number}
+          {...{
+            transferAcc,
+            updateAccountList,
+            active: transferActive,
+            setActive: setTransferActive,
+          }}
+        />
       )}
-
       {loading ? (
         <Spinner />
       ) : accounts.accounts.length === 0 ? (
@@ -48,7 +46,10 @@ const AccountList = observer(({ updateAccountList }) => {
           .map((x) => (
             <AccountCard
               onCloseAccount={setClosingAcc}
-              onTransfer={setTransferAcc}
+              onTransfer={(acc) => {
+                setTransferAcc(acc);
+                setTransferActive(true);
+              }}
               key={x.number}
               account={x}
             />
@@ -132,19 +133,25 @@ AccountCard.propTypes = {
   onTransfer: PropTypes.func,
 };
 
-const TransferMenu = ({ transferAcc, setTransferAcc, updateAccountList }) => {
+const TransferMenu = ({
+  transferAcc,
+  active,
+  setActive,
+  updateAccountList,
+}) => {
   const [amount, setAmount] = useState(0);
   const [amountOk, setAmountOk] = useState(false);
   const [dstAccNum, setDstAccNum] = useState("");
   const [dstAccNumOk, setDstAccNumOk] = useState(false);
 
-  const [infoMsg, setInfoMsg] = useState("");
-  const [successTransfer, setSuccessTransfer] = useState(false);
+  const [errMsg, setErrMsg] = useState("");
+  const [successTransferMsg, setSuccessTransferMsg] = useState(null);
 
   const onTransfer = async () => {
     try {
       const r = await transfer(transferAcc.number, dstAccNum, amount);
-      setInfoMsg(
+      setActive(false);
+      setSuccessTransferMsg(
         <>
           <p>
             Переведено: {r.sent} {transferAcc.currency.toUpperCase()}
@@ -159,8 +166,7 @@ const TransferMenu = ({ transferAcc, setTransferAcc, updateAccountList }) => {
           </div>
         </>,
       );
-      setSuccessTransfer(true);
-
+      setErrMsg("");
       updateAccountList();
     } catch (e) {
       let msg;
@@ -172,12 +178,7 @@ const TransferMenu = ({ transferAcc, setTransferAcc, updateAccountList }) => {
         msg = e.message;
       }
 
-      setInfoMsg(
-        <>
-          <h3>Ошибка</h3>
-          <p>{msg}</p>
-        </>,
-      );
+      setErrMsg(msg);
     }
   };
 
@@ -257,58 +258,67 @@ const TransferMenu = ({ transferAcc, setTransferAcc, updateAccountList }) => {
       });
   };
 
-  const onInfoWindowClose = () => {
-    if (successTransfer) {
-      console.log("setTransferAcc will be call");
-      setTransferAcc(null);
-    } else {
-      console.log("setInfoMsg will be call");
-      setInfoMsg("");
-    }
-  };
-
   return (
-    <div className={styles.transferWindow}>
-      {infoMsg && (
-        <ModalWindow1 styles={{ zIndex: 100 }} onClose={onInfoWindowClose}>
-          <div className="d-flex flex-column gap-2">
-            {infoMsg}
-            <Button1 onClick={onInfoWindowClose}>Закрыть</Button1>
-          </div>
-        </ModalWindow1>
-      )}
-      <h5>Перевод средств</h5>
-      <div>
-        <label>Со счёта:</label>
-        <br />
-        <b>{transferAcc.number}</b>
-        <br />
-        <b>
-          {transferAcc.balance} {transferAcc.currency.toUpperCase()}
-        </b>
-      </div>
-      <div className={styles.transferDestAccInputCont}>
-        <p>Введите счёт получателя:</p>
-        <Input1
-          value={dstAccNum}
-          onInput={handleDstAccNumInput}
-          placeholder="f47971af-0487-4fae-898d-fb9108da4dff"
-        />
-        {dstAccErr && <p className={styles.errInfo}>{dstAccErr}</p>}
+    <>
+      <BSModal
+        active={!!successTransferMsg}
+        header="Успешный перевод"
+        onClose={() => setSuccessTransferMsg(null)}
+      >
+        <div className="d-flex flex-column gap-2">{successTransferMsg}</div>
+      </BSModal>
 
-        <p>Сумма перевода:</p>
-        <Input1 value={amount} onInput={handleAmountInput} placeholder="0" />
-        {amountErr && <p className={styles.errInfo}>{amountErr}</p>}
-      </div>
-      <Button1 onClick={onTransfer} disabled={!amountOk || !dstAccNumOk}>
-        Перевести
-      </Button1>
-    </div>
+      <BSModal
+        active={active}
+        onClose={() => setActive(false)}
+        header="Перевод средств"
+        footer={
+          <Button1
+            style={{ minWidth: "200px" }}
+            onClick={onTransfer}
+            disabled={!amountOk || !dstAccNumOk}
+          >
+            Перевести
+          </Button1>
+        }
+      >
+        <div className={styles.transferWindow}>
+          <div>
+            <label>Со счёта:</label>
+            <br />
+            <b>{transferAcc.number}</b>
+            <br />
+            <b>
+              {transferAcc.balance} {transferAcc.currency.toUpperCase()}
+            </b>
+          </div>
+          <div className={styles.transferDestAccInputCont}>
+            <p>Введите счёт получателя:</p>
+            <Input1
+              value={dstAccNum}
+              onInput={handleDstAccNumInput}
+              placeholder="f47971af-0487-4fae-898d-fb9108da4dff"
+            />
+            {dstAccErr && <p className={styles.errInfo}>{dstAccErr}</p>}
+
+            <p>Сумма перевода:</p>
+            <Input1
+              value={amount}
+              onInput={handleAmountInput}
+              placeholder="0"
+            />
+            {amountErr && <p className={styles.errInfo}>{amountErr}</p>}
+          </div>
+          {errMsg && <p className={styles.errInfo}>{errMsg}</p>}
+        </div>
+      </BSModal>
+    </>
   );
 };
 TransferMenu.propTypes = {
   transferAcc: PropTypes.object,
-  setTransferAcc: PropTypes.func,
+  active: PropTypes.bool,
+  setActive: PropTypes.func,
   updateAccountList: PropTypes.func,
 };
 
@@ -329,19 +339,32 @@ const CloseAccountMenu = ({ closingAcc, setClosingAcc, updateAccountList }) => {
   };
 
   return (
-    <div className={styles.closeAccountWindow}>
-      <h5>Закрытие счёта</h5>
-      <p>Вы собираетесь закрыть счёт с номером:</p>
-      <b>{closingAcc.number}</b>
-      {closingAcc.balance > 0 && (
-        <p className={styles.errInfo}>
-          Вы не можете закрыть счёт т.к. на нём есть средства
-        </p>
+    <BSModal
+      active={!!closingAcc}
+      onClose={() => setClosingAcc(null)}
+      header="Закрытие счёта"
+      footer={
+        <Button1
+          style={{ minWidth: "150px" }}
+          onClick={closeAcc}
+          disabled={!closingAcc || closingAcc.balance !== "0"}
+        >
+          Закрыть счёт
+        </Button1>
+      }
+    >
+      {closingAcc && (
+        <div className={styles.closeAccountWindow}>
+          <p>Вы собираетесь закрыть счёт с номером:</p>
+          <b>{closingAcc.number}</b>
+          {closingAcc.balance > 0 && (
+            <p className={styles.errInfo}>
+              Вы не можете закрыть счёт т.к. на нём есть средства
+            </p>
+          )}
+        </div>
       )}
-      <Button1 onClick={closeAcc} disabled={closingAcc.balance !== "0"}>
-        Закрыть счёт
-      </Button1>
-    </div>
+    </BSModal>
   );
 };
 CloseAccountMenu.propTypes = {
