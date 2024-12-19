@@ -16,12 +16,15 @@ const TransferList = ({ transfers, style }) => {
 const TransferCard = ({ transfer }) => {
   let amount;
   let amountColor;
-  if (transfer.isIncoming) {
+  if (transfer.direction === "1") {
     amount = `+${transfer.received} ${transfer.receivedCurrency.toUpperCase()}`;
     amountColor = "#5EB56A";
-  } else {
+  } else if (transfer.direction === "-1") {
     amount = `-${transfer.sent} ${transfer.sentCurrency.toUpperCase()}`;
     amountColor = "#C05959";
+  } else {
+    amount = `${transfer.sent} ${transfer.sentCurrency.toUpperCase()}`;
+    amountColor = null;
   }
 
   return (
@@ -29,7 +32,11 @@ const TransferCard = ({ transfer }) => {
       <Accordion.Header>
         <Row className="d-flex justify-content-between w-100">
           <Col xs="auto">{transfer.timestamp}</Col>
-          <Col xs="auto" className="me-2" style={{ color: amountColor }}>
+          <Col
+            xs="auto"
+            className="me-2"
+            style={amountColor && { color: amountColor }}
+          >
             {amount}
           </Col>
         </Row>
@@ -45,7 +52,7 @@ const TransferCard = ({ transfer }) => {
           <Col>
             <p>Сумма:</p>
             <b>
-              {transfer.isIncoming
+              {transfer.direction === 1
                 ? `${transfer.received} ${transfer.receivedCurrency}`
                 : `${transfer.sent} ${transfer.sentCurrency}`}
             </b>
@@ -87,7 +94,7 @@ const transfer = PropTypes.shape({
   sentCurrency: PropTypes.string,
   receivedCurrency: PropTypes.string,
   isConversion: PropTypes.bool,
-  isIncoming: PropTypes.bool,
+  direction: PropTypes.number,
   conversionRate: PropTypes.string,
   timestamp: PropTypes.string,
 });
