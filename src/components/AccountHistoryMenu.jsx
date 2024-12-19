@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
-import styles from "./AccountHistory.module.scss";
 import { getAccountTransfers } from "../http/transferAPI";
 import BSModal from "./UI/BSModal";
 import TransferList from "./TransferList";
+import { Spinner } from "react-bootstrap";
 
 const AccountHistoryMenu = ({ account, setAccount }) => {
   const [history, setHistory] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   const fetchHistory = () => {
     if (!account) {
@@ -16,9 +17,10 @@ const AccountHistoryMenu = ({ account, setAccount }) => {
       .then((data) => {
         setHistory(data);
       })
-      .catch(() => {
+      .catch((e) => {
         console.log(e);
-      });
+      })
+      .finally(() => setLoading(false));
   };
 
   useEffect(fetchHistory, [account]);
@@ -28,8 +30,17 @@ const AccountHistoryMenu = ({ account, setAccount }) => {
       active={!!account}
       onClose={() => setAccount(null)}
       header="История переводов"
+      scrollable
     >
-      <TransferList transfers={history} />
+      <div className="d-flex flex-column">
+        {loading ? (
+          <Spinner style={{ margin: "0 auto" }} />
+        ) : history.length === 0 ? (
+          <h3>Нет транзакций</h3>
+        ) : (
+          <TransferList transfers={history} />
+        )}
+      </div>
     </BSModal>
   );
 };

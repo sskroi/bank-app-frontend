@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./TransferList.module.scss";
-import { Accordion, Col, Container, Row } from "react-bootstrap";
+import { Accordion, Col, Row } from "react-bootstrap";
 import PropTypes from "prop-types";
 
 const TransferList = ({ transfers }) => {
@@ -18,10 +18,10 @@ const TransferCard = ({ transfer }) => {
   let amountColor;
   if (transfer.isIncoming) {
     amount = `+${transfer.received} ${transfer.receivedCurrency}`;
-    amountColor = "#5EB56A"
+    amountColor = "#5EB56A";
   } else {
     amount = `-${transfer.sent} ${transfer.sentCurrency}`;
-    amountColor = "#C05959"
+    amountColor = "#C05959";
   }
 
   return (
@@ -29,23 +29,50 @@ const TransferCard = ({ transfer }) => {
       <Accordion.Header>
         <Row className="d-flex justify-content-between w-100">
           <Col xs="auto">{transfer.timestamp}</Col>
-          <Col xs="auto" className="me-2" style={{color: amountColor}}>{amount}</Col>
+          <Col xs="auto" className="me-2" style={{ color: amountColor }}>
+            {amount}
+          </Col>
         </Row>
       </Accordion.Header>
       <Accordion.Body>
-        <Container className={styles.transferCard}>
+        <Row>
+          <Col>
+            <p>Номер транзакции:</p>
+            <b>{transfer.publicId}</b>
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+            <p>Сумма:</p>
+            <b>
+              {transfer.isIncoming
+                ? `${transfer.received} ${transfer.receivedCurrency}`
+                : `${transfer.sent} ${transfer.sentCurrency}`}
+            </b>
+          </Col>
           <Row>
             <Col>
-              <h6>{transfer.publicId}</h6>
+              <p>Дата:</p>
+              <b>{transfer.timestamp}</b>
             </Col>
           </Row>
-          <Row>
-            <Col>{transfer.senderAccountNumber}</Col>
-          </Row>
-          <Row>
-            <Col>{transfer.receiverAccountNumber}</Col>
-          </Row>
-        </Container>
+        </Row>
+        <Row>
+          <Col>
+            <p>Счёт получателя:</p>
+            <b>{transfer.receiverAccountNumber}</b>
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+            <p>Счёт отправителя:</p>
+            <b>
+              {transfer.senderAccountNumber === null
+                ? "Неизвестен"
+                : transfer.senderAccountNumber}
+            </b>
+          </Col>
+        </Row>
       </Accordion.Body>
     </Accordion.Item>
   );
