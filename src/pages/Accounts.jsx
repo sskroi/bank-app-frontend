@@ -42,17 +42,15 @@ const OpenAccBtnAndMenu = ({ updateAccountList }) => {
 
   const [infoMsg, setInfoMsg] = useState({ header: "error", msg: "" });
 
-  const [newAccCurrency, setNewAccCurrency] = useState("Выберите валюту");
+  const defaultCurrencyValue = "Выберите валюту";
+  const [newAccCurrency, setNewAccCurrency] = useState(defaultCurrencyValue);
   const [openAccBtnDisabled, setOpenAccBtnDisabled] = useState(true);
   const [openAccInfo, setOpenAccInfo] = useState("");
   const changeCurrency = (e) => {
     setNewAccCurrency(e);
-    if (e === "RUB") {
+    if (e !== defaultCurrencyValue) {
       setOpenAccBtnDisabled(false);
       setOpenAccInfo("");
-    } else {
-      setOpenAccBtnDisabled(true);
-      setOpenAccInfo(`В данный момент создание счёта в валюте ${e} недоступно`);
     }
   };
 

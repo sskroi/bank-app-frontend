@@ -23,7 +23,11 @@ const TransferCard = ({ transfer }) => {
     amount = `-${transfer.sent} ${transfer.sentCurrency.toUpperCase()}`;
     amountColor = "#C05959";
   } else {
-    amount = `${transfer.sent} ${transfer.sentCurrency.toUpperCase()}`;
+    if (transfer.isConversion) {
+      amount = `${transfer.sent} ${transfer.sentCurrency.toUpperCase()} -> ${transfer.received} ${transfer.receivedCurrency.toUpperCase()}`;
+    } else {
+      amount = `${transfer.sent} ${transfer.sentCurrency.toUpperCase()}`;
+    }
     amountColor = null;
   }
 
@@ -51,11 +55,7 @@ const TransferCard = ({ transfer }) => {
         <Row>
           <Col>
             <p>Сумма:</p>
-            <b>
-              {transfer.direction === 1
-                ? `${transfer.received} ${transfer.receivedCurrency}`
-                : `${transfer.sent} ${transfer.sentCurrency}`}
-            </b>
+            <b>{amount}</b>
           </Col>
           <Row>
             <Col>
