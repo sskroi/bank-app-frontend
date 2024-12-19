@@ -16,10 +16,10 @@ const TransferList = ({ transfers, style }) => {
 const TransferCard = ({ transfer }) => {
   let amount;
   let amountColor;
-  if (transfer.direction === "1") {
+  if (transfer.direction === 1) {
     amount = `+${transfer.received} ${transfer.receivedCurrency.toUpperCase()}`;
     amountColor = "#5EB56A";
-  } else if (transfer.direction === "-1") {
+  } else if (transfer.direction === -1) {
     amount = `-${transfer.sent} ${transfer.sentCurrency.toUpperCase()}`;
     amountColor = "#C05959";
   } else {
