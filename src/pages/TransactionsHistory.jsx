@@ -27,7 +27,7 @@ const TransactionsHistory = () => {
       {loading ? (
         <Spinner />
       ) : transfs.length === 0 ? (
-        <h2>У вас нет транзакций</h2>
+        <h3 style={{ color: "var(--primary-text-color)" }}>У вас нет транзакций</h3>
       ) : (
         <TransferList
           style={{ width: "100%", maxWidth: "500px" }}
