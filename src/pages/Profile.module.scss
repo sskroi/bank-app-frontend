@@ -1,0 +1,30 @@
+.profileForm input {
+  background-color: var(--input1-bg-color);
+  color: var(--input1-color);
+  border: none;
+  border-radius: 0;
+}
+
+.profileForm input:disabled {
+  background-color: var(--input1-bg-color);
+  color: var(--input1-color);
+  border: none;
+  border-radius: 0;
+}
+
+.profileForm input::placeholder {
+  color: #6E6E6E;
+}
+
+.profileForm input:focus {
+  color: var(--input1-color);
+  background-color: var(--input1-hover-bg-color);
+  box-shadow: none;
+}
+
+.profileForm input:hover {
+  color: var(--input1-color);
+  // border: none;
+  // outline: none;
+  background-color: var(--input1-hover-bg-color);
+}
