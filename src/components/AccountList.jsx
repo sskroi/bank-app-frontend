@@ -87,7 +87,11 @@ const AccountCard = ({
           <b style={{ whiteSpace: "nowrap" }}>{number}</b>
         </Col>
         <Col xs="auto">
-          <a className={styles.copyText} onClick={handleCopyClick}>
+          <a
+            style={{ padding: 0 }}
+            className={styles.copyText}
+            onClick={handleCopyClick}
+          >
             скопировать
           </a>
         </Col>
