@@ -17,10 +17,10 @@ const TransferCard = ({ transfer }) => {
   let amount;
   let amountColor;
   if (transfer.isIncoming) {
-    amount = `+${transfer.received} ${transfer.receivedCurrency}`;
+    amount = `+${transfer.received} ${transfer.receivedCurrency.toUpperCase()}`;
     amountColor = "#5EB56A";
   } else {
-    amount = `-${transfer.sent} ${transfer.sentCurrency}`;
+    amount = `-${transfer.sent} ${transfer.sentCurrency.toUpperCase()}`;
     amountColor = "#C05959";
   }
 

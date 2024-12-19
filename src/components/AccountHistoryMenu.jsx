@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
-import { getAccountTransfers } from "../http/transferAPI";
+import { getTransfers } from "../http/transferAPI";
 import BSModal from "./UI/BSModal";
 import TransferList from "./TransferList";
 import { Spinner } from "react-bootstrap";
@@ -13,7 +13,7 @@ const AccountHistoryMenu = ({ account, setAccount }) => {
     if (!account) {
       return () => {};
     }
-    getAccountTransfers(account.number)
+    getTransfers(account.number)
       .then((data) => {
         setHistory(data);
       })
