@@ -4,9 +4,9 @@ import { Context } from "../index.js";
 import { observer } from "mobx-react-lite";
 import PropTypes from "prop-types";
 import { Spinner } from "react-bootstrap";
-import { AccountCard } from "./AccountCard.jsx";
-import { TransferMenu } from "./TransferMenu.jsx";
-import { CloseAccountMenu } from "./CloseAccountMenu.jsx";
+import AccountCard from "./AccountCard.jsx";
+import TransferMenu from "./TransferMenu.jsx";
+import CloseAccountMenu from "./CloseAccountMenu.jsx";
 
 const AccountList = observer(({ updateAccountList }) => {
   const { accounts } = useContext(Context);
