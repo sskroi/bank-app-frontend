@@ -3,9 +3,9 @@ import styles from "./TransferList.module.scss";
 import { Accordion, Col, Row } from "react-bootstrap";
 import PropTypes from "prop-types";
 
-const TransferList = ({ transfers }) => {
+const TransferList = ({ transfers, style }) => {
   return (
-    <Accordion className={styles.transfersList}>
+    <Accordion style={style} className={styles.transfersList}>
       {transfers.map((x) => (
         <TransferCard key={x.publicId} transfer={x} />
       ))}
@@ -98,6 +98,7 @@ TransferCard.propTypes = {
 
 TransferList.propTypes = {
   transfers: PropTypes.arrayOf(transfer),
+  style: PropTypes.object,
 };
 
 export default TransferList;
