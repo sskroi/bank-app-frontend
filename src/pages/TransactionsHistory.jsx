@@ -5,7 +5,7 @@ import { getTransfers } from "../http/transferAPI";
 
 const TransactionsHistory = () => {
   const [transfs, setTransfs] = useState([]);
-  const [loading, setLoading] = useState();
+  const [loading, setLoading] = useState(true);
 
   const fetchTransfers = () => {
     getTransfers()
@@ -27,7 +27,9 @@ const TransactionsHistory = () => {
       {loading ? (
         <Spinner />
       ) : transfs.length === 0 ? (
-        <h3 style={{ color: "var(--primary-text-color)" }}>У вас нет транзакций</h3>
+        <h3 style={{ color: "var(--primary-text-color)" }}>
+          У вас нет транзакций
+        </h3>
       ) : (
         <TransferList
           style={{ width: "100%", maxWidth: "500px" }}
