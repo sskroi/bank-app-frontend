@@ -1,0 +1,39 @@
+.accountCard {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 8px 20px;
+  border-radius: 5px;
+  color: var(--primary-text-color);
+  background-color: var(--primary-card-bg-color);
+  border: solid 1px #303030;
+}
+
+.numberCont {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  text-align: center;
+}
+
+.copyText {
+  text-decoration: none;
+  padding: 5px 3px;
+  cursor: pointer;
+  color: #8FA5DA;
+}
+
+.copyText:hover {
+  color: #ACC5FF;
+}
+
+.copySuccessText {
+  color: #8FA5DA;
+}
+
+.accountCardButtonsCont {
+  display: flex;
+  gap: 30px;
+}
+
+

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import styles from "./BSModal.module.scss";
 import PropTypes from "prop-types";
 import { CloseButton, Modal } from "react-bootstrap";

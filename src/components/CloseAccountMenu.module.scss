@@ -1,0 +1,9 @@
+.closeAccountWindow {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.errInfo {
+  color: var(--error-color);
+}
