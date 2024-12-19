@@ -7,6 +7,7 @@ import { Spinner } from "react-bootstrap";
 import AccountCard from "./AccountCard.jsx";
 import TransferMenu from "./TransferMenu.jsx";
 import CloseAccountMenu from "./CloseAccountMenu.jsx";
+import AccountHistoryMenu from "./AccountHistoryMenu.jsx";
 
 const AccountList = observer(({ updateAccountList }) => {
   const { accounts } = useContext(Context);
@@ -17,6 +18,8 @@ const AccountList = observer(({ updateAccountList }) => {
   const [closingAcc, setClosingAcc] = useState(null);
   const [transferAcc, setTransferAcc] = useState(null);
   const [transferActive, setTransferActive] = useState(false);
+
+  const [historyAccount, setHistoryAccount] = useState(null);
 
   return (
     <div className={styles.accountList}>
@@ -33,6 +36,14 @@ const AccountList = observer(({ updateAccountList }) => {
           }}
         />
       )}
+
+      {
+        <AccountHistoryMenu
+          account={historyAccount}
+          setAccount={setHistoryAccount}
+        />
+      }
+
       {loading ? (
         <Spinner />
       ) : accounts.accounts.length === 0 ? (
@@ -48,6 +59,7 @@ const AccountList = observer(({ updateAccountList }) => {
                 setTransferAcc(acc);
                 setTransferActive(true);
               }}
+              onHistory={setHistoryAccount}
               key={x.number}
               account={x}
             />

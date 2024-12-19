@@ -9,6 +9,7 @@ const AccountCard = ({
   account: { number, balance, currency },
   onCloseAccount,
   onTransfer,
+  onHistory,
 }) => {
   const [copySuccess, setCopySuccess] = useState("");
 
@@ -56,7 +57,7 @@ const AccountCard = ({
         <Col xs="auto">
           <Button1
             style={{ minWidth: "120px" }}
-            onClick={() => alert("Not implemented")}
+            onClick={() => onHistory(account)}
           >
             История
           </Button1>
@@ -77,6 +78,7 @@ AccountCard.propTypes = {
   account: PropTypes.object,
   onCloseAccount: PropTypes.func,
   onTransfer: PropTypes.func,
+  onHistory: PropTypes.func,
 };
 
 export default AccountCard;
