@@ -2,8 +2,13 @@ import React, { useContext } from "react";
 import styles from "./Header.module.scss";
 import { observer } from "mobx-react-lite";
 import { Context } from "../../index.js";
-import { useNavigate } from "react-router-dom";
-import { ACCOUNTS_ROUTE, SIGN_IN_ROUTE } from "../../utils/consts.js";
+import { useLocation, useNavigate } from "react-router-dom";
+import {
+  ACCOUNTS_ROUTE,
+  HISTORY_ROUTE,
+  PROFILE_ROUTE,
+  SIGN_IN_ROUTE,
+} from "../../utils/consts.js";
 
 const Header = observer(() => {
   const { user } = useContext(Context);
@@ -50,27 +55,33 @@ function Logo() {
 
 function NavigateMenu() {
   const navigate = useNavigate();
+  const location = useLocation();
+  const btns = [
+    {
+      text: "СЧЕТА",
+      path: ACCOUNTS_ROUTE,
+    },
+    {
+      text: "ИСТОРИЯ",
+      path: HISTORY_ROUTE,
+    },
+    {
+      text: "ПРОФИЛЬ",
+      path: PROFILE_ROUTE,
+    },
+  ];
 
   return (
     <nav className={styles.navMenuCont}>
-      <button
-        className={styles.navBtn}
-        onClick={() => navigate(ACCOUNTS_ROUTE)}
-      >
-        СЧЕТА
-      </button>
-      <button
-        className={styles.navBtn}
-        onClick={() => alert("not implemented")}
-      >
-        ПЕРЕВОДЫ
-      </button>
-      <button
-        className={styles.navBtn}
-        onClick={() => alert("not implemented")}
-      >
-        ПРОФИЛЬ
-      </button>
+      {btns.map((x) => (
+        <button
+          key={x.text}
+          className={`${styles.navBtn} ${location.pathname === x.path ? styles.activeBtn : ""}`}
+          onClick={() => navigate(x.path)}
+        >
+          {x.text}
+        </button>
+      ))}
     </nav>
   );
 }

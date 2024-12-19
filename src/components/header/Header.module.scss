@@ -62,6 +62,11 @@ header {
   left: 0;
 }
 
+.activeBtn::after {
+  width: 100%;
+  left: 0;
+}
+
 .logo {
   a {
     color: var(--header-button-color);
