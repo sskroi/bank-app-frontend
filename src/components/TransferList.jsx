@@ -17,6 +17,7 @@ const TransferList = ({ transfers, style }) => {
 
 function formatDate(isoString) {
   const date = new Date(isoString);
+  date.setHours(date.getHours() - 3);
 
   const options = {
     year: "numeric",
