@@ -13,6 +13,7 @@ const AccountHistoryMenu = ({ account, setAccount }) => {
     if (!account) {
       return () => {};
     }
+    setLoading(true);
     getTransfers(account.number)
       .then((data) => {
         setHistory(data);
