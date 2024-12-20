@@ -1,13 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from "./CloseAccountMenu.module.scss";
 import { closeAccount } from "../http/accountsAPI";
 import PropTypes from "prop-types";
 import Button1 from "./UI/buttons/Button1.jsx";
 import BSModal from "./UI/BSModal.jsx";
+import { Spinner } from "react-bootstrap";
 
 const CloseAccountMenu = ({ closingAcc, setClosingAcc, updateAccountList }) => {
+  const [loading, setLoading] = useState(false);
+
   const closeAcc = async () => {
     try {
+      setLoading(true);
       await closeAccount(closingAcc.number);
       updateAccountList();
     } catch (e) {
@@ -17,6 +21,7 @@ const CloseAccountMenu = ({ closingAcc, setClosingAcc, updateAccountList }) => {
         alert(e.message);
       }
     } finally {
+      setLoading(false);
       setClosingAcc(null);
     }
   };
@@ -45,6 +50,7 @@ const CloseAccountMenu = ({ closingAcc, setClosingAcc, updateAccountList }) => {
               Вы не можете закрыть счёт т.к. на нём есть средства
             </p>
           )}
+          {loading && <Spinner style={{ margin: "0 auto" }} />}
         </div>
       )}
     </BSModal>
