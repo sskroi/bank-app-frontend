@@ -25,7 +25,7 @@ function formatDate(isoString) {
     hour: "2-digit",
     minute: "2-digit",
     second: "2-digit",
-    timeZoneName: "short",
+    //timeZoneName: "short",
   };
 
   return date.toLocaleString("ru-RU", options);
