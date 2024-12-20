@@ -6,6 +6,7 @@ import Button1 from "./UI/buttons/Button1.jsx";
 import Input1 from "./UI/inputs/Input1.jsx";
 import * as Yup from "yup";
 import BSModal from "./UI/BSModal.jsx";
+import { Spinner } from "react-bootstrap";
 
 const TransferMenu = ({
   transferAcc,
@@ -21,8 +22,10 @@ const TransferMenu = ({
   const [errMsg, setErrMsg] = useState("");
   const [successTransferMsg, setSuccessTransferMsg] = useState(null);
 
+  const [loading, setLoading] = useState(false);
   const onTransfer = async () => {
     try {
+      setLoading(true);
       const r = await transfer(transferAcc.number, dstAccNum, amount);
       setActive(false);
       setSuccessTransferMsg(
@@ -53,6 +56,8 @@ const TransferMenu = ({
       }
 
       setErrMsg(msg);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -184,6 +189,7 @@ const TransferMenu = ({
             {amountErr && <p className={styles.errInfo}>{amountErr}</p>}
           </div>
           {errMsg && <p className={styles.errInfo}>{errMsg}</p>}
+          {loading && <Spinner style={{ margin: "0 auto" }} />}
         </div>
       </BSModal>
     </>

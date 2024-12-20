@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import Button1 from "../components/UI/buttons/Button1";
 import styles from "./Accounts.module.scss";
-import { Dropdown } from "react-bootstrap";
+import { Dropdown, Spinner } from "react-bootstrap";
 import { createAccount, getAccounts } from "../http/accountsAPI";
 import AccountList from "../components/AccountList";
 import { Context } from "../index.js";
@@ -54,7 +54,9 @@ const OpenAccBtnAndMenu = ({ updateAccountList }) => {
     }
   };
 
+  const [loading, setLoading] = useState(false);
   const openAccount = async () => {
+    setLoading(true);
     try {
       const newAccNum = await createAccount(newAccCurrency.toLowerCase());
       setOpenAccActive(false);
@@ -81,6 +83,8 @@ const OpenAccBtnAndMenu = ({ updateAccountList }) => {
           msg: e.message,
         });
       }
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -130,6 +134,7 @@ const OpenAccBtnAndMenu = ({ updateAccountList }) => {
           {openAccInfo !== "" && (
             <label style={{ color: "#B73D3D" }}>{openAccInfo}</label>
           )}
+          {loading && <Spinner style={{ margin: "0 auto" }} />}
         </div>
       </BSModal>
     </div>
