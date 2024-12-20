@@ -32,7 +32,7 @@ const TransactionsHistory = () => {
         </h3>
       ) : (
         <TransferList
-          style={{ width: "100%", maxWidth: "500px" }}
+          style={{ width: "100%", maxWidth: "600px" }}
           transfers={transfs}
         />
       )}
