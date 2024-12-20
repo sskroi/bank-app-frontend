@@ -13,18 +13,31 @@ const TransferList = ({ transfers, style }) => {
   );
 };
 
-const TransferCard = ({ transfer }) => {
+const TransferCard = ({ transfer, account = null }) => {
+  const minusColor = "#C05959";
+  const plusColor = "#5EB56A";
+
   let amount;
   let amountColor;
   if (transfer.direction === 1) {
     amount = `+${transfer.received} ${transfer.receivedCurrency.toUpperCase()}`;
-    amountColor = "#5EB56A";
+    amountColor = plusColor;
   } else if (transfer.direction === -1) {
     amount = `-${transfer.sent} ${transfer.sentCurrency.toUpperCase()}`;
-    amountColor = "#C05959";
+    amountColor = minusColor;
   } else {
     if (transfer.isConversion) {
-      amount = `${transfer.sent} ${transfer.sentCurrency.toUpperCase()} -> ${transfer.received} ${transfer.receivedCurrency.toUpperCase()}`;
+      amount = (
+        <>
+          <span
+            style={{ color: minusColor }}
+          >{`-${transfer.sent} ${transfer.sentCurrency.toUpperCase()}`}</span>
+          {" → "}
+          <span style={{ color: plusColor }}>
+            {`+${transfer.received} ${transfer.receivedCurrency.toUpperCase()}`}
+          </span>
+        </>
+      );
     } else {
       amount = `${transfer.sent} ${transfer.sentCurrency.toUpperCase()}`;
     }
