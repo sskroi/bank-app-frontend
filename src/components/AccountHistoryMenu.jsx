@@ -32,14 +32,15 @@ const AccountHistoryMenu = ({ account, setAccount }) => {
       onClose={() => setAccount(null)}
       header="История переводов"
       scrollable
+      size="lg"
     >
-      <div className="d-flex flex-column">
+      <div className="d-flex flex-column justify-content-center justify-content-center align-items-center">
         {loading ? (
           <Spinner style={{ margin: "0 auto" }} />
         ) : history.length === 0 ? (
           <h3>Нет транзакций</h3>
         ) : (
-          <TransferList transfers={history} />
+          <TransferList style={{ width: "100%" }} transfers={history} />
         )}
       </div>
     </BSModal>
