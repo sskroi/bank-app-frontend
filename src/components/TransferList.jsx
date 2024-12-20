@@ -6,14 +6,32 @@ import PropTypes from "prop-types";
 const TransferList = ({ transfers, style }) => {
   return (
     <Accordion style={style} className={styles.transfersList}>
-      {transfers.map((x) => (
-        <TransferCard key={x.publicId} transfer={x} />
-      ))}
+      {transfers
+        .sort((x, y) => x.timestamp < y.timestamp)
+        .map((x) => (
+          <TransferCard key={x.publicId} transfer={x} />
+        ))}
     </Accordion>
   );
 };
 
-const TransferCard = ({ transfer, account = null }) => {
+function formatDate(isoString) {
+  const date = new Date(isoString);
+
+  const options = {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+    timeZoneName: "short",
+  };
+
+  return date.toLocaleString("ru-RU", options);
+}
+
+const TransferCard = ({ transfer }) => {
   const minusColor = "#C05959";
   const plusColor = "#5EB56A";
 
@@ -48,7 +66,7 @@ const TransferCard = ({ transfer, account = null }) => {
     <Accordion.Item eventKey={transfer.publicId}>
       <Accordion.Header>
         <Row className="d-flex justify-content-between w-100">
-          <Col xs="auto">{transfer.timestamp}</Col>
+          <Col xs="auto">{formatDate(transfer.timestamp)}</Col>
           <Col
             xs="auto"
             className="me-2"
