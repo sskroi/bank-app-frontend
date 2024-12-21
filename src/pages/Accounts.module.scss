@@ -4,10 +4,13 @@
   justify-content: center;
   align-items: center;
   gap: 30px;
-  min-height: calc(100vh - 40px);
-  padding: 40px 0;
-  margin: 10px;
-  margin-top: 25px;
+  min-height: calc(100vh - 60px);
+  padding: 10px;
+  padding-top: 80px;
+
+  h3 {
+    color: var(--primary-text-color);
+  }
 }
 
 .accountPageContent {
@@ -15,12 +18,20 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 30px;
+  gap: 10px;
 }
 
-.btnsCont {
+.accountList {
+  height: calc(100vh - 200px);
+  overflow-y: auto;
+}
+
+.pageHeader {
   display: flex;
+  flex-direction: column;
+  gap: 16px;
   justify-content: center;
+  align-items: center;
   width: 100%;
 }
 

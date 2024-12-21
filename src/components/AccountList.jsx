@@ -45,7 +45,7 @@ const AccountList = observer(({ updateAccountList }) => {
       }
 
       {loading ? (
-        <Spinner />
+        <Spinner style={{margin: "0 auto"}} />
       ) : accounts.accounts.length === 0 ? (
         <h3>У вас нет открытых счетов.</h3>
       ) : (

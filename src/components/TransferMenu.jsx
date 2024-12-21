@@ -80,7 +80,7 @@ const TransferMenu = ({
         setDstAccErr("");
 
         if (inputValue === transferAcc.number) {
-          setDstAccErr("Вы не можете переводить на текщий счёт");
+          setDstAccErr("Вы не можете переводить на текущий счёт");
           setDstAccNumOk(false);
         }
       })

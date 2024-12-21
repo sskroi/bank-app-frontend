@@ -1,20 +1,21 @@
 .accountCard {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 15px;
   padding: 8px 20px;
-  border-radius: 5px;
+  border-radius: 1px;
   color: var(--primary-text-color);
   background-color: var(--primary-card-bg-color);
   border: solid 1px #303030;
-  margin: 0px 4px;
 }
 
 .numberCont {
-  display: flex;
-  justify-content: space-between;
   align-items: center;
-  text-align: center;
+}
+
+.copyTextCont {
+  text-align: left;
+  padding: 0 8px;
 }
 
 .copyText {
@@ -28,13 +29,14 @@
   color: #ACC5FF;
 }
 
-.copySuccessText {
-  color: #8FA5DA;
+.copiedText, .copiedText:hover {
+  color: #71BA5F;
 }
 
 .accountCardButtonsCont {
   display: flex;
-  gap: 30px;
+  gap: 20px;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
 }
-
-

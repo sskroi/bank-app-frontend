@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import styles from "./AccountCard.module.scss";
 import React, { useState } from "react";
-import { Col, Row } from "react-bootstrap";
+import { Col, Container, Row } from "react-bootstrap";
 import Button1 from "./UI/buttons/Button1";
 
 const AccountCard = ({
@@ -11,74 +11,79 @@ const AccountCard = ({
   onTransfer,
   onHistory,
 }) => {
-  const [copySuccess, setCopySuccess] = useState("");
+  const [copyText, setCopyText] = useState("скопировать");
+  const [isCopying, setIsCopying] = useState(false);
 
   const handleCopyClick = async () => {
+    if (isCopying) return;
+
     try {
       await navigator.clipboard.writeText(number);
-      setCopySuccess("Скопировано");
-      setTimeout(() => setCopySuccess(""), 800);
+      setIsCopying(true);
+      setCopyText("скопировано");
+      setTimeout(() => {
+        setCopyText("скопировать");
+        setIsCopying(false);
+      }, 800);
     } catch (err) {
-      console.error("Ошибка при копировании: ", err);
+      console.error("error on copy to clipboard: ", err);
     }
   };
 
   return (
-    <div className={styles.accountCard}>
-      <Row>
-        <Col className={styles.numberCont}>
-          <b style={{ whiteSpace: "nowrap" }}>{number}</b>
+    <Container className={styles.accountCard}>
+      <Row className="d-flex justify-content-between">
+        <Col md={9} xs={12} className={styles.numberCont}>
+          <b>{number}</b>
         </Col>
-        <Col xs="auto">
+        <Col className={styles.copyTextCont}>
           <a
-            style={{ padding: 0 }}
-            className={styles.copyText}
+            className={`${styles.copyText} ${
+              copyText === "скопировано" ? styles.copiedText : ""
+            }`}
             onClick={handleCopyClick}
           >
-            скопировать
+            {copyText}
           </a>
         </Col>
       </Row>
-      {copySuccess && <p className={styles.copySuccessText}>{copySuccess}</p>}
       <div>
         <b>{balance}</b> {currency.toUpperCase()}
       </div>
-      <Row
-        className={`${styles.accountCardButtonsCont} justify-content-center`}
-      >
-        <Col xs="auto">
+      <Row className={styles.accountCardButtonsCont}>
+        <Col>
           <Button1
-            style={{ minWidth: "120px" }}
+            style={{ minWidth: "130px" }}
             onClick={() => onTransfer(account)}
           >
             Перевести
           </Button1>
         </Col>
-        <Col xs="auto">
+        <Col>
           <Button1
-            style={{ minWidth: "120px" }}
+            style={{ minWidth: "130px" }}
             onClick={() => onHistory(account)}
           >
             История
           </Button1>
         </Col>
-        <Col xs="auto">
+        <Col>
           <Button1
-            style={{ minWidth: "120px", whiteSpace: "nowrap" }}
+            style={{ minWidth: "130px", whiteSpace: "nowrap" }}
             onClick={() => onCloseAccount(account)}
           >
             Закрыть счёт
           </Button1>
         </Col>
       </Row>
-    </div>
+    </Container>
   );
 };
 AccountCard.propTypes = {
-  account: PropTypes.object,
-  onCloseAccount: PropTypes.func,
-  onTransfer: PropTypes.func,
-  onHistory: PropTypes.func,
+  account: PropTypes.object.isRequired,
+  onCloseAccount: PropTypes.func.isRequired,
+  onTransfer: PropTypes.func.isRequired,
+  onHistory: PropTypes.func.isRequired,
 };
 
 export default AccountCard;

@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import Button1 from "../components/UI/buttons/Button1";
 import styles from "./Accounts.module.scss";
-import { Dropdown, Spinner } from "react-bootstrap";
+import { Container, Dropdown, Spinner } from "react-bootstrap";
 import { createAccount, getAccounts } from "../http/accountsAPI";
 import AccountList from "../components/AccountList";
 import { Context } from "../index.js";
@@ -27,11 +27,13 @@ const Accounts = () => {
   return (
     <div className={styles.accountsPage}>
       <div className={styles.accountPageContent}>
-        <div className={styles.btnsCont}>
+        <div className={styles.pageHeader}>
           <OpenAccBtnAndMenu updateAccountList={updateAccountList} />
+          <h3>Ваши счета</h3>
         </div>
-
-        <AccountList updateAccountList={updateAccountList} />
+        <Container className={styles.accountList}>
+          <AccountList updateAccountList={updateAccountList} />
+        </Container>
       </div>
     </div>
   );
