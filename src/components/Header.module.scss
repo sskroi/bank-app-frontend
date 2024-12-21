@@ -1,40 +1,30 @@
-header {
+.navBar {
   background-color: var(--header-bg-color);
-  width: 100%;
-  position: fixed;
-  height: 40px;
-  align-items: center;
-  top: 0;
+  text-align: center;
+
+  * {
+    color: var(--header-button-color);
+    font-size: 18px;
+    text-decoration: none;
+  }
+
+  :global(.nav-link) {
+    --bs-nav-link-hover-color: none;
+  }
 }
 
-.headerContainer {
-  max-width: 1180px;
-  margin: 0 auto;
-  width: 100%;
-  height: 100%;
-}
-
-.headerCont {
+.navBar .navbar-collapse {
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  flex-direction: row;
-  height: 100%;
-}
-
-.navMenuCont {
-  display: flex;
-  flex-direction: row;
-  gap: 20px;
 }
 
 .navBtn {
   background: none;
   border: none;
   text-align: center;
-  color: var(--header-button-color);
   padding: 3px 7px;
   margin: 0px 7px;
+  max-width: 200px;
 
   float: left;
   display: block;
@@ -69,22 +59,21 @@ header {
 
 .logo {
   a {
-    color: var(--header-button-color);
     padding: 0 5px;
     margin: 0 5px;
   }
 }
 
 .logBtn {
-  color: var(--header-button-color);
   background: none;
   border: none;
   padding: 0 5px;
-  margin: 0 5px;
+  margin: 5 5px;
   cursor: pointer;
 }
 
-header * {
-  font-size: 18px;
-  text-decoration: none;
+@media (min-width: 768px) { /* Только для больших экранов */
+  .logBtn {
+    margin-left: 20px;
+  }
 }
