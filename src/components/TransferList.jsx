@@ -1,16 +1,38 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./TransferList.module.scss";
-import { Accordion, Col, Row } from "react-bootstrap";
+import { Accordion, Col, Row, Spinner } from "react-bootstrap";
 import PropTypes from "prop-types";
+import { getTransfers } from "../http/transferAPI";
 
-const TransferList = ({ transfers, style }) => {
-  return (
+const TransferList = ({ account = null, allTransfers = false, style }) => {
+  const [loading, setLoading] = useState(false);
+  const [transfers, setTransfers] = useState([]);
+
+  const fetchTransfers = () => {
+    if (!account && !allTransfers) {
+      return;
+    }
+
+    setLoading(true);
+    getTransfers(account?.number)
+      .then((data) => setTransfers(data))
+      .catch((e) => console.log(e))
+      .finally(() => setLoading(false));
+  };
+
+  useEffect(fetchTransfers, [account]);
+
+  const displayTransfers = transfers
+    .sort((x, y) => x.timestamp < y.timestamp)
+    .map((x) => <TransferCard key={x.publicId} transfer={x} />);
+
+  return loading ? (
+    <Spinner style={{ margin: "0 auto", color: "var(--primary-text-color)" }} />
+  ) : transfers.length === 0 ? (
+    <h3 style={{ color: "var(--primary-text-color)" }}>Нет транзакций</h3>
+  ) : (
     <Accordion style={style} className={styles.transfersList}>
-      {transfers
-        .sort((x, y) => x.timestamp < y.timestamp)
-        .map((x) => (
-          <TransferCard key={x.publicId} transfer={x} />
-        ))}
+      {displayTransfers}
     </Accordion>
   );
 };
@@ -132,7 +154,8 @@ const transfer = PropTypes.shape({
 });
 
 TransferCard.propTypes = {
-  transfer: transfer,
+  account: PropTypes.object,
+  allTransfers: PropTypes.bool,
 };
 
 TransferList.propTypes = {
