@@ -1,10 +1,19 @@
-import PropTypes from "prop-types";
 import styles from "./AccountCard.module.scss";
-import React, { useState } from "react";
+import React, { FC, useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import Button1 from "./UI/buttons/Button1";
+import { IAccount } from "types/types";
 
-const AccountCard = ({
+type AccountActionFunc = (account: IAccount) => void;
+
+interface AccountCardProps {
+  account: IAccount;
+  onCloseAccount: AccountActionFunc;
+  onTransfer: AccountActionFunc;
+  onHistory: AccountActionFunc;
+}
+
+const AccountCard: FC<AccountCardProps> = ({
   account,
   account: { number, balance, currency },
   onCloseAccount,
@@ -78,12 +87,6 @@ const AccountCard = ({
       </Row>
     </Container>
   );
-};
-AccountCard.propTypes = {
-  account: PropTypes.object.isRequired,
-  onCloseAccount: PropTypes.func.isRequired,
-  onTransfer: PropTypes.func.isRequired,
-  onHistory: PropTypes.func.isRequired,
 };
 
 export default AccountCard;

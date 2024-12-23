@@ -1,6 +1,5 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./AccountList.module.scss";
-import { StoreContext } from "../index";
 import { observer } from "mobx-react-lite";
 import PropTypes from "prop-types";
 import { Spinner } from "react-bootstrap";
@@ -8,9 +7,10 @@ import AccountCard from "./AccountCard";
 import TransferMenu from "./TransferMenu";
 import CloseAccountMenu from "./CloseAccountMenu";
 import AccountHistoryMenu from "./AccountHistoryMenu";
+import useStore from "hooks/useStore";
 
 const AccountList = observer(({ updateAccountList }) => {
-  const { accounts } = useContext(StoreContext);
+  const { accounts } = useStore();
 
   const [loading, setLoading] = useState(true);
   useEffect(() => updateAccountList(setLoading), []);
@@ -45,7 +45,7 @@ const AccountList = observer(({ updateAccountList }) => {
       }
 
       {loading ? (
-        <Spinner style={{margin: "0 auto"}} />
+        <Spinner style={{ margin: "0 auto" }} />
       ) : accounts.accounts.length === 0 ? (
         <h3>У вас нет открытых счетов.</h3>
       ) : (
