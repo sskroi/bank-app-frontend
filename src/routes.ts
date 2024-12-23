@@ -10,7 +10,12 @@ import {
   SIGN_UP_ROUTE,
 } from "./utils/consts";
 
-export const authRotes = [
+interface RouteItem {
+  path: string;
+  Component: React.ElementType;
+}
+
+export const authRotes: RouteItem[] = [
   {
     path: ACCOUNTS_ROUTE,
     Component: Accounts,
@@ -25,7 +30,7 @@ export const authRotes = [
   },
 ];
 
-export const loginRoutes = [
+export const loginRoutes: RouteItem[] = [
   {
     path: SIGN_IN_ROUTE,
     Component: Auth,
@@ -36,4 +41,4 @@ export const loginRoutes = [
   },
 ];
 
-export const publicRoutes = [];
+export const publicRoutes: RouteItem[] = [];

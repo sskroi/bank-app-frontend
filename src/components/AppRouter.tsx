@@ -12,16 +12,16 @@ const AppRouter = observer(() => {
     <Routes>
       {user.isAuth &&
         authRotes.map(({ path, Component }) => (
-          <Route key={path} path={path} element={<Component />} exact />
+          <Route key={path} path={path} element={<Component />} />
         ))}
 
       {!user.isAuth &&
         loginRoutes.map(({ path, Component }) => (
-          <Route key={path} path={path} element={<Component />} exact />
+          <Route key={path} path={path} element={<Component />} />
         ))}
 
       {publicRoutes.map(({ path, Component }) => (
-        <Route key={path} path={path} element={<Component />} exact />
+        <Route key={path} path={path} element={<Component />} />
       ))}
 
       <Route

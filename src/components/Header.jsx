@@ -10,7 +10,7 @@ import {
   HISTORY_ROUTE,
   PROFILE_ROUTE,
   SIGN_IN_ROUTE,
-} from "../utils/consts.js";
+} from "../utils/consts";
 import { Container, Nav, Navbar } from "react-bootstrap";
 
 const Header = observer(() => {
