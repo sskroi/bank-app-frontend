@@ -13,7 +13,10 @@ interface StoreContextType {
   accounts: AccountStore;
 }
 
-export const StoreContext = createContext<StoreContextType | null>(null);
+export const StoreContext = createContext<StoreContextType>({
+  user: userStore,
+  accounts: accountStore,
+});
 
 const rootElement = document.getElementById("root");
 if (!rootElement) {
