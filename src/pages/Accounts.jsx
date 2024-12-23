@@ -4,9 +4,9 @@ import styles from "./Accounts.module.scss";
 import { Container, Dropdown, Spinner } from "react-bootstrap";
 import { createAccount, getAccounts } from "../http/accountsAPI";
 import AccountList from "../components/AccountList";
-import { Context } from "../index.js";
+import { Context } from "../index";
 import PropTypes from "prop-types";
-import BSModal from "../components/UI/BSModal.jsx";
+import BSModal from "../components/UI/BSModal";
 
 const Accounts = () => {
   const { accounts } = useContext(Context);

@@ -3,9 +3,9 @@ import { BrowserRouter } from "react-router-dom";
 
 import "./App.scss";
 import "./colors.css";
-import AppRouter from "./components/AppRouter.js";
-import Header from "./components/Header.jsx";
-import { Context } from "./index.js";
+import AppRouter from "./components/AppRouter";
+import Header from "./components/Header";
+import { Context } from "./index";
 import { checkAuth } from "http/authAPI";
 import { Spinner } from "react-bootstrap";
 

@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import styles from "./CloseAccountMenu.module.scss";
 import { closeAccount } from "../http/accountsAPI";
 import PropTypes from "prop-types";
-import Button1 from "./UI/buttons/Button1.jsx";
-import BSModal from "./UI/BSModal.jsx";
+import Button1 from "./UI/buttons/Button1";
+import BSModal from "./UI/BSModal";
 import { Spinner } from "react-bootstrap";
 
 const CloseAccountMenu = ({ closingAcc, setClosingAcc, updateAccountList }) => {

@@ -1,13 +1,13 @@
 import React, { useContext, useEffect, useState } from "react";
 import styles from "./AccountList.module.scss";
-import { Context } from "../index.js";
+import { Context } from "../index";
 import { observer } from "mobx-react-lite";
 import PropTypes from "prop-types";
 import { Spinner } from "react-bootstrap";
-import AccountCard from "./AccountCard.jsx";
-import TransferMenu from "./TransferMenu.jsx";
-import CloseAccountMenu from "./CloseAccountMenu.jsx";
-import AccountHistoryMenu from "./AccountHistoryMenu.jsx";
+import AccountCard from "./AccountCard";
+import TransferMenu from "./TransferMenu";
+import CloseAccountMenu from "./CloseAccountMenu";
+import AccountHistoryMenu from "./AccountHistoryMenu";
 
 const AccountList = observer(({ updateAccountList }) => {
   const { accounts } = useContext(Context);
