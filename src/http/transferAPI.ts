@@ -24,7 +24,9 @@ export interface GetTransfersInput {
 export const getTransfers = async (
   params: GetTransfersInput = { offset: 0, limit: 100 },
 ) => {
-  const resp = await authHost.get("/transactions", { params: params });
+  const resp = await authHost.get<ITransaction[]>("/transactions", {
+    params: params,
+  });
 
   return resp.data;
 };

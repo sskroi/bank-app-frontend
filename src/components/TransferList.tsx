@@ -1,12 +1,22 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, FC } from "react";
 import styles from "./TransferList.module.scss";
 import { Accordion, Col, Row, Spinner } from "react-bootstrap";
-import PropTypes from "prop-types";
 import { getTransfers } from "../http/transferAPI";
+import { IAccount, ITransaction } from "types/types";
 
-const TransferList = ({ account = null, allTransfers = false, style }) => {
+interface TransferListProps {
+  account?: IAccount | null;
+  allTransfers?: boolean;
+  style?: React.CSSProperties;
+}
+
+const TransferList: FC<TransferListProps> = ({
+  account = null,
+  allTransfers = false,
+  style,
+}) => {
   const [loading, setLoading] = useState(false);
-  const [transfers, setTransfers] = useState([]);
+  const [transfers, setTransfers] = useState<ITransaction[]>([]);
 
   const fetchTransfers = () => {
     if (!account && !allTransfers) {
@@ -14,7 +24,7 @@ const TransferList = ({ account = null, allTransfers = false, style }) => {
     }
 
     setLoading(true);
-    getTransfers(account?.number)
+    getTransfers({ accountNumber: account?.number })
       .then((data) => setTransfers(data))
       .catch((e) => console.log(e))
       .finally(() => setLoading(false));
@@ -23,7 +33,7 @@ const TransferList = ({ account = null, allTransfers = false, style }) => {
   useEffect(fetchTransfers, [account]);
 
   const displayTransfers = transfers
-    .sort((x, y) => x.timestamp < y.timestamp)
+    .sort((x, y) => +(x.timestamp < y.timestamp))
     .map((x) => <TransferCard key={x.publicId} transfer={x} />);
 
   return loading ? (
@@ -37,11 +47,11 @@ const TransferList = ({ account = null, allTransfers = false, style }) => {
   );
 };
 
-function formatDate(isoString) {
+const formatDate = (isoString: string) => {
   const date = new Date(isoString);
   date.setHours(date.getHours() - 3);
 
-  const options = {
+  const options: Intl.DateTimeFormatOptions = {
     year: "numeric",
     month: "long",
     day: "numeric",
@@ -52,9 +62,9 @@ function formatDate(isoString) {
   };
 
   return date.toLocaleString("ru-RU", options);
-}
+};
 
-const TransferCard = ({ transfer }) => {
+const TransferCard: FC<{ transfer: ITransaction }> = ({ transfer }) => {
   const minusColor = "#C05959";
   const plusColor = "#5EB56A";
 
@@ -93,7 +103,7 @@ const TransferCard = ({ transfer }) => {
           <Col
             xs="auto"
             className="me-2"
-            style={amountColor && { color: amountColor }}
+            style={amountColor ? { color: amountColor } : {}}
           >
             {amount}
           </Col>
@@ -137,30 +147,6 @@ const TransferCard = ({ transfer }) => {
       </Accordion.Body>
     </Accordion.Item>
   );
-};
-
-const transfer = PropTypes.shape({
-  publicId: PropTypes.string,
-  senderAccountNumber: PropTypes.string,
-  receiverAccountNumber: PropTypes.string,
-  sent: PropTypes.string,
-  received: PropTypes.string,
-  sentCurrency: PropTypes.string,
-  receivedCurrency: PropTypes.string,
-  isConversion: PropTypes.bool,
-  direction: PropTypes.number,
-  conversionRate: PropTypes.string,
-  timestamp: PropTypes.string,
-});
-
-TransferCard.propTypes = {
-  account: PropTypes.object,
-  allTransfers: PropTypes.bool,
-};
-
-TransferList.propTypes = {
-  transfers: PropTypes.arrayOf(transfer),
-  style: PropTypes.object,
 };
 
 export default TransferList;
