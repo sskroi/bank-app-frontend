@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styles from "./TransferMenu.module.scss";
-import { transfer } from "../http/transferAPI.js";
+import { transfer } from "../http/transferAPI";
 import PropTypes from "prop-types";
 import Button1 from "./UI/buttons/Button1.jsx";
 import Input1 from "./UI/inputs/Input1.jsx";

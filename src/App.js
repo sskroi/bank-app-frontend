@@ -6,7 +6,7 @@ import "./colors.css";
 import AppRouter from "./components/AppRouter.js";
 import Header from "./components/Header.jsx";
 import { Context } from "./index.js";
-import { checkAuth } from "./http/authAPI.js";
+import { checkAuth } from "http/authAPI";
 import { Spinner } from "react-bootstrap";
 
 function App() {
