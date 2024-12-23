@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import styles from "./Header.module.scss";
 import { observer } from "mobx-react-lite";
-import { Context } from "../index";
+import { StoreContext } from "../index";
 import { useLocation, useNavigate } from "react-router-dom";
 import LogoutIcon from "@mui/icons-material/Logout";
 import LoginIcon from "@mui/icons-material/Login";
@@ -14,7 +14,7 @@ import {
 import { Container, Nav, Navbar } from "react-bootstrap";
 
 const Header = observer(() => {
-  const { user } = useContext(Context);
+  const { user } = useContext(StoreContext);
   const navigate = useNavigate();
 
   const location = useLocation();

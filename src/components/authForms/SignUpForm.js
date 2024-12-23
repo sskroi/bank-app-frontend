@@ -6,7 +6,7 @@ import Button1 from "../UI/buttons/Button1";
 import Input1WithLabel from "../UI/inputs/Input1WithLabel";
 import { SIGN_IN_ROUTE } from "../../utils/consts";
 import { signUp } from "../../http/authAPI";
-import { Context } from "../../index";
+import { StoreContext } from "../../index";
 import { Form } from "react-bootstrap";
 
 export default function SignUpForm() {
@@ -26,7 +26,7 @@ export default function SignUpForm() {
 
   const navigate = useNavigate();
 
-  const { user } = useContext(Context);
+  const { user } = useContext(StoreContext);
 
   const submit = async (e) => {
     e.preventDefault();

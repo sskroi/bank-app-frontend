@@ -5,12 +5,12 @@ import "./App.scss";
 import "./colors.css";
 import AppRouter from "./components/AppRouter";
 import Header from "./components/Header";
-import { Context } from "./index";
+import { StoreContext } from "./index";
 import { checkAuth } from "http/authAPI";
 import { Spinner } from "react-bootstrap";
 
 function App() {
-  const { user } = useContext(Context);
+  const { user } = useContext(StoreContext);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {

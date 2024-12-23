@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import styles from "./AccountList.module.scss";
-import { Context } from "../index";
+import { StoreContext } from "../index";
 import { observer } from "mobx-react-lite";
 import PropTypes from "prop-types";
 import { Spinner } from "react-bootstrap";
@@ -10,7 +10,7 @@ import CloseAccountMenu from "./CloseAccountMenu";
 import AccountHistoryMenu from "./AccountHistoryMenu";
 
 const AccountList = observer(({ updateAccountList }) => {
-  const { accounts } = useContext(Context);
+  const { accounts } = useContext(StoreContext);
 
   const [loading, setLoading] = useState(true);
   useEffect(() => updateAccountList(setLoading), []);

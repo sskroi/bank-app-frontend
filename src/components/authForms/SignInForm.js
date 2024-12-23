@@ -5,7 +5,7 @@ import styles from "./authForms.module.scss";
 import Button1 from "../UI/buttons/Button1";
 import { SIGN_UP_ROUTE } from "../../utils/consts";
 import Input1WithLabel from "../UI/inputs/Input1WithLabel";
-import { Context } from "../../index";
+import { StoreContext } from "../../index";
 import { signIn } from "../../http/authAPI";
 
 function SignInForm() {
@@ -16,7 +16,7 @@ function SignInForm() {
 
   const navigate = useNavigate();
 
-  const { user } = useContext(Context);
+  const { user } = useContext(StoreContext);
   const submit = async (e) => {
     e.preventDefault();
     try {

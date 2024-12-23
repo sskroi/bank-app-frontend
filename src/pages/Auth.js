@@ -6,11 +6,11 @@ import styles from "./Auth.module.scss";
 import { useLocation, useNavigate } from "react-router-dom";
 import { ACCOUNTS_ROUTE, SIGN_UP_ROUTE } from "../utils/consts";
 import { observer } from "mobx-react-lite";
-import { Context } from "../index";
+import { StoreContext } from "../index";
 
 const Auth = observer(() => {
   const location = useLocation();
-  const { user } = useContext(Context);
+  const { user } = useContext(StoreContext);
   const navigate = useNavigate();
 
   if (user.isAuth) {
