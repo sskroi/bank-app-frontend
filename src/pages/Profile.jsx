@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styles from "./Profile.module.scss";
-import { Button, Col, Container, Form, Row, Spinner } from "react-bootstrap";
+import { Col, Container, Form, Row, Spinner } from "react-bootstrap";
 import { getUserInfo } from "../http/userAPI";
 import Button1 from "../components/UI/buttons/Button1";
 
@@ -81,6 +81,7 @@ const Profile = () => {
                   placeholder="1234 567890"
                 />
               </Form.Group>
+              <Button1 onClick={setEditing(true)}>Редактировать</Button1>
             </Col>
           </Row>
         </Form>
