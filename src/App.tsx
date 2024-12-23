@@ -6,8 +6,8 @@ import "./colors.css";
 import AppRouter from "./components/AppRouter";
 import Header from "./components/Header";
 import { StoreContext } from "./index";
-import { checkAuth } from "http/authAPI";
 import { Spinner } from "react-bootstrap";
+import { checkAuth } from "./http/authAPI";
 
 function App() {
   const { user } = useContext(StoreContext);
