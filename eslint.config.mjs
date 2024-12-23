@@ -16,6 +16,6 @@ export default [
     },
   },
   {
-    ignores: ["build/**"],
+    ignores: ["build/**", "dist/**"],
   },
 ];

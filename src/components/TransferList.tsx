@@ -3,6 +3,7 @@ import styles from "./TransferList.module.scss";
 import { Accordion, Col, Row, Spinner } from "react-bootstrap";
 import { getTransfers } from "../http/transferAPI";
 import { IAccount, ITransaction } from "types/types";
+import { format, toZonedTime } from "date-fns-tz";
 
 interface TransferListProps {
   account?: IAccount | null;
@@ -47,21 +48,16 @@ const TransferList: FC<TransferListProps> = ({
   );
 };
 
-const formatDate = (isoString: string) => {
-  const date = new Date(isoString);
-  date.setHours(date.getHours() - 3);
+const formatDate = (timestamp: string) => {
+  const userTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
 
-  const options: Intl.DateTimeFormatOptions = {
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-    hour: "2-digit",
-    minute: "2-digit",
-    second: "2-digit",
-    //timeZoneName: "short",
-  };
+  const date = toZonedTime(timestamp, userTimeZone);
 
-  return date.toLocaleString("ru-RU", options);
+  const formattedDate = format(date, "dd-MM-yyyy HH:mm:ss", {
+    timeZone: userTimeZone,
+  });
+
+  return formattedDate;
 };
 
 const TransferCard: FC<{ transfer: ITransaction }> = ({ transfer }) => {
@@ -124,7 +120,7 @@ const TransferCard: FC<{ transfer: ITransaction }> = ({ transfer }) => {
           <Row>
             <Col>
               <p>Дата:</p>
-              <b>{transfer.timestamp}</b>
+              <b>{formatDate(transfer.timestamp)}</b>
             </Col>
           </Row>
         </Row>
