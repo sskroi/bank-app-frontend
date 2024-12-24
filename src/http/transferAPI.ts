@@ -1,4 +1,4 @@
-import { ITransaction } from "types/types";
+import { ITransaction } from "../types/types";
 import { authHost } from "./index";
 
 export const transfer = async (

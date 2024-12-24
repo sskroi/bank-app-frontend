@@ -1,8 +1,8 @@
 import styles from "./AccountCard.module.scss";
-import React, { FC, useState } from "react";
+import { FC, useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import Button1 from "./UI/buttons/Button1";
-import { IAccount } from "types/types";
+import { IAccount } from "../types/types";
 
 type AccountActionFunc = (account: IAccount) => void;
 

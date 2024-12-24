@@ -1,4 +1,4 @@
-import { IUser } from "types/types";
+import { IUser } from "../types/types";
 import { authHost } from "./index";
 
 export const getUserInfo = async () => {

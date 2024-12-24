@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { BrowserRouter } from "react-router-dom";
 
 import "./App.scss";

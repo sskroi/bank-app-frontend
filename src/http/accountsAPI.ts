@@ -1,4 +1,4 @@
-import { IAccount } from "types/types";
+import { IAccount } from "../types/types";
 import { authHost } from ".";
 
 export const getAccounts = async (offset = 0, limit = 100) => {
