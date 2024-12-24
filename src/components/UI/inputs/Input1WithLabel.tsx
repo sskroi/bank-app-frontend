@@ -1,5 +1,4 @@
 import React, { FC } from "react";
-import PropTypes from "prop-types";
 import Input1 from "./Input1";
 import styles from "./Input1WithLabel.module.scss";
 
