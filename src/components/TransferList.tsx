@@ -31,7 +31,7 @@ const TransferList: FC<TransferListProps> = ({
       .finally(() => setLoading(false));
   };
 
-  useEffect(fetchTransfers, [account]);
+  useEffect(fetchTransfers, [account, allTransfers]);
 
   const displayTransfers = transfers
     .sort((x, y) => +(x.timestamp < y.timestamp))
