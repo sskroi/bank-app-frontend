@@ -1,9 +1,18 @@
-import React from "react";
+import React, { FC } from "react";
 import styles from "./BSModal.module.scss";
 import PropTypes from "prop-types";
 import { CloseButton, Modal } from "react-bootstrap";
 
-export default function BSModal({
+interface BSModalProps {
+  header: string;
+  footer?: React.ReactElement[];
+  active?: boolean;
+  onClose: () => void;
+  size?: "sm" | "lg" | "xl";
+  children: React.ReactElement;
+}
+
+const BSModal: FC<BSModalProps> = ({
   active = true,
   onClose,
   header,
@@ -11,7 +20,7 @@ export default function BSModal({
   footer,
   size,
   ...props
-}) {
+}) => {
   return (
     <Modal
       show={active}
@@ -41,16 +50,6 @@ export default function BSModal({
       )}
     </Modal>
   );
-}
-
-BSModal.propTypes = {
-  header: PropTypes.string,
-  footer: PropTypes.oneOfType([
-    PropTypes.arrayOf(PropTypes.element),
-    PropTypes.element,
-  ]),
-  active: PropTypes.bool,
-  onClose: PropTypes.func,
-  size: PropTypes.string,
-  children: PropTypes.element,
 };
+
+export default BSModal;

@@ -1,15 +1,22 @@
-import React from "react";
+import React, { FC } from "react";
 import PropTypes from "prop-types";
 import Input1 from "./Input1";
 import styles from "./Input1WithLabel.module.scss";
 
-export default function Input1WithLabel({
+interface Input1WithLabelProps {
+  placeholder?: string;
+  labelValue?: string;
+  value?: string | number;
+  onChange: (e: React.ChangeEvent) => void;
+}
+
+const Input1WithLabel: FC<Input1WithLabelProps> = ({
   placeholder,
   labelValue = placeholder,
   value,
   onChange,
   ...props
-}) {
+}) => {
   return (
     <div className={styles.cont}>
       <label>{labelValue}</label>
@@ -21,11 +28,6 @@ export default function Input1WithLabel({
       />
     </div>
   );
-}
-
-Input1WithLabel.propTypes = {
-  placeholder: PropTypes.string,
-  labelValue: PropTypes.string,
-  value: PropTypes.string,
-  onChange: PropTypes.func,
 };
+
+export default Input1WithLabel;
