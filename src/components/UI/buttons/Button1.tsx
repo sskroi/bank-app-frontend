@@ -3,6 +3,8 @@ import styles from "./Button1.module.scss";
 
 interface Button1Props {
   onClick: (e: React.MouseEvent) => void;
+  disabled?: boolean;
+  children: React.ReactNode;
   style?: React.CSSProperties;
 }
 

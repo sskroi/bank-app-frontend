@@ -1,32 +1,40 @@
-import React, { useState } from "react";
+import React, { FC, useState } from "react";
 import styles from "./TransferMenu.module.scss";
 import { transfer } from "../http/transferAPI";
-import PropTypes from "prop-types";
 import Button1 from "./UI/buttons/Button1";
 import Input1 from "./UI/inputs/Input1";
 import * as Yup from "yup";
 import BSModal from "./UI/BSModal";
 import { Spinner } from "react-bootstrap";
+import { IAccount } from "../types/types";
 
-const TransferMenu = ({
+interface TransferMenuProps {
+  transferAcc: IAccount;
+  active: boolean;
+  setActive: (isActive: boolean) => void;
+  updateAccountList: () => void;
+}
+
+const TransferMenu: FC<TransferMenuProps> = ({
   transferAcc,
   active,
   setActive,
   updateAccountList,
 }) => {
-  const [amount, setAmount] = useState(0);
+  const [amount, setAmount] = useState<number | string>(0);
   const [amountOk, setAmountOk] = useState(false);
   const [dstAccNum, setDstAccNum] = useState("");
   const [dstAccNumOk, setDstAccNumOk] = useState(false);
 
   const [errMsg, setErrMsg] = useState("");
-  const [successTransferMsg, setSuccessTransferMsg] = useState(null);
+  const [successTransferMsg, setSuccessTransferMsg] =
+    useState<React.ReactElement | null>(null);
 
   const [loading, setLoading] = useState(false);
   const onTransfer = async () => {
     try {
       setLoading(true);
-      const r = await transfer(transferAcc.number, dstAccNum, amount);
+      const r = await transfer(transferAcc.number, dstAccNum, String(amount));
       setActive(false);
       setSuccessTransferMsg(
         <>
@@ -45,7 +53,7 @@ const TransferMenu = ({
       );
       setErrMsg("");
       updateAccountList();
-    } catch (e) {
+    } catch (e: any) {
       let msg;
       if (e.response && e.response.status === 404) {
         msg = "Счёт получателя не найден";
@@ -69,8 +77,8 @@ const TransferMenu = ({
       .matches(uuidRegex, "Поле должно быть валидным номером счёта")
       .required("Поле обязательно для заполнения"),
   });
-  const handleDstAccNumInput = (e) => {
-    const inputValue = e.target.value;
+  const handleDstAccNumInput = (e: React.FormEvent<HTMLInputElement>) => {
+    const inputValue = e.currentTarget.value;
     setDstAccNum(inputValue);
 
     accNumberValidator
@@ -94,11 +102,11 @@ const TransferMenu = ({
   const amountValidator = Yup.object({
     amount: Yup.number()
       .min(0, "Сумма должна быть больше 9")
-      .max(transferAcc.balance, "У вас недостаточно средств")
+      .max(Number(transferAcc.balance), "У вас недостаточно средств")
       .required("Поле обязательно для заполнения"),
   });
-  const handleAmountInput = (e) => {
-    let inputValue = e.target.value;
+  const handleAmountInput = (e: React.FormEvent<HTMLInputElement>) => {
+    let inputValue = e.currentTarget.value;
     inputValue = inputValue.replace(/[^0-9.]/g, "");
     inputValue = inputValue.replace(/(\..*)\./g, "$1");
     if (
@@ -194,12 +202,6 @@ const TransferMenu = ({
       </BSModal>
     </>
   );
-};
-TransferMenu.propTypes = {
-  transferAcc: PropTypes.object,
-  active: PropTypes.bool,
-  setActive: PropTypes.func,
-  updateAccountList: PropTypes.func,
 };
 
 export default TransferMenu;

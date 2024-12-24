@@ -4,11 +4,11 @@ import { CloseButton, Modal } from "react-bootstrap";
 
 interface BSModalProps {
   header: string;
-  footer?: React.ReactElement[];
+  footer?: React.ReactNode;
   active?: boolean;
   onClose: () => void;
   size?: "sm" | "lg" | "xl";
-  children: React.ReactElement;
+  children: React.ReactNode;
 }
 
 const BSModal: FC<BSModalProps> = ({
