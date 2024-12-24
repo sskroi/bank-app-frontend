@@ -7,6 +7,7 @@ import * as Yup from "yup";
 import BSModal from "./UI/BSModal";
 import { Spinner } from "react-bootstrap";
 import { IAccount } from "../types/types";
+import { AxiosError } from "axios";
 
 interface TransferMenuProps {
   transferAcc: IAccount;
@@ -53,14 +54,16 @@ const TransferMenu: FC<TransferMenuProps> = ({
       );
       setErrMsg("");
       updateAccountList();
-    } catch (e: any) {
-      let msg;
-      if (e.response && e.response.status === 404) {
-        msg = "Счёт получателя не найден";
-      } else if (e.response?.data?.message) {
-        msg = e.response.data.message;
-      } else {
-        msg = e.message;
+    } catch (err) {
+      let msg = "unknown error occurred";
+      if (err instanceof AxiosError) {
+        if (err?.response?.status === 404) {
+          msg = "Счёт получателя не найден";
+        } else if (err?.response?.data?.message) {
+          msg = err.response.data.message;
+        }
+      } else if (err instanceof Error) {
+        msg = err.message;
       }
 
       setErrMsg(msg);
