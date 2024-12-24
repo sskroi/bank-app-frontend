@@ -6,7 +6,7 @@ import Button1 from "../UI/buttons/Button1";
 import Input1WithLabel from "../UI/inputs/Input1WithLabel";
 import { SIGN_IN_ROUTE } from "../../utils/consts";
 import { signUp } from "../../http/authAPI";
-import { StoreContext } from "../../index";
+import { StoreContext } from "../../main";
 import { Form } from "react-bootstrap";
 
 export default function SignUpForm() {

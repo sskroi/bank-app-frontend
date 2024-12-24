@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import styles from "./Header.module.scss";
 import { observer } from "mobx-react-lite";
-import { StoreContext } from "../index";
+import { StoreContext } from "../main";
 import { useLocation, useNavigate } from "react-router-dom";
 import LogoutIcon from "@mui/icons-material/Logout";
 import LoginIcon from "@mui/icons-material/Login";

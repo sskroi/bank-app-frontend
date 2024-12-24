@@ -1,5 +1,5 @@
-import { StoreContext } from "index";
 import { useContext } from "react";
+import { StoreContext } from "../main";
 
 const useStore = () => {
   const context = useContext(StoreContext);

@@ -6,7 +6,7 @@ import styles from "./Auth.module.scss";
 import { useLocation, useNavigate } from "react-router-dom";
 import { ACCOUNTS_ROUTE, SIGN_UP_ROUTE } from "../utils/consts";
 import { observer } from "mobx-react-lite";
-import { StoreContext } from "../index";
+import { StoreContext } from "../main";
 
 const Auth = observer(() => {
   const location = useLocation();

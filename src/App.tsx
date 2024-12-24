@@ -5,7 +5,7 @@ import "./App.scss";
 import "./colors.css";
 import AppRouter from "./components/AppRouter";
 import Header from "./components/Header";
-import { StoreContext } from "./index";
+import { StoreContext } from "./main";
 import { Spinner } from "react-bootstrap";
 import { checkAuth } from "./http/authAPI";
 

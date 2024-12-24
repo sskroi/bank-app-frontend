@@ -7,7 +7,7 @@ import AccountCard from "./AccountCard";
 import TransferMenu from "./TransferMenu";
 import CloseAccountMenu from "./CloseAccountMenu";
 import AccountHistoryMenu from "./AccountHistoryMenu";
-import useStore from "hooks/useStore";
+import useStore from "../hooks/useStore";
 
 const AccountList = observer(({ updateAccountList }) => {
   const { accounts } = useStore();

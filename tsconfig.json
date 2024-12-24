@@ -1,14 +1,19 @@
 {
-  "compilerOptions": {
-    "target": "es6",
-    "module": "esnext",
-    "strict": true,
-    "allowJs": true,
-    "jsx": "react",
-    "esModuleInterop": true,
-    "skipLibCheck": true,
-    "moduleResolution": "node",
-    "baseUrl": "./src",
-    "outDir": "./dist"
-  }
+  "files": [],
+  "references": [
+    { "path": "./tsconfig.app.json" },
+    { "path": "./tsconfig.node.json" }
+  ]
+  //"compilerOptions": {
+  //  "target": "es6",
+  //  "module": "esnext",
+  //  "strict": true,
+  //  "allowJs": true,
+  //  "jsx": "react",
+  //  "esModuleInterop": true,
+  //  "skipLibCheck": true,
+  //  "moduleResolution": "node",
+  //  "baseUrl": "./src",
+  //  "outDir": "./dist"
+  //}
 }

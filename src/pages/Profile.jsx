@@ -81,7 +81,7 @@ const Profile = () => {
                   placeholder="1234 567890"
                 />
               </Form.Group>
-              <Button1 onClick={setEditing(true)}>Редактировать</Button1>
+              <Button1 onClick={() => setEditing(true)}>Редактировать</Button1>
             </Col>
           </Row>
         </Form>
