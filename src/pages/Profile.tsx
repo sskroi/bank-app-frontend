@@ -1,33 +1,35 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "./Profile.module.scss";
 import { Col, Container, Form, Row, Spinner } from "react-bootstrap";
 import { getUserInfo } from "../http/userAPI";
 import Button1 from "../components/UI/buttons/Button1";
+import { IUser } from "../types/types";
 
 const Profile = () => {
-  const [u, setU] = useState({});
+  const [u, setU] = useState<IUser | null>(null);
 
-  const [loading, setLoading] = useState(true);
-  const fetchUserInfo = () => {
-    getUserInfo()
-      .then((data) => {
-        setU(data);
-      })
-      .catch((e) => console.log(e))
-      .finally(() => setLoading(false));
+  const fetchUserInfo = async () => {
+    try {
+      const data = await getUserInfo();
+      setU(data);
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   const [editing, setEditing] = useState(false);
 
-  useEffect(fetchUserInfo, []);
+  useEffect(() => {
+    fetchUserInfo();
+  }, []);
 
   return (
     <Container className="d-flex justify-content-center align-items-center vh-100 flex-column gap-3">
       <h2 style={{ color: "var(--primary-text-color)" }}>
         Профиль пользователя
       </h2>
-      {loading ? (
-        <Spinner />
+      {u === null ? (
+        <Spinner variant="light" />
       ) : (
         <Form className={styles.profileForm}>
           <Row>

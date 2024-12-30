@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import { useContext } from "react";
 
 import SignInForm from "../components/authForms/SignInForm";
 import SignUpForm from "../components/authForms/SignUpForm";

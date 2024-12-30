@@ -6,7 +6,7 @@ export interface IAccount {
 }
 
 export interface IUser {
-  mail: string;
+  email: string;
   isInactive: boolean;
   name: string;
   passport: string;
