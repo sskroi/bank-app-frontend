@@ -1,27 +1,27 @@
-import React, { useContext, useState } from "react";
+import { FC, useState } from "react";
 import Button1 from "../components/UI/buttons/Button1";
 import styles from "./Accounts.module.scss";
 import { Container, Dropdown, Spinner } from "react-bootstrap";
 import { createAccount, getAccounts } from "../http/accountsAPI";
 import AccountList from "../components/AccountList";
-import { StoreContext } from "../main";
-import PropTypes from "prop-types";
 import BSModal from "../components/UI/BSModal";
+import useStore from "../hooks/useStore";
+import { AxiosError } from "axios";
 
-const Accounts = () => {
-  const { accounts } = useContext(StoreContext);
+const Accounts: FC = () => {
+  const { accounts } = useStore();
 
-  const updateAccountList = (setLoading) => {
-    getAccounts(0, 100)
-      .then((data) => accounts.setAccounts(data))
-      .catch((e) => {
-        if (e.response?.data?.message) {
-          alert(e.response.data.message);
-        } else {
-          alert(e.message);
-        }
-      })
-      .finally(() => typeof setLoading === "function" && setLoading(false));
+  const updateAccountList = async () => {
+    try {
+      const data = await getAccounts(0, 100);
+      accounts.setAccounts(data);
+    } catch (e) {
+      if (e instanceof AxiosError && e.response) {
+        alert(e.response.data.message);
+      } else {
+        console.log(e);
+      }
+    }
   };
 
   return (
@@ -39,22 +39,21 @@ const Accounts = () => {
   );
 };
 
-const OpenAccBtnAndMenu = ({ updateAccountList }) => {
+const OpenAccBtnAndMenu: FC<{ updateAccountList: () => void }> = ({
+  updateAccountList,
+}) => {
   const [openAccActive, setOpenAccActive] = useState(false);
 
-  const [infoMsg, setInfoMsg] = useState({ header: "error", msg: "" });
+  const [infoMsg, setInfoMsg] = useState<{
+    header: string;
+    body: null | React.ReactNode;
+  }>({ header: "Ошибка", body: null });
+
+  const currencies = ["RUB", "EUR", "USD"];
 
   const defaultCurrencyValue = "Выберите валюту";
-  const [newAccCurrency, setNewAccCurrency] = useState(defaultCurrencyValue);
-  const [openAccBtnDisabled, setOpenAccBtnDisabled] = useState(true);
-  const [openAccInfo, setOpenAccInfo] = useState("");
-  const changeCurrency = (e) => {
-    setNewAccCurrency(e);
-    if (e !== defaultCurrencyValue) {
-      setOpenAccBtnDisabled(false);
-      setOpenAccInfo("");
-    }
-  };
+  const [newAccCurrency, setNewAccCurrency] =
+    useState<string>(defaultCurrencyValue);
 
   const [loading, setLoading] = useState(false);
   const openAccount = async () => {
@@ -65,7 +64,7 @@ const OpenAccBtnAndMenu = ({ updateAccountList }) => {
       updateAccountList();
       setInfoMsg({
         header: "Счёт создан",
-        msg: (
+        body: (
           <>
             <p>Счёт успешно создан. Номер счёта:</p>
             <p>{newAccNum}</p>
@@ -74,16 +73,13 @@ const OpenAccBtnAndMenu = ({ updateAccountList }) => {
       });
     } catch (e) {
       setOpenAccActive(false);
-      if (e.response?.data?.message) {
+      if (e instanceof AxiosError && e.response) {
         setInfoMsg({
           header: "Ошибка",
-          msg: e.response.data.message,
+          body: e.response.data.message,
         });
       } else {
-        setInfoMsg({
-          header: "Ошибка",
-          msg: e.message,
-        });
+        console.log(e);
       }
     } finally {
       setLoading(false);
@@ -100,11 +96,11 @@ const OpenAccBtnAndMenu = ({ updateAccountList }) => {
       </Button1>
 
       <BSModal
-        active={!!infoMsg.msg}
-        onClose={() => setInfoMsg({ msg: "" })}
+        active={!!infoMsg.body}
+        onClose={() => setInfoMsg({ header: "error", body: null })}
         header={infoMsg.header}
       >
-        <div className={styles.createAccountInfoWindow}>{infoMsg.msg}</div>
+        <div className={styles.createAccountInfoWindow}>{infoMsg.body}</div>
       </BSModal>
 
       <BSModal
@@ -115,7 +111,7 @@ const OpenAccBtnAndMenu = ({ updateAccountList }) => {
         footer={
           <Button1
             style={{ minWidth: "150px" }}
-            disabled={openAccBtnDisabled}
+            disabled={newAccCurrency === defaultCurrencyValue}
             onClick={openAccount}
           >
             Открыть
@@ -123,28 +119,23 @@ const OpenAccBtnAndMenu = ({ updateAccountList }) => {
         }
       >
         <div className={styles.createAccountMenu}>
-          <Dropdown onSelect={changeCurrency}>
+          <Dropdown onSelect={(e) => e && setNewAccCurrency(e)}>
             <Dropdown.Toggle variant="secondary" id="dropdown-basic">
               {newAccCurrency}
             </Dropdown.Toggle>
             <Dropdown.Menu variant="dark">
-              <Dropdown.Item eventKey="RUB">RUB</Dropdown.Item>
-              <Dropdown.Item eventKey="USD">USD</Dropdown.Item>
-              <Dropdown.Item eventKey="EUR">EUR</Dropdown.Item>
+              {currencies.map((x) => (
+                <Dropdown.Item key={x} eventKey={x}>
+                  {x}
+                </Dropdown.Item>
+              ))}
             </Dropdown.Menu>
           </Dropdown>
-          {openAccInfo !== "" && (
-            <label style={{ color: "#B73D3D" }}>{openAccInfo}</label>
-          )}
           {loading && <Spinner style={{ margin: "0 auto" }} />}
         </div>
       </BSModal>
     </div>
   );
-};
-
-OpenAccBtnAndMenu.propTypes = {
-  updateAccountList: PropTypes.func,
 };
 
 export default Accounts;

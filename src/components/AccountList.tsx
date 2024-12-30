@@ -1,7 +1,6 @@
 import { FC, useEffect, useState } from "react";
 import styles from "./AccountList.module.scss";
 import { observer } from "mobx-react-lite";
-import PropTypes from "prop-types";
 import { Spinner } from "react-bootstrap";
 import AccountCard from "./AccountCard";
 import TransferMenu from "./TransferMenu";
@@ -11,18 +10,21 @@ import useStore from "../hooks/useStore";
 import { IAccount } from "../types/types";
 
 interface AccountListProps {
-  updateAccountList: (setLoading?: (isLoading: boolean) => void) => void;
+  updateAccountList: () => Promise<void>;
 }
 
 const AccountList: FC<AccountListProps> = observer(({ updateAccountList }) => {
   const { accounts } = useStore();
 
   const [loading, setLoading] = useState(true);
-  useEffect(() => updateAccountList(setLoading), []);
-
   const [closingAcc, setClosingAcc] = useState<IAccount | null>(null);
   const [transferAcc, setTransferAcc] = useState<IAccount | null>(null);
   const [transferActive, setTransferActive] = useState(false);
+
+  useEffect(() => {
+    setLoading(true);
+    updateAccountList().finally(() => setLoading(false));
+  }, []);
 
   const [historyAccount, setHistoryAccount] = useState<IAccount | null>(null);
 
@@ -33,12 +35,10 @@ const AccountList: FC<AccountListProps> = observer(({ updateAccountList }) => {
       {transferAcc && (
         <TransferMenu
           key={transferAcc.number}
-          {...{
-            transferAcc,
-            updateAccountList,
-            active: transferActive,
-            setActive: setTransferActive,
-          }}
+          transferAcc={transferAcc}
+          active={transferActive}
+          setActive={setTransferActive}
+          updateAccountList={updateAccountList}
         />
       )}
 

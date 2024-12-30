@@ -27,7 +27,7 @@ const TransferMenu: FC<TransferMenuProps> = ({
   const [dstAccNum, setDstAccNum] = useState("");
   const [dstAccNumOk, setDstAccNumOk] = useState(false);
 
-  const [errMsg, setErrMsg] = useState("");
+  const [errMsg, setErrMsg] = useState<string | null>(null);
   const [successTransferMsg, setSuccessTransferMsg] =
     useState<React.ReactElement | null>(null);
 
@@ -52,18 +52,18 @@ const TransferMenu: FC<TransferMenuProps> = ({
           </div>
         </>,
       );
-      setErrMsg("");
+      setErrMsg(null);
       updateAccountList();
     } catch (err) {
       let msg = "unknown error occurred";
-      if (err instanceof AxiosError) {
-        if (err?.response?.status === 404) {
+      if (err instanceof AxiosError && err.response) {
+        if (err.response.status === 404) {
           msg = "Счёт получателя не найден";
-        } else if (err?.response?.data?.message) {
+        } else if (err.response.data.message) {
           msg = err.response.data.message;
         }
-      } else if (err instanceof Error) {
-        msg = err.message;
+      } else {
+        console.log(err);
       }
 
       setErrMsg(msg);

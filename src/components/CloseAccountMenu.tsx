@@ -10,7 +10,7 @@ import { AxiosError } from "axios";
 interface CloseAccountMenuProps {
   closingAcc: IAccount | null;
   setClosingAcc: (acc: IAccount | null) => void;
-  updateAccountList: (setLoading?: (isLoading: boolean) => void) => void;
+  updateAccountList: () => void;
 }
 
 const CloseAccountMenu: FC<CloseAccountMenuProps> = ({

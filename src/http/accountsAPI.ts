@@ -2,7 +2,7 @@ import { IAccount } from "../types/types";
 import { authHost } from ".";
 
 export const getAccounts = async (offset = 0, limit = 100) => {
-  const resp = await authHost.get<IAccount>("/accounts", {
+  const resp = await authHost.get<IAccount[]>("/accounts", {
     params: { offset, limit },
   });
 
