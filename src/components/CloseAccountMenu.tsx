@@ -1,23 +1,36 @@
-import React, { useState } from "react";
+import { FC, useState } from "react";
 import styles from "./CloseAccountMenu.module.scss";
 import { closeAccount } from "../http/accountsAPI";
-import PropTypes from "prop-types";
 import Button1 from "./UI/buttons/Button1";
 import BSModal from "./UI/BSModal";
 import { Spinner } from "react-bootstrap";
+import { IAccount } from "../types/types";
+import { AxiosError } from "axios";
 
-const CloseAccountMenu = ({ closingAcc, setClosingAcc, updateAccountList }) => {
+interface CloseAccountMenuProps {
+  closingAcc: IAccount | null;
+  setClosingAcc: (acc: IAccount | null) => void;
+  updateAccountList: (setLoading?: (isLoading: boolean) => void) => void;
+}
+
+const CloseAccountMenu: FC<CloseAccountMenuProps> = ({
+  closingAcc,
+  setClosingAcc,
+  updateAccountList,
+}) => {
   const [loading, setLoading] = useState(false);
 
   const closeAcc = async () => {
     try {
       setLoading(true);
-      await closeAccount(closingAcc.number);
-      updateAccountList();
+      if (closingAcc) {
+        await closeAccount(closingAcc.number);
+        updateAccountList();
+      }
     } catch (e) {
-      if (e.response?.data?.message) {
+      if (e instanceof AxiosError && e.response) {
         alert(e.response.data.message);
-      } else {
+      } else if (e instanceof Error) {
         alert(e.message);
       }
     } finally {
@@ -45,7 +58,7 @@ const CloseAccountMenu = ({ closingAcc, setClosingAcc, updateAccountList }) => {
         <div className={styles.closeAccountWindow}>
           <p>Вы собираетесь закрыть счёт с номером:</p>
           <b>{closingAcc.number}</b>
-          {closingAcc.balance > 0 && (
+          {Number(closingAcc.balance) > 0 && (
             <p className={styles.errInfo}>
               Вы не можете закрыть счёт т.к. на нём есть средства
             </p>
@@ -55,11 +68,6 @@ const CloseAccountMenu = ({ closingAcc, setClosingAcc, updateAccountList }) => {
       )}
     </BSModal>
   );
-};
-CloseAccountMenu.propTypes = {
-  closingAcc: PropTypes.object,
-  setClosingAcc: PropTypes.func,
-  updateAccountList: PropTypes.func,
 };
 
 export default CloseAccountMenu;
