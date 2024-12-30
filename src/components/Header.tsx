@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import { useContext } from "react";
 import styles from "./Header.module.scss";
 import { observer } from "mobx-react-lite";
 import { StoreContext } from "../main";
@@ -35,7 +35,6 @@ const Header = observer(() => {
 
   const logOut = () => {
     user.setAuth(false);
-    user.setUser({});
     localStorage.removeItem("accessToken");
     navigate(SIGN_IN_ROUTE);
   };
