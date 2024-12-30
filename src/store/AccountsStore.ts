@@ -1,15 +1,15 @@
 import { makeAutoObservable } from "mobx";
-import { IUser } from "../types/types";
+import { IAccount, IUser } from "../types/types";
 
 export default class AccountStore {
-  private _accounts: IUser[];
+  private _accounts: IAccount[];
 
   constructor() {
     this._accounts = [];
     makeAutoObservable(this);
   }
 
-  setAccounts(accounts: IUser[]) {
+  setAccounts(accounts: IAccount[]) {
     this._accounts = accounts;
   }
 
