@@ -8,6 +8,7 @@ interface BSModalProps {
   active?: boolean;
   onClose: () => void;
   size?: "sm" | "lg" | "xl";
+  scrollable?: boolean;
   children: React.ReactNode;
 }
 

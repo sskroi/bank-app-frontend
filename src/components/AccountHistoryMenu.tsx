@@ -1,9 +1,17 @@
-import React from "react";
-import PropTypes from "prop-types";
 import BSModal from "./UI/BSModal";
 import TransferList from "./TransferList";
+import { IAccount } from "../types/types";
+import { FC } from "react";
 
-const AccountHistoryMenu = ({ account, setAccount }) => {
+interface AccountHistoryMenuProps {
+  account: IAccount;
+  setAccount: (acc: IAccount | null) => void;
+}
+
+const AccountHistoryMenu: FC<AccountHistoryMenuProps> = ({
+  account,
+  setAccount,
+}) => {
   return (
     <BSModal
       active={!!account}
@@ -17,11 +25,6 @@ const AccountHistoryMenu = ({ account, setAccount }) => {
       </div>
     </BSModal>
   );
-};
-
-AccountHistoryMenu.propTypes = {
-  account: PropTypes.object,
-  setAccount: PropTypes.func,
 };
 
 export default AccountHistoryMenu;
