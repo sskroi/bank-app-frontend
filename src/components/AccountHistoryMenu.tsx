@@ -4,7 +4,7 @@ import { IAccount } from "../types/types";
 import { FC } from "react";
 
 interface AccountHistoryMenuProps {
-  account: IAccount;
+  account: IAccount | null;
   setAccount: (acc: IAccount | null) => void;
 }
 

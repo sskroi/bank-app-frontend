@@ -4,7 +4,7 @@ import { Col, Container, Row } from "react-bootstrap";
 import Button1 from "./UI/buttons/Button1";
 import { IAccount } from "../types/types";
 
-type AccountActionFunc = (account: IAccount) => void;
+type AccountActionFunc = (account: IAccount | null) => void;
 
 interface AccountCardProps {
   account: IAccount;

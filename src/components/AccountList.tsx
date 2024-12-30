@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import styles from "./AccountList.module.scss";
 import { observer } from "mobx-react-lite";
 import PropTypes from "prop-types";
@@ -8,18 +8,23 @@ import TransferMenu from "./TransferMenu";
 import CloseAccountMenu from "./CloseAccountMenu";
 import AccountHistoryMenu from "./AccountHistoryMenu";
 import useStore from "../hooks/useStore";
+import { IAccount } from "../types/types";
 
-const AccountList = observer(({ updateAccountList }) => {
+interface AccountListProps {
+  updateAccountList: (setLoading?: (isLoading: boolean) => void) => void;
+}
+
+const AccountList: FC<AccountListProps> = observer(({ updateAccountList }) => {
   const { accounts } = useStore();
 
   const [loading, setLoading] = useState(true);
   useEffect(() => updateAccountList(setLoading), []);
 
-  const [closingAcc, setClosingAcc] = useState(null);
-  const [transferAcc, setTransferAcc] = useState(null);
+  const [closingAcc, setClosingAcc] = useState<IAccount | null>(null);
+  const [transferAcc, setTransferAcc] = useState<IAccount | null>(null);
   const [transferActive, setTransferActive] = useState(false);
 
-  const [historyAccount, setHistoryAccount] = useState(null);
+  const [historyAccount, setHistoryAccount] = useState<IAccount | null>(null);
 
   return (
     <div className={styles.accountList}>
@@ -68,8 +73,5 @@ const AccountList = observer(({ updateAccountList }) => {
     </div>
   );
 });
-AccountList.propTypes = {
-  updateAccountList: PropTypes.func,
-};
 
 export default AccountList;
