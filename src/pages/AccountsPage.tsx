@@ -2,7 +2,7 @@ import { FC, useCallback, useState } from "react";
 import Button1 from "../components/UI/buttons/Button1";
 import styles from "./AccountsPage.module.scss";
 import { Container, Dropdown, Spinner } from "react-bootstrap";
-import { createAccount, getAccounts } from "../http/accountsAPI";
+import { createAccount, getAccounts } from "../api/accountsAPI";
 import AccountList from "../components/AccountList";
 import BSModal from "../components/UI/BSModal";
 import useStore from "../hooks/useStore";

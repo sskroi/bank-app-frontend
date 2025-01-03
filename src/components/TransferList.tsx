@@ -1,7 +1,7 @@
 import React, { useEffect, useState, FC } from "react";
 import styles from "./TransferList.module.scss";
 import { Accordion, Col, Row, Spinner } from "react-bootstrap";
-import { getTransfers } from "../http/transferAPI";
+import { getTransfers } from "../api/transferAPI";
 import { IAccount, ITransaction } from "../types/types";
 import { format, toZonedTime } from "date-fns-tz";
 

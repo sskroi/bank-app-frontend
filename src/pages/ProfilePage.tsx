@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import styles from "./ProfilePage.module.scss";
 import { Col, Container, Form, Row, Spinner } from "react-bootstrap";
-import { getUserInfo } from "../http/userAPI";
+import { getUserInfo } from "../api/userAPI";
 import Button1 from "../components/UI/buttons/Button1";
 import { IUser } from "../types/types";
 

@@ -5,7 +5,7 @@ import styles from "./authForms.module.scss";
 import Button1 from "../UI/buttons/Button1";
 import Input1WithLabel from "../UI/inputs/Input1WithLabel";
 import { SIGN_IN_ROUTE } from "../../utils/consts";
-import { signUp } from "../../http/authAPI";
+import { signUp } from "../../api/authAPI";
 import { StoreContext } from "../../main";
 import { Form } from "react-bootstrap";
 import useStore from "../../hooks/useStore";

@@ -1,6 +1,6 @@
 import React, { FC, useState } from "react";
 import styles from "./TransferMenu.module.scss";
-import { transfer } from "../http/transferAPI";
+import { transfer } from "../api/transferAPI";
 import Button1 from "./UI/buttons/Button1";
 import Input1 from "./UI/inputs/Input1";
 import * as Yup from "yup";
