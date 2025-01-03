@@ -1,5 +1,5 @@
 import { makeAutoObservable } from "mobx";
-import { IAccount, IUser } from "../types/types";
+import { IAccount } from "../types/types";
 
 export default class AccountStore {
   private _accounts: IAccount[];

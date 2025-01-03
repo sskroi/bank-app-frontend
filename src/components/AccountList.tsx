@@ -24,7 +24,7 @@ const AccountList: FC<AccountListProps> = observer(({ updateAccountList }) => {
   useEffect(() => {
     setLoading(true);
     updateAccountList().finally(() => setLoading(false));
-  }, []);
+  }, [updateAccountList]);
 
   const [historyAccount, setHistoryAccount] = useState<IAccount | null>(null);
 

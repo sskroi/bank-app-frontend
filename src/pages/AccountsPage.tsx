@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import { FC, useCallback, useState } from "react";
 import Button1 from "../components/UI/buttons/Button1";
 import styles from "./AccountsPage.module.scss";
 import { Container, Dropdown, Spinner } from "react-bootstrap";
@@ -11,7 +11,7 @@ import { AxiosError } from "axios";
 const AccountsPage: FC = () => {
   const { accounts } = useStore();
 
-  const updateAccountList = async () => {
+  const updateAccountList = useCallback(async () => {
     try {
       const data = await getAccounts(0, 100);
       accounts.setAccounts(data);
@@ -22,7 +22,7 @@ const AccountsPage: FC = () => {
         console.log(e);
       }
     }
-  };
+  }, [accounts]);
 
   return (
     <Container className={styles.accountsPage}>
