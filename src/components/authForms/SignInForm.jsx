@@ -7,6 +7,7 @@ import { SIGN_UP_ROUTE } from "../../utils/consts";
 import Input1WithLabel from "../UI/inputs/Input1WithLabel";
 import { StoreContext } from "../../main";
 import { signIn } from "../../api/authAPI";
+import useStore from "../../hooks/useStore";
 
 function SignInForm() {
   const [formData, setFormData] = useState({
