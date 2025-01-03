@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "./authForms.module.scss";
@@ -8,6 +8,7 @@ import { SIGN_IN_ROUTE } from "../../utils/consts";
 import { signUp } from "../../http/authAPI";
 import { StoreContext } from "../../main";
 import { Form } from "react-bootstrap";
+import useStore from "../../hooks/useStore";
 
 export default function SignUpForm() {
   const [formData, setFormData] = useState({
@@ -26,7 +27,7 @@ export default function SignUpForm() {
 
   const navigate = useNavigate();
 
-  const { user } = useContext(StoreContext);
+  const { user } = useStore();
 
   const submit = async (e) => {
     e.preventDefault();

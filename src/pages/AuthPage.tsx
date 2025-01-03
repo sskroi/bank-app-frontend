@@ -1,16 +1,14 @@
-import { useContext } from "react";
-
 import SignInForm from "../components/authForms/SignInForm";
 import SignUpForm from "../components/authForms/SignUpForm";
 import styles from "./AuthPage.module.scss";
 import { useLocation, useNavigate } from "react-router-dom";
 import { ACCOUNTS_ROUTE, SIGN_UP_ROUTE } from "../utils/consts";
 import { observer } from "mobx-react-lite";
-import { StoreContext } from "../main";
+import useStore from "../hooks/useStore";
 
 const AuthPage = observer(() => {
   const location = useLocation();
-  const { user } = useContext(StoreContext);
+  const { user } = useStore();
   const navigate = useNavigate();
 
   if (user.isAuth) {

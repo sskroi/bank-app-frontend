@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { BrowserRouter } from "react-router-dom";
 
 import "./App.scss";
@@ -8,9 +8,10 @@ import Header from "./components/Header";
 import { StoreContext } from "./main";
 import { Spinner } from "react-bootstrap";
 import { checkAuth } from "./http/authAPI";
+import useStore from "./hooks/useStore";
 
 function App() {
-  const { user } = useContext(StoreContext);
+  const { user } = useStore();
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {

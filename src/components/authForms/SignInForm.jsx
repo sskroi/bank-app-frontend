@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "./authForms.module.scss";
@@ -16,7 +16,7 @@ function SignInForm() {
 
   const navigate = useNavigate();
 
-  const { user } = useContext(StoreContext);
+  const { user } = useStore();
   const submit = async (e) => {
     e.preventDefault();
     try {
