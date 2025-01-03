@@ -3,7 +3,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 30px;
+  gap: 14px;
   min-height: calc(100vh - 60px);
   padding: 10px;
   padding-top: 80px;
@@ -16,7 +16,7 @@
 .historyCont {
   display: flex;
   flex-direction: column;
-  height: calc(100vh - 160px);
+  height: calc(100vh - 146px);
   overflow-y: auto;
   max-width: 700px;
 }

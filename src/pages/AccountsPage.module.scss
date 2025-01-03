@@ -3,7 +3,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 30px;
+  gap: 12px;
   min-height: calc(100vh - 60px);
   padding: 10px;
   padding-top: 80px;
@@ -13,17 +13,10 @@
   }
 }
 
-.accountPageContent {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
-}
-
 .accountList {
-  height: calc(100vh - 200px);
+  height: calc(100vh - 192px);
   overflow-y: auto;
+  max-width: 600px;
 }
 
 .pageHeader {

@@ -2,7 +2,7 @@ import { useContext } from "react";
 
 import SignInForm from "../components/authForms/SignInForm";
 import SignUpForm from "../components/authForms/SignUpForm";
-import styles from "./Auth.module.scss";
+import styles from "./AuthPage.module.scss";
 import { useLocation, useNavigate } from "react-router-dom";
 import { ACCOUNTS_ROUTE, SIGN_UP_ROUTE } from "../utils/consts";
 import { observer } from "mobx-react-lite";

@@ -1,5 +1,5 @@
 import { Container } from "react-bootstrap";
-import styles from "./TransactionsHistory.module.scss";
+import styles from "./TransactionsHistoryPage.module.scss";
 import TransferList from "../components/TransferList";
 
 const TransactionsHistoryPage = () => {

@@ -1,6 +1,6 @@
 import { FC, useState } from "react";
 import Button1 from "../components/UI/buttons/Button1";
-import styles from "./Accounts.module.scss";
+import styles from "./AccountsPage.module.scss";
 import { Container, Dropdown, Spinner } from "react-bootstrap";
 import { createAccount, getAccounts } from "../http/accountsAPI";
 import AccountList from "../components/AccountList";
@@ -25,17 +25,15 @@ const AccountsPage: FC = () => {
   };
 
   return (
-    <div className={styles.accountsPage}>
-      <div className={styles.accountPageContent}>
-        <div className={styles.pageHeader}>
-          <OpenAccBtnAndMenu updateAccountList={updateAccountList} />
-          <h3>Ваши счета</h3>
-        </div>
-        <Container className={styles.accountList}>
-          <AccountList updateAccountList={updateAccountList} />
-        </Container>
+    <Container className={styles.accountsPage}>
+      <div className={styles.pageHeader}>
+        <OpenAccBtnAndMenu updateAccountList={updateAccountList} />
+        <h3>Ваши счета</h3>
       </div>
-    </div>
+      <Container className={styles.accountList}>
+        <AccountList updateAccountList={updateAccountList} />
+      </Container>
+    </Container>
   );
 };
 
