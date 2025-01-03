@@ -8,7 +8,7 @@ import BSModal from "../components/UI/BSModal";
 import useStore from "../hooks/useStore";
 import { AxiosError } from "axios";
 
-const Accounts: FC = () => {
+const AccountsPage: FC = () => {
   const { accounts } = useStore();
 
   const updateAccountList = async () => {
@@ -138,4 +138,4 @@ const OpenAccBtnAndMenu: FC<{ updateAccountList: () => void }> = ({
   );
 };
 
-export default Accounts;
+export default AccountsPage;

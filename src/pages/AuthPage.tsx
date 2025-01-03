@@ -8,7 +8,7 @@ import { ACCOUNTS_ROUTE, SIGN_UP_ROUTE } from "../utils/consts";
 import { observer } from "mobx-react-lite";
 import { StoreContext } from "../main";
 
-const Auth = observer(() => {
+const AuthPage = observer(() => {
   const location = useLocation();
   const { user } = useContext(StoreContext);
   const navigate = useNavigate();
@@ -27,4 +27,4 @@ const Auth = observer(() => {
   );
 });
 
-export default Auth;
+export default AuthPage;

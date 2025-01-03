@@ -5,7 +5,7 @@ import { getUserInfo } from "../http/userAPI";
 import Button1 from "../components/UI/buttons/Button1";
 import { IUser } from "../types/types";
 
-const Profile = () => {
+const ProfilePage = () => {
   const [u, setU] = useState<IUser | null>(null);
 
   const fetchUserInfo = async () => {
@@ -92,4 +92,4 @@ const Profile = () => {
   );
 };
 
-export default Profile;
+export default ProfilePage;

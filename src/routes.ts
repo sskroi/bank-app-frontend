@@ -1,7 +1,7 @@
-import Accounts from "./pages/Accounts";
-import Auth from "./pages/Auth";
-import Profile from "./pages/Profile";
-import TransactionsHistory from "./pages/TransactionsHistory";
+import AccountsPage from "./pages/AccountsPage";
+import AuthPage from "./pages/AuthPage";
+import ProfilePage from "./pages/ProfilePage";
+import TransactionsHistoryPage from "./pages/TransactionsHistoryPage";
 import {
   ACCOUNTS_ROUTE,
   HISTORY_ROUTE,
@@ -18,26 +18,26 @@ interface RouteItem {
 export const authRotes: RouteItem[] = [
   {
     path: ACCOUNTS_ROUTE,
-    Component: Accounts,
+    Component: AccountsPage,
   },
   {
     path: HISTORY_ROUTE,
-    Component: TransactionsHistory,
+    Component: TransactionsHistoryPage,
   },
   {
     path: PROFILE_ROUTE,
-    Component: Profile,
+    Component: ProfilePage,
   },
 ];
 
 export const loginRoutes: RouteItem[] = [
   {
     path: SIGN_IN_ROUTE,
-    Component: Auth,
+    Component: AuthPage,
   },
   {
     path: SIGN_UP_ROUTE,
-    Component: Auth,
+    Component: AuthPage,
   },
 ];
 
