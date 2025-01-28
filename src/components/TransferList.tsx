@@ -1,6 +1,6 @@
-import React, { useEffect, useState, FC } from "react";
+import React, { useEffect, useState, FC, useRef } from "react";
 import styles from "./TransferList.module.scss";
-import { Accordion, Col, Row, Spinner } from "react-bootstrap";
+import { Accordion, Col, Container, Row, Spinner } from "react-bootstrap";
 import { getTransfers } from "../api/transferAPI";
 import { IAccount, ITransaction } from "../types/types";
 import { format, toZonedTime } from "date-fns-tz";
@@ -16,35 +16,88 @@ const TransferList: FC<TransferListProps> = ({
   allTransfers = false,
   style,
 }) => {
-  const [loading, setLoading] = useState(false);
-  const [transfers, setTransfers] = useState<ITransaction[]>([]);
+  const [loading, setLoading] = useState(0);
+  const [displayTransfers, setDisplayTransfers] = useState<React.ReactNode[]>(
+    [],
+  );
 
-  const fetchTransfers = () => {
-    if (!account && !allTransfers) {
+  const observerRef = useRef<null | HTMLDivElement>(null);
+  const [fetchOffset, setFetchOffset] = useState(0);
+  const isAllTransfersReceived = useRef<boolean>(false);
+
+  const transfers = useRef<Record<string, ITransaction[]>>({});
+
+  const fetchTransfers = async () => {
+    if (
+      (!account && !allTransfers) ||
+      isAllTransfersReceived.current ||
+      fetchOffset.toString() in transfers.current
+    ) {
       return;
     }
 
-    setLoading(true);
-    getTransfers({ accountNumber: account?.number })
-      .then((data) => setTransfers(data))
-      .catch((e) => console.log(e))
-      .finally(() => setLoading(false));
+    try {
+      setLoading((p) => p + 1);
+      transfers.current[fetchOffset.toString()] = [];
+
+      const data = await getTransfers({
+        accountNumber: account?.number,
+        limit: 10,
+        offset: fetchOffset,
+      });
+      if (data.length < 10) {
+        isAllTransfersReceived.current = true;
+      }
+      transfers.current[fetchOffset.toString()] = data;
+    } catch (e) {
+      console.log(e);
+    } finally {
+      setLoading((p) => p - 1);
+    }
   };
 
-  useEffect(fetchTransfers, [account, allTransfers]);
+  useEffect(() => {
+    fetchTransfers().then(() => {
+      var keys = Object.keys(transfers.current).sort();
 
-  const displayTransfers = transfers
-    .sort((x, y) => +(x.timestamp < y.timestamp))
-    .map((x) => <TransferCard key={x.publicId} transfer={x} />);
+      var transfersArr: ITransaction[] = [];
+      for (var key of keys) {
+        transfersArr.push(...transfers.current[key]);
+      }
 
-  return loading ? (
-    <Spinner style={{ margin: "0 auto", color: "var(--primary-text-color)" }} />
-  ) : transfers.length === 0 ? (
-    <h3 style={{ color: "var(--primary-text-color)" }}>Нет транзакций</h3>
-  ) : (
-    <Accordion style={style} className={styles.transfersList}>
-      {displayTransfers}
-    </Accordion>
+      setDisplayTransfers(
+        transfersArr.map((x) => <TransferCard key={x.publicId} transfer={x} />),
+      );
+    });
+  }, [fetchOffset]);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver((entries) => {
+      if (entries[0].isIntersecting) {
+        setFetchOffset((prev) => prev + 10);
+      }
+    });
+
+    if (observerRef.current) {
+      observer.observe(observerRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <Container className={styles.cont}>
+      {!loading && displayTransfers.length === 0 ? (
+        <h3>Нет транзакций</h3>
+      ) : (
+        <Accordion style={style} className={styles.transfersList}>
+          {displayTransfers}
+        </Accordion>
+      )}
+      <div ref={observerRef} className={styles.observable}>
+        {loading > 0 && <Spinner style={{ marginTop: 4 }} />}
+      </div>
+    </Container>
   );
 };
 
