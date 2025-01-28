@@ -1,4 +1,4 @@
-import React, { useEffect, useState, FC, useRef } from "react";
+import React, { useEffect, useState, FC, useRef, useCallback } from "react";
 import styles from "./TransferList.module.scss";
 import { Accordion, Col, Container, Row, Spinner } from "react-bootstrap";
 import { getTransfers } from "../api/transferAPI";
@@ -27,7 +27,7 @@ const TransferList: FC<TransferListProps> = ({
 
   const transfers = useRef<Record<string, ITransaction[]>>({});
 
-  const fetchTransfers = async () => {
+  const fetchTransfers = useCallback(async () => {
     if (
       (!account && !allTransfers) ||
       isAllTransfersReceived.current ||
@@ -54,14 +54,14 @@ const TransferList: FC<TransferListProps> = ({
     } finally {
       setLoading((p) => p - 1);
     }
-  };
+  }, [account, allTransfers, fetchOffset]);
 
   useEffect(() => {
     fetchTransfers().then(() => {
-      var keys = Object.keys(transfers.current).sort();
+      const keys = Object.keys(transfers.current).sort();
 
-      var transfersArr: ITransaction[] = [];
-      for (var key of keys) {
+      const transfersArr: ITransaction[] = [];
+      for (const key of keys) {
         transfersArr.push(...transfers.current[key]);
       }
 
@@ -69,7 +69,7 @@ const TransferList: FC<TransferListProps> = ({
         transfersArr.map((x) => <TransferCard key={x.publicId} transfer={x} />),
       );
     });
-  }, [fetchOffset]);
+  }, [fetchOffset, fetchTransfers]);
 
   useEffect(() => {
     const observer = new IntersectionObserver((entries) => {
