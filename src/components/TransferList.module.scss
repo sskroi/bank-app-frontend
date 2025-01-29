@@ -27,6 +27,9 @@
 }
 
 .observable {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
   min-height: 1px;
   background: transparent;
 }

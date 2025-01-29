@@ -94,8 +94,12 @@ const TransferList: FC<TransferListProps> = ({
           {displayTransfers}
         </Accordion>
       )}
-      <div ref={observerRef} className={styles.observable}>
-        {loading > 0 && <Spinner style={{ marginTop: 4 }} />}
+      <div
+        ref={observerRef}
+        className={styles.observable}
+        style={loading > 0 ? { minHeight: "46px" } : undefined}
+      >
+        {loading > 0 && <Spinner />}
       </div>
     </Container>
   );
