@@ -25,7 +25,9 @@ const AppRouter = observer(() => {
 
       <Route
         path="*"
-        element={<Navigate to={user.isAuth ? ACCOUNTS_ROUTE : SIGN_IN_ROUTE} />}
+        element={
+          <Navigate replace to={user.isAuth ? ACCOUNTS_ROUTE : SIGN_IN_ROUTE} />
+        }
       />
     </Routes>
   );
