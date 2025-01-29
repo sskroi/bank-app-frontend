@@ -12,7 +12,7 @@ const AuthPage = observer(() => {
   const navigate = useNavigate();
 
   if (user.isAuth) {
-    navigate(ACCOUNTS_ROUTE);
+    navigate(ACCOUNTS_ROUTE, { replace: true });
   }
 
   const isSignUp = location.pathname.startsWith(SIGN_UP_ROUTE);
