@@ -6,9 +6,9 @@ import Button1 from "../UI/buttons/Button1";
 import Input1WithLabel from "../UI/inputs/Input1WithLabel";
 import { SIGN_IN_ROUTE } from "../../utils/consts";
 import { signUp } from "../../api/authAPI";
-import { StoreContext } from "../../main";
 import { Form } from "react-bootstrap";
 import useStore from "../../hooks/useStore";
+import axios from "axios";
 
 export default function SignUpForm() {
   const [formData, setFormData] = useState({
@@ -16,7 +16,7 @@ export default function SignUpForm() {
     name: "",
     surname: "",
     patronymic: "",
-    passport: "",
+    passport: "1234 567890",
     password: "",
     repPassword: "",
     consent: false,
@@ -29,18 +29,22 @@ export default function SignUpForm() {
 
   const { user } = useStore();
 
-  const submit = async (e) => {
+  const onSubmit = async (e: React.MouseEvent) => {
     e.preventDefault();
     try {
-      const data = await signUp(formData);
-      console.log(data);
+      await signUp(formData);
       user.setAuth(true);
-    } catch (e) {
-      if (e.response?.data?.message) {
-        alert(e.response.data.message);
-      } else {
-        alert(e.message);
+    } catch (err) {
+      if (axios.isAxiosError(err)) {
+        if (err.response?.status === 409) {
+          setInfoLabel("Email занят");
+        } else if (err.response?.status === 400) {
+          setInfoLabel("Некорректный формат данных");
+        } else {
+          setInfoLabel("Что-то пошло не так");
+        }
       }
+      console.error(err);
     }
   };
 
@@ -62,7 +66,7 @@ export default function SignUpForm() {
   }, [formData]);
 
   return (
-    <form onSubmit={submit} className={styles.loginFormCont} autoComplete="off">
+    <form className={styles.loginFormCont} autoComplete="off">
       <h2>Регистрация аккаунта</h2>
 
       <div className={styles.inputFieldsCont}>
@@ -95,14 +99,6 @@ export default function SignUpForm() {
           }
         />
         <Input1WithLabel
-          labelValue="Паспортные данные"
-          placeholder="1234 567890"
-          value={formData.passport}
-          onChange={(e) =>
-            setFormData({ ...formData, passport: e.target.value })
-          }
-        />
-        <Input1WithLabel
           type="password"
           labelValue="Пароль"
           placeholder="********"
@@ -122,7 +118,9 @@ export default function SignUpForm() {
         />
       </div>
 
-      {infoLabel !== "" && <p style={{ color: "red" }}>{infoLabel}</p>}
+      {infoLabel !== "" && (
+        <p style={{ color: "var(--error-color)" }}>{infoLabel}</p>
+      )}
 
       <Form.Check
         type="checkbox"
@@ -135,10 +133,15 @@ export default function SignUpForm() {
       />
 
       <div className={styles.buttonsCont}>
-        <Button1 disabled={signUpBtnDisabled} type="submit">
+        <Button1 onClick={onSubmit} disabled={signUpBtnDisabled}>
           Зарегистрироваться
         </Button1>
-        <Button1 onClick={() => navigate(SIGN_IN_ROUTE)}>
+        <Button1
+          onClick={(e) => {
+            e.preventDefault();
+            navigate(SIGN_IN_ROUTE);
+          }}
+        >
           Вход в аккаунт
         </Button1>
       </div>

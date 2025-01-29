@@ -52,7 +52,7 @@ const AccountList: FC<AccountListProps> = observer(({ updateAccountList }) => {
       {loading ? (
         <Spinner style={{ margin: "0 auto" }} />
       ) : accounts.accounts.length === 0 ? (
-        <h3>У вас нет открытых счетов.</h3>
+        <h3 style={{ margin: "0 auto" }}>У вас нет открытых счетов</h3>
       ) : (
         accounts.accounts
           .filter((x) => !x.isClose)
