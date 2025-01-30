@@ -1,6 +1,6 @@
 import styles from "./Header.module.scss";
 import { observer } from "mobx-react-lite";
-import { useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import LogoutIcon from "@mui/icons-material/Logout";
 import LoginIcon from "@mui/icons-material/Login";
 import {
@@ -11,10 +11,13 @@ import {
 } from "../utils/consts";
 import { Container, Nav, Navbar } from "react-bootstrap";
 import useStore from "../hooks/useStore";
+import { useState } from "react";
 
 const Header = observer(() => {
   const { user } = useStore();
   const navigate = useNavigate();
+
+  const [expanded, setExpanded] = useState(false);
 
   const location = useLocation();
   const btns = [
@@ -45,10 +48,14 @@ const Header = observer(() => {
       collapseOnSelect
       fixed="top"
       className={styles.navBar}
+      expanded={expanded}
     >
       <Container>
         <Navbar.Brand>F-BANK</Navbar.Brand>
-        <Navbar.Toggle aria-controls="basic-navbar-nav" />
+        <Navbar.Toggle
+          aria-controls="basic-navbar-nav"
+          onClick={() => setExpanded(expanded ? false : true)}
+        />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mx-auto align-items-center">
             {user.isAuth &&
@@ -56,7 +63,9 @@ const Header = observer(() => {
                 <Nav.Link
                   key={x.text}
                   className={`${styles.navBtn} ${location.pathname === x.path ? styles.activeBtn : ""}`}
-                  onClick={() => navigate(x.path)}
+                  as={Link}
+                  to={x.path}
+                  onClick={() => setExpanded(false)}
                 >
                   {x.text}
                 </Nav.Link>
