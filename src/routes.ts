@@ -4,11 +4,12 @@ import ProfilePage from "./pages/ProfilePage";
 import TransactionsHistoryPage from "./pages/TransactionsHistoryPage";
 import {
   ACCOUNTS_ROUTE,
-  HISTORY_ROUTE,
+  HISTORY_ROUTE, NEWS_ROUTE,
   PROFILE_ROUTE,
   SIGN_IN_ROUTE,
   SIGN_UP_ROUTE,
 } from "./utils/consts";
+import NewsPage from "./pages/NewsPage.tsx";
 
 interface RouteItem {
   path: string;
@@ -16,6 +17,10 @@ interface RouteItem {
 }
 
 export const authRotes: RouteItem[] = [
+  {
+    path: NEWS_ROUTE,
+    Component: NewsPage
+  },
   {
     path: ACCOUNTS_ROUTE,
     Component: AccountsPage,
@@ -31,6 +36,10 @@ export const authRotes: RouteItem[] = [
 ];
 
 export const loginRoutes: RouteItem[] = [
+  {
+    path: NEWS_ROUTE,
+    Component: NewsPage
+  },
   {
     path: SIGN_IN_ROUTE,
     Component: AuthPage,
