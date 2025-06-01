@@ -37,10 +37,6 @@ export const authRotes: RouteItem[] = [
 
 export const loginRoutes: RouteItem[] = [
   {
-    path: NEWS_ROUTE,
-    Component: NewsPage
-  },
-  {
     path: SIGN_IN_ROUTE,
     Component: AuthPage,
   },
