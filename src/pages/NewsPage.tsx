@@ -1,9 +1,9 @@
 import { Carousel, Container } from "react-bootstrap";
-// @ts-ignore
+// @ts-expect-error img path import by vite
 import img1 from "../assets/news1.webp";
-// @ts-ignore
+// @ts-expect-error img path import by vite
 import img2 from "../assets/news2.webp";
-// @ts-ignore
+// @ts-expect-error img path import by vite
 import img3 from "../assets/news3.webp";
 
 const NewsPage = () => {
