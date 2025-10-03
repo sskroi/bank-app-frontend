@@ -1,6 +1,6 @@
 import axios, { InternalAxiosRequestConfig } from "axios";
 
-const apiBaseUrl = "https://bankapi.iorkss.ru/api/v1";
+const apiBaseUrl = "https://sskroi-bank.duckdns.org/api/v1";
 
 export const host = axios.create({
   baseURL: apiBaseUrl,
