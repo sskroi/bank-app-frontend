@@ -4,7 +4,6 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import LogoutIcon from "@mui/icons-material/Logout";
 import LoginIcon from "@mui/icons-material/Login";
 import {
-  NEWS_ROUTE,
   ACCOUNTS_ROUTE,
   HISTORY_ROUTE,
   PROFILE_ROUTE,
@@ -22,10 +21,6 @@ const Header = observer(() => {
 
   const location = useLocation();
   const btns = [
-    {
-      text: "НОВОСТИ",
-      path: NEWS_ROUTE,
-    },
     {
       text: "СЧЕТА",
       path: ACCOUNTS_ROUTE,
